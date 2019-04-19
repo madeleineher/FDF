@@ -6,7 +6,7 @@
 #    By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/17 16:55:29 by mhernand          #+#    #+#              #
-#    Updated: 2019/04/19 20:23:48 by mhernand         ###   ########.fr        #
+#    Updated: 2019/04/19 21:12:33 by mhernand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,11 @@ LIB_FOLDER = libft/
 
 LIB_TARG = libft
 
-LIBMLX = -L /usr/local/lib/ -lmlx -framework OpenGL -framework Appkit
+MINI_F = minilibx_macos/
+
+MINI_T = minilibx_macos
+
+LIBMLX = -L ./minilibx_macos/ -lmlx -framework OpenGL -framework Appkit
 
 all:$(NAME)
 
@@ -40,17 +44,20 @@ all:$(NAME)
 
 DUMB = -fsanitize=address  -fno-omit-frame-pointer -fsanitize-address-use-after-scope 
 
-$(NAME):$(OBJECTS) | $(LIB_TARG)
-	$(CC) -g3 $(CFLAGS) $(SRCS) libft/libft.a $(LIBMLX) -o $(NAME)
+$(NAME):$(OBJECTS) | $(LIB_TARG) 
+	$(CC) -g3 $(CFLAGS) $(OBJECTS) libft/libft.a $(LIBMLX) -o $(NAME)
 
 $(LIB_TARG):
 	@make -C $(LIB_FOLDER) 
+	@make -C $(MINI_F)
+
 
 clean:
 	@make -C $(LIB_FOLDER) clean
+	@make -C $(MINI_F) clean
 	rm -rf $(OBJECTS)
 
-fclean:
+fclean: clean
 	@make -C $(LIB_FOLDER) fclean
 	rm -rf $(NAME)
 
