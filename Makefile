@@ -6,7 +6,7 @@
 #    By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/17 16:55:29 by mhernand          #+#    #+#              #
-#    Updated: 2019/04/19 21:12:33 by mhernand         ###   ########.fr        #
+#    Updated: 2019/04/19 21:19:02 by mhernand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,8 +34,6 @@ LIB_TARG = libft
 
 MINI_F = minilibx_macos/
 
-MINI_T = minilibx_macos
-
 LIBMLX = -L ./minilibx_macos/ -lmlx -framework OpenGL -framework Appkit
 
 all:$(NAME)
@@ -46,11 +44,13 @@ DUMB = -fsanitize=address  -fno-omit-frame-pointer -fsanitize-address-use-after-
 
 $(NAME):$(OBJECTS) | $(LIB_TARG) 
 	$(CC) -g3 $(CFLAGS) $(OBJECTS) libft/libft.a $(LIBMLX) -o $(NAME)
+	@touch .gitignore
+	@echo "*.o" > .gitignore
+	@echo "*.a" >> .gitignore
 
 $(LIB_TARG):
 	@make -C $(LIB_FOLDER) 
 	@make -C $(MINI_F)
-
 
 clean:
 	@make -C $(LIB_FOLDER) clean
