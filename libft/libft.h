@@ -6,7 +6,7 @@
 /*   By: mhernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 19:55:00 by mhernand          #+#    #+#             */
-/*   Updated: 2019/04/19 20:18:24 by mhernand         ###   ########.fr       */
+/*   Updated: 2019/04/23 18:50:26 by mhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(char const *s, int fd);
 void				ft_putendl_fd(char const *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
-int					ft_only_fdf(char c);
-void				ft_cap_fx(char c);
 void				ft_delsplit(char **tab);
 
 typedef struct		s_list {
