@@ -6,7 +6,7 @@
 /*   By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 08:41:35 by mhernand          #+#    #+#             */
-/*   Updated: 2019/04/19 18:37:56 by mhernand         ###   ########.fr       */
+/*   Updated: 2019/04/23 19:19:07 by mhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ typedef struct		s_env
 	float			spa;
 	int				prx;
 	int				pry;
-	t_win			win; // my window and mlx variables
+	t_win			w; // my window and mlx variables
 	t_ll			*lines; // linked list of strings 
 	t_rgb			rgb; // colours
 	t_cor			**co; // ALL OF MY INFO 'POINTS' !! 

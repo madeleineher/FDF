@@ -6,7 +6,7 @@
 /*   By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:54:59 by mhernand          #+#    #+#             */
-/*   Updated: 2019/04/19 19:42:43 by mhernand         ###   ########.fr       */
+/*   Updated: 2019/04/23 19:17:25 by mhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,24 +61,24 @@ void	slope_less_one(t_env *ev)
 	}
 }
 */
-void	hore(t_env *ev)
+void	hore(t_env *e)
 {
-	if (ev->tp.x1 < ev->tp.x2)
+	if (e->tp.x1 < e->tp.x2)
 	{
-		mlx_pixel_put(ev->win.m_p, ev->win.w_p, ev->tp.x1 + ev->pla.px + ev->spa, ev->tp.y1 + ev->pla.py + ev->spa, 0xFF0000);
+		mlx_pixel_put(e->w.m_p, e->w.w_p, e->tp.x1 + ev->pla.px + e->spa, e->tp.y1 + e->pla.py + ev->spa, 0xFF0000);
 		//printf("x : [%d] ++ ", ev->tp.x1);
 		//printf(" y : [%d] ", ev->tp.y1);
 	}
 }
 
-void	lines(t_env *ev)
+void	lines(t_env *e)
 {
-	ev->be.m = abs(ev->tp.y2 - ev->tp.y1) / abs(ev->tp.x2 - ev->tp.x1); // correct parameter needs to be sent
-	ev->be.tdydx = 2 * ((ev->tp.y2 - ev->tp.y1) - (ev->tp.x2 - ev->tp.x1));
-	ev->be.tdxdy = 2 * ((ev->tp.x2 - ev->tp.x1) - (ev->tp.y2 - ev->tp.y1));
+	e->be.m = abs(e->tp.y2 - e->tp.y1) / abs(e->tp.x2 - e->tp.x1); // correct parameter needs to be sent
+	e->be.tdydx = 2 * ((e->tp.y2 - e->tp.y1) - (e->tp.x2 - e->tp.x1));
+	e->be.tdxdy = 2 * ((e->tp.x2 - e->tp.x1) - (e->tp.y2 - e->tp.y1));
 
-	if (ev->be.m == 0) // horizontal line ~*
-		hore(ev);
+	if (e->be.m == 0) // horizontal line ~*
+		hore(e);
 	/*
 	if (ev->be.m > 1)
 	{

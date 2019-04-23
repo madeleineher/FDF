@@ -6,93 +6,104 @@
 /*   By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 14:04:51 by mhernand          #+#    #+#             */
-/*   Updated: 2019/04/19 16:40:59 by mhernand         ###   ########.fr       */
+/*   Updated: 2019/04/23 19:17:33 by mhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/fdf.h"
-/*
-void	move(t_env *ev)
+
+void	boundaries(t_env *e, int x, int y)
 {
-	if (ev->ks[A])	// just ifs - add to x and y values , keep in boundaries, needs to be a while loop
+	if (e->co[y][x].x2 < 50)
 	{
-		ev->co.x1 = ev->co.x1 - 10;
-		mlx_pixel_put(ev->win.m_p, ev->win.w_p, ev->co.x1, ev->co.y1,  0x00FF00);
-		if (ev->co.x1 < 50)
-		{
-			ev->co.x1 = 50;
-			mlx_pixel_put(ev->win.m_p, ev->win.w_p, ev->co.x1, ev->co.y1,  0x00FF00);
-		}
+		e->co[y][x].x2 = 50;
+		mlx_pixel_put(e->w.m_p, e->w.w_p, e->co[y][x].x2, 
+				e->co[y][x].y2, 0x00FF00);
 	}
-	if (ev->ks[D])
+	if (e->co[y][x].x2 > e->w.wx - 50)
 	{
-		ev->co.x1 = ev->co.x1 + 10;
-		mlx_pixel_put(ev->win.m_p, ev->win.w_p, ev->co.x1, ev->co.y1,  0x00FF00);
-		if (ev->co.x1 > ev->win.wx - 50)
-		{
-			ev->co.x1 = ev->co.x1 - 50;
-			mlx_pixel_put(ev->win.m_p, ev->win.w_p, ev->co.x1, ev->co.y1,  0x00FF00);
-		}
+		e->co[y][x].x2 = e->co[y][x].x2 - 50;
+		mlx_pixel_put(e->w.m_p, e->w.w_p, e->co[y][x].x2, 
+				e->co[y][x].y2, 0x00FF00);
 	}
-	if (ev->ks[W])
+	if (e->co[y][x].y2 < 50)
 	{
-		ev->co.y1 = ev->co.y1 - 10;
-		mlx_pixel_put(ev->win.m_p, ev->win.w_p, ev->co.x1, ev->co.y1,  0x00FF00);
-		if (ev->co.y1 < 50)
-		{
-			ev->co.y1 = 50;
-			mlx_pixel_put(ev->win.m_p, ev->win.w_p, ev->co.x1, ev->co.y1,  0x00FF00);
-		}
+		e->co[y][x].y2 = 50;
+		mlx_pixel_put(e->w.m_p, e->w.w_p, e->co[y][x].x2, 
+				e->co[y][x].y2, 0x00FF00);
 	}
-	if (ev->ks[S])
+	if (e->co[y][x].y2 > e->w.wy - 50)
 	{
-		ev->co.y1 = ev->co.y1 + 10;
-		mlx_pixel_put(ev->win.m_p, ev->win.w_p, ev->co.x1, ev->co.y1,  0x00FF00);
-		if (ev->co.y1 > ev->win.wy - 50)
-		{
-			ev->co.y1= ev->co.y1 - 50;
-			mlx_pixel_put(ev->win.m_p, ev->win.w_p, ev->co.x1, ev->co.y1,  0x00FF00);
-		}
+		e->co[y][x].y2 = e->co[y][x].y2 - 50;
+		mlx_pixel_put(e->w.m_p, e->w.w_p, e->co[y][x].x2, 
+				e->co[y][x].y2, 0x00FF00);
 	}
-	// call visualize here to redraw the map
 }
-*/
-int		touch(t_env *ev)
+
+void	move(t_env *e)
 {
-	if (ev->ks[ESC]) // can be added to 
+	int	y;
+	int	x;
+
+	y = -1;
+	while (++y < e->pla.ly)
 	{
-		delevr(ev);
+		x = -1;
+		while (++x < e->pla.lx)
+		{
+			if (e->ks[A])
+				e->co[y][x].x2 = e->co[y][x].x2 - 10;
+			if (e->ks[D])
+				e->co[y][x].x2 = e->co[y][x].x2 + 10;
+			if (e->ks[W])
+				e->co[y][x].y2 = e->co[y][x].y2 - 10;
+			if (e->ks[S])
+				e->co[y][x].y2 = e->co[y][x].y2 + 10;
+			mlx_pixel_put(e->w.m_p, e->w.w_p, e->co[y][x].x2, 
+					e->co[y][x].y2, 0x00FF00);
+			if (e->co[y][x].x2 < 50 || e->co[y][x].x2 > e->w.wx - 50 
+					|| e->co[y][x].y2 < 50 || e->co[y][x].y2 > e->w.wy - 50)
+				boundaries(e, x, y);
+		}
+	}// call visualize here to redraw the map
+}
+
+int		touch(t_env *e)
+{
+	if (e->ks[ESC]) // can be added to 
+	{
+		delevr(e);
 		exit(0);
 	}
-//	if (ev->ks[A] || ev->ks[D] || ev->ks[W] || ev->ks[S])
-//		move(ev);
-	/*if (ev->ks[C])
-	{
-		
-	}
-	if (ev->ks[I])
-	{
-		
-	}
-	if (ev->ks[O])
-	{
-		
-	}
-	if (ev->ks[KEY_1])
-	{
-		
-	}
-	if (ev->ks[KEY_2])
-	{
-		
-	}
-	if (ev->ks[M])
-	{
-		
-	}
-	if (ev->ks[L])
-	{
-		
-	}*/
+	if (e->ks[A] || e->ks[D] || e->ks[W] || e->ks[S])
+		move(e);
+	/*if (e->ks[C])
+	  {
+
+	  }
+	  if (e->ks[I])
+	  {
+
+	  }
+	  if (e->ks[O])
+	  {
+
+	  }
+	  if (e->ks[KEY_1])
+	  {
+
+	  }
+	  if (e->ks[KEY_2])
+	  {
+
+	  }
+	  if (e->ks[M])
+	  {
+
+	  }
+	  if (e->ks[L])
+	  {
+
+	  }*/
 	return (0);
 }

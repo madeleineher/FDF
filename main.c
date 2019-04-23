@@ -6,7 +6,7 @@
 /*   By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 16:04:07 by mhernand          #+#    #+#             */
-/*   Updated: 2019/04/19 19:44:39 by mhernand         ###   ########.fr       */
+/*   Updated: 2019/04/23 19:12:50 by mhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,40 +32,40 @@ int			ft_bad(int i)
 	return (-1);
 }
 
-void		win(t_env *ev)
+void		win(t_env *e)
 {
-	ev->win.wx = 1632;
-	ev->win.wy = 1224;
-	ev->pla.hx = ev->win.wx / 2;
-	ev->pla.hy = ev->win.wy / 2;
-	ev->spa = 30;
-	ft_bzero(ev->ks, sizeof(ev->ks));
-	ev->pla.px = ev->pla.hx - ((ev->pla.lx * ev->spa) / 2);
-	ev->pla.py = ev->pla.hy - ((ev->pla.ly * ev->spa) / 2);
+	e->w.wx = 1632;
+	e->w.wy = 1224;
+	e->pla.hx = e->w.wx / 2;
+	e->pla.hy = e->w.wy / 2;
+	e->spa = 30;
+	ft_bzero(e->ks, sizeof(e->ks));
+	e->pla.px = e->pla.hx - ((e->pla.lx * e->spa) / 2);
+	e->pla.py = e->pla.hy - ((e->pla.ly * e->spa) / 2);
 }
 
 int			main(int argc, char **argv)
 {
 	int		fd;
 	int		ret;
-	t_env	*ev;
+	t_env	*e;
 	t_ll	*head;
 
-	if (!(ev = (t_env*)malloc(sizeof(t_env))))
+	if (!(e = (t_env*)malloc(sizeof(t_env))))
 		return (0);
-	ft_bzero(ev, sizeof(t_env));
+	ft_bzero(e, sizeof(t_env));
 	fd = open(argv[1], O_RDWR);
 	if (argc == 1)
 		ft_bad(1);
 	if (fd < 0 && argc == 2)
 		ft_bad(2);
-	if (((ret = reader(fd, ev)) > 0))
+	if (((ret = reader(fd, e)) > 0))
 		ft_bad(ret);
-	win(ev);
-	head = ev->lines;
-	if (!(points(ev)))
+	win(e);
+	head = e->lines;
+	if (!(points(e)))
 		ft_bad(7);
-	if (visualize(ev) == -1)
+	if (visualize(e) == -1)
 		ft_bad(6);
 	return (0);
 }

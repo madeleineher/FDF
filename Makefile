@@ -6,7 +6,7 @@
 #    By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/17 16:55:29 by mhernand          #+#    #+#              #
-#    Updated: 2019/04/19 21:19:02 by mhernand         ###   ########.fr        #
+#    Updated: 2019/04/23 18:52:48 by mhernand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,6 @@ SRCS = main.c\
 	   touch.c\
 	   points.c
 		#line.c
-	   #set_to_zero.c\
 
 OBJECTS = $(SRCS:.c=.o)
 

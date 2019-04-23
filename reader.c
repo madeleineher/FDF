@@ -6,7 +6,7 @@
 /*   By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 11:50:20 by mhernand          #+#    #+#             */
-/*   Updated: 2019/04/19 19:04:32 by mhernand         ###   ########.fr       */
+/*   Updated: 2019/04/23 19:14:06 by mhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,14 @@ int			check_chars(char *line)
 
 	i = -1;
 	while (line[++i] != 0)
-		if (ft_only_fdf(line[i]) == 0)
+	{
+		if (line[i] == ',' || line[i] == '-' || line[i] == 'F' || line[i] == 'X'
+			   	|| line[i] == 'x' || line[i] == 'f' || line[i] == ' ' 
+				|| line[i] == '\n' || (line[i] > 47 && line[i] < 58))
+			return (1);
+		else
 			return (-1);
+	}
 	return (0);
 }
 
@@ -45,7 +51,7 @@ int			add_links(char **lin, t_ll **head)
 	return (0);
 }
 
-int			vertical_check(t_ll *head, t_env *ev)
+int			vertical_check(t_ll *head, t_env *e)
 {
 	int		len;
 	int 	i;
@@ -53,7 +59,7 @@ int			vertical_check(t_ll *head, t_env *ev)
 	len = -1;
 	while (head->content[++len] != NULL)
 		;
-	ev->pla.lx = len;
+	e->pla.lx = len;
 	while (head)
 	{
 		i = -1;
@@ -66,25 +72,25 @@ int			vertical_check(t_ll *head, t_env *ev)
 	return (0);
 }
 
-int			reader(int fd, t_env *ev)
+int			reader(int fd, t_env *e)
 {
 	t_ll	*head;
 
 	head = NULL;
-	while ((ev->ret = get_next_line(fd, &ev->line)) > 0)
+	while ((e->ret = get_next_line(fd, &e->line)) > 0)
 	{
-		if ((check_chars(ev->line)) == -1)
+		if ((check_chars(e->line)) == -1)
 			return (5);
-		ev->lin = ft_strsplit(ev->line, ' ');
-		add_links(ev->lin, &head);
-		free(ev->line);
-		ev->line = NULL;
-		ev->pla.ly++;
+		e->lin = ft_strsplit(e->line, ' ');
+		add_links(e->lin, &head);
+		free(e->line);
+		e->line = NULL;
+		e->pla.ly++;
 	}
-	if (ev->ret == -1)
+	if (e->ret == -1)
 		return (3);
-	if (vertical_check(head, ev) == -1)
+	if (vertical_check(head, e) == -1)
 		return (4);
-	ev->lines = head;
+	e->lines = head;
 	return (0);
 }

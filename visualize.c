@@ -13,74 +13,74 @@
 
 #include "includes/fdf.h"
 
-int		quit(t_env *ev)
+int		quit(t_env *e)
 {
-	(void)ev;
+	(void)e;
 	exit(0);
 	return (0);
 }
 
-int		key_release(int key, t_env *ev)
+int		key_release(int key, t_env *e)
 {
-	ev->ks[key] = 0;
+	e->ks[key] = 0;
 	return (0);
 }
 
-int		key_press(int key, t_env *ev)
+int		key_press(int key, t_env *e)
 {
-	ev->ks[key] = 1;
+	e->ks[key] = 1;
 	return (0);
 }
 
-void	fake_draw_x(t_cor co, t_cor nxt, t_env *ev)
+void	fake_draw_x(t_cor co, t_cor nxt, t_env *e)
 {
 	while (co.x2 < nxt.x2)
 	{
-		mlx_pixel_put(ev->win.m_p, ev->win.w_p, co.x2, co.y2,  0x00FF00);
+		mlx_pixel_put(e->w.m_p, e->w.w_p, co.x2, co.y2,  0x00FF00);
 		co.x2++;
 	}
 }
 
-void	fake_draw_y(t_cor co, t_cor nxt, t_env *ev)
+void	fake_draw_y(t_cor co, t_cor nxt, t_env *e)
 {
 	while (co.y2 < nxt.y2)
 	{
-		mlx_pixel_put(ev->win.m_p, ev->win.w_p, co.x2, co.y2,  0x00FF00);
+		mlx_pixel_put(e->w.m_p, e->w.w_p, co.x2, co.y2,  0x00FF00);
 		co.y2++;
 	}
 }
 
-int		visualize(t_env *ev)
+int		visualize(t_env *e)
 {
-	ev->win.m_p = mlx_init(); //NEED
-	if (!(ev->win.m_p)) // NEED
+	e->w.m_p = mlx_init(); //NEED
+	if (!(e->w.m_p)) // NEED
 		return (-1);
-	ev->win.w_p = mlx_new_window(ev->win.m_p, ev->win.wx, ev->win.wy, "FDF"); //NEED
-	texting(ev); //NEED
-	mlx_pixel_put(ev->win.m_p, ev->win.w_p, ev->pla.hx, ev->pla.hy, 0x00FF00);
+	e->w.w_p = mlx_new_window(e->w.m_p, e->w.wx, e->w.wy, "FDF"); //NEED
+	texting(e); //NEED
+	mlx_pixel_put(e->w.m_p, e->w.w_p, e->pla.hx, e->pla.hy, 0xFF0000);
 	
 	int y = 0;
 	int x;
-	while (y < ev->pla.ly)
+	while (y < e->pla.ly)
 	{
 		x = 0;
-		while (x < ev->pla.lx)
+		while (x < e->pla.lx)
 		{
-			//mlx_pixel_put(ev->win.m_p, ev->win.w_p, ev->co[y][x].x2, ev->co[y][x].y2, 0xFF0000);
-			if (y + 1 < ev->pla.ly)
-				fake_draw_y(ev->co[y][x], ev->co[y + 1][x], ev);
-			if (x + 1 < ev->pla.lx)
-				fake_draw_x(ev->co[y][x], ev->co[y][x + 1], ev);
+			//mlx_pixel_put(e->w.m_p, e->w.w_p, e->co[y][x].x2, e->co[y][x].y2, 0xFF0000);
+			if (y + 1 < e->pla.ly)
+				fake_draw_y(e->co[y][x], e->co[y + 1][x], e);
+			if (x + 1 < e->pla.lx)
+				fake_draw_x(e->co[y][x], e->co[y][x + 1], e);
 			x++;
 		}
 		y++;
 	}
 
 	// these need to be separate from above 
-	mlx_hook(ev->win.w_p, 2, 1L << 2, key_press, ev);
-	mlx_hook(ev->win.w_p, 3, 1L << 3, key_release, ev);
-	mlx_hook(ev->win.w_p, 17, 1L << 17, quit, ev);
-	mlx_loop_hook(ev->win.m_p, touch, ev); // call touch function here !
-	mlx_loop(ev->win.m_p);
+	mlx_hook(e->w.w_p, 2, 1L << 2, key_press, e);
+	mlx_hook(e->w.w_p, 3, 1L << 3, key_release, e);
+	mlx_hook(e->w.w_p, 17, 1L << 17, quit, e);
+	mlx_loop_hook(e->w.m_p, touch, e); // call touch function here !
+	mlx_loop(e->w.m_p);
 	return (0);
 }
