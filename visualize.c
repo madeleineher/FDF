@@ -38,15 +38,16 @@ int		visualize(t_env *e)
 	int x;
 
 	y = -1;
-	if (!(e->w.mp = mlx_init()))
+	if (!(e->w.mp = mlx_init()) 
+			|| (!(e->w.wp = mlx_new_window(e->w.mp, e->w.wx, e->w.wy, "FDF"))))
 		return (-1);
-	e->w.wp = mlx_new_window(e->w.mp, e->w.wx, e->w.wy, "FDF");
-//	if (!(e->i.img = mlx_new_image(e->w.mp, e->w.wx, e->w.wy)))
-//		return (-1);
-//	e->i.data = mlx_get_data_addr(e->i.img, &e->i.bpp, &e->i.s_li, &e->i.ed);
+	if (!(e->i.img = mlx_new_image(e->w.mp, e->w.wx, e->w.wy)))
+		return (-1);
+	e->i.data = mlx_get_data_addr(e->i.img, &e->i.bpp, &e->i.s_li, &e->i.ed);
 	texting(e);
 	mlx_pixel_put(e->w.mp, e->w.wp, 1632/2, 1224/2, 0xFF0000);
-	printf("%d = %d\n", e->pla.hx, e->pla.hy);
+	printf("wx : %d = wy : %d\n", e->w.wx, e->w.wy);
+	printf("lx : %d = ly : %d\n", e->pla.lx, e->pla.ly);
 	while (++y < e->pla.ly)
 	{
 		x = -1;

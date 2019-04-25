@@ -6,7 +6,7 @@
 /*   By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 14:04:51 by mhernand          #+#    #+#             */
-/*   Updated: 2019/04/25 16:37:40 by mhernand         ###   ########.fr       */
+/*   Updated: 2019/04/25 18:17:25 by mhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,24 +68,17 @@ void	move(t_env *e)
 	}// call visualize here to redraw the map
 }
 
-void	spcae(t_env *e)
+void	space(t_env *e)
 {
-	int	x;
-	int	y;
-
-	y = -1;
-	while (++y < e->pla.ly)
+	if (e->ks[M])
 	{
-		x = -1;
-		while (++x < e->pla.lx)
-		{
-			if (e->ks[M])
-				mlx_pixel_put(e->w.mp, e->w.wp, e->co[y][x].x2, 
-						e->co[y][x].y2, 0x00FF00);
-			if (e->ks[L])
-				mlx_pixel_put(e->w.mp, e->w.wp, e->co[y][x].x2--, 
-						e->co[y][x].y2--, 0x00FF00);
-		}
+		e->mx += 10;
+		e->my += 10;
+	}
+	if (e->ks[L])
+	{
+		e->mx -= 10;
+		e->my -= 10;
 	}
 }
 
@@ -107,7 +100,7 @@ int		touch(t_env *e)
 	if (e->ks[KEY_1] || e->ks[KEY_2]) // configure the projection
 		projection(e);
 	if (e->ks[M] || e->ks[L]) // space between pixels
-		spcae(e);
+		space(e);
 	//if (e->ks[_] || e->ks[_]) // rotate the map
 	//	rotate(e);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:54:59 by mhernand          #+#    #+#             */
-/*   Updated: 2019/04/25 16:47:33 by mhernand         ###   ########.fr       */
+/*   Updated: 2019/04/25 18:17:17 by mhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ void	vertical_horizontal(t_cor co, t_cor nx, t_env *e)
 	{
 		while (co.x2++ < nx.x2)
 		{
-		//	if (co.z != 0)
-		//		mlx_pixel_put(e->w.mp, e->w.wp, co.x2, co.y2 - (co.z * 30), 0x00FF00);
-		//	else
+			if (co.z != 0)
+				mlx_pixel_put(e->w.mp, e->w.wp, co.x2, co.y2 - (co.z * 30), 0x00FF00);
+			else
 				mlx_pixel_put(e->w.mp, e->w.wp, co.x2, co.y2, 0x00FF00);
 		}
 	}
@@ -58,9 +58,9 @@ void	vertical_horizontal(t_cor co, t_cor nx, t_env *e)
 	{
 		while (co.y2++ < nx.y2)
 		{
-		//	if (co.z != 0)
-		//		mlx_pixel_put(e->w.mp, e->w.wp, co.x2, co.y2 - (co.z * 30), 0x00FF00);
-		//	else
+			if (co.z != 0)
+				mlx_pixel_put(e->w.mp, e->w.wp, co.x2, co.y2 - (co.z * 30), 0x00FF00);
+			else
 				mlx_pixel_put(e->w.mp, e->w.wp, co.x2, co.y2, 0x00FF00);
 		}
 	}
