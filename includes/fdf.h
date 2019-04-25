@@ -6,7 +6,7 @@
 /*   By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 08:41:35 by mhernand          #+#    #+#             */
-/*   Updated: 2019/04/25 16:57:40 by mhernand         ###   ########.fr       */
+/*   Updated: 2019/04/25 18:54:07 by mhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,8 @@ typedef struct		s_env
 	char			**tmp;
 	int				ks[300]; //keys
 	int				ret; // return for GNL
-	int				spa;
+	int				spax;
+	int				spay;
 	int				ml;
 	int				mx;
 	int				my;

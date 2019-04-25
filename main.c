@@ -6,7 +6,7 @@
 /*   By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 16:04:07 by mhernand          #+#    #+#             */
-/*   Updated: 2019/04/25 18:16:59 by mhernand         ###   ########.fr       */
+/*   Updated: 2019/04/25 18:58:00 by mhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,20 @@ void		win(t_env *e)
 	e->w.wy = 1224;
 	e->pla.hx = e->w.wx / 2;
 	e->pla.hy = e->w.wy / 2;
-	e->spa = 30;
-	if ((e->pla.lx * e->spa) > (e->w.wx - 100))
-		while (e->spa-- >= 5)
-			if ((e->pla.lx * e->spa) <= (e->w.wx - 100))
+	e->spax = 30;
+	if ((e->pla.lx * e->spax) > (e->w.wx - 100))
+		while (e->spax-- >= 5)
+			if ((e->pla.lx * e->spax) <= (e->w.wx - 100))
 				break ;
+	e->spay = 30;
+	if ((e->pla.ly * e->spay) > (e->w.wy - 100))
+		while (e->spay-- >= 5)
+			if ((e->pla.ly * e->spay) <= (e->w.wy - 100))
+				break ;
+	printf("i am space X : [%d] -- and i am space Y : [%d]\n", e->spax, e->spay);
 	ft_bzero(e->ks, sizeof(e->ks));
-	e->pla.px = e->pla.hx - ((e->pla.lx * e->spa) / 2);
-	e->pla.py = e->pla.hy - ((e->pla.ly * e->spa) / 2);
+	e->pla.px = e->pla.hx - ((e->pla.lx * e->spax) / 2);
+	e->pla.py = e->pla.hy - ((e->pla.ly * e->spay) / 2);
 }
 
 int			main(int argc, char **argv)
