@@ -6,7 +6,7 @@
 /*   By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 16:04:07 by mhernand          #+#    #+#             */
-/*   Updated: 2019/04/23 19:12:50 by mhernand         ###   ########.fr       */
+/*   Updated: 2019/04/25 16:18:18 by mhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int			main(int argc, char **argv)
 		ft_bad(2);
 	if (((ret = reader(fd, e)) > 0))
 		ft_bad(ret);
+	//printf("%f = %f\n", e->pla.hx, e->pla.hy);
 	win(e);
 	head = e->lines;
 	if (!(points(e)))

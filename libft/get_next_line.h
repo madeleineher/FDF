@@ -6,13 +6,13 @@
 /*   By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 17:04:40 by mhernand          #+#    #+#             */
-/*   Updated: 2019/03/20 09:38:28 by mhernand         ###   ########.fr       */
+/*   Updated: 2019/04/24 18:05:43 by mhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# define BUFF_SIZE 1000
+# define BUFF_SIZE 16
 # define MAX_FD 4864
 # include "libft.h"
 # include <string.h>

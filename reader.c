@@ -6,7 +6,7 @@
 /*   By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 11:50:20 by mhernand          #+#    #+#             */
-/*   Updated: 2019/04/23 19:14:06 by mhernand         ###   ########.fr       */
+/*   Updated: 2019/04/24 19:24:31 by mhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,19 @@ int			reader(int fd, t_env *e)
 	t_ll	*head;
 
 	head = NULL;
+	e->line = NULL;
 	while ((e->ret = get_next_line(fd, &e->line)) > 0)
 	{
 		if ((check_chars(e->line)) == -1)
 			return (5);
 		e->lin = ft_strsplit(e->line, ' ');
+		//printf("addr:%p\n", e->lin);
 		add_links(e->lin, &head);
-		free(e->line);
-		e->line = NULL;
+		if (e->line)
+		{
+			free(e->line);
+			e->line = NULL;
+		}
 		e->pla.ly++;
 	}
 	if (e->ret == -1)

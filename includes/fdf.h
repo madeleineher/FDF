@@ -6,7 +6,7 @@
 /*   By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 08:41:35 by mhernand          #+#    #+#             */
-/*   Updated: 2019/04/23 19:19:07 by mhernand         ###   ########.fr       */
+/*   Updated: 2019/04/25 16:57:40 by mhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,32 +61,41 @@ typedef struct		s_cor
 
 typedef struct		s_pl
 {
-	float			px;
-	float			py;
-	float			hx;
-	float			hy;
+	int				px;
+	int				py;
+	int				hx;
+	int				hy;
 	int				lx; //len lines
 	int				ly; //len down
 }					t_pl;
 
 typedef struct		s_bre
 {
-	float			dx;
-	float			dy;
-	float			dec;
-	float			dydx;
-	float			tdydx;
-	float			tdxdy;
-	float			m;
+	int				dx;
+	int				dy;
+	int				dec;
+	int				dydx;
+	int				tdydx;
+	int				tdxdy;
+	int				m;
 }					t_bre;
 
 typedef struct		s_win
 {
-	void			*m_p;
-	void			*w_p;
-	float			wx;
-	float			wy;
+	void			*mp;
+	void			*wp;
+	int				wx;
+	int				wy;
 }					t_win;
+
+typedef struct		s_img
+{
+	void			*img;
+	char			*data;
+	int				bpp;
+	int				ed;
+	int				s_li;	
+}					t_img;
 
 typedef struct		s_env
 {
@@ -95,11 +104,15 @@ typedef struct		s_env
 	char			**lin; // ** for str_split
 	char			**tmp;
 	int				ks[300]; //keys
-	float			ret; // return for GNL
-	float			spa;
+	int				ret; // return for GNL
+	int				spa;
+	int				ml;
+	int				mx;
+	int				my;
 	int				prx;
 	int				pry;
 	t_win			w; // my window and mlx variables
+	t_img			i; // for my images !
 	t_ll			*lines; // linked list of strings 
 	t_rgb			rgb; // colours
 	t_cor			**co; // ALL OF MY INFO 'POINTS' !! 
@@ -113,8 +126,9 @@ void				free_link(t_ll *link);
 int					visualize(t_env *ev);
 int					points(t_env *ev);
 void				texting(t_env *ev);
-void				lines(t_env *ev);
+void				lines(t_cor co, t_cor nx, t_env *ev);
 int					touch(t_env *ev);
+void				projection(t_env *ev);
 int					main(int argc, char **argv);
 
 #endif

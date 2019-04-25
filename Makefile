@@ -6,7 +6,7 @@
 #    By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/17 16:55:29 by mhernand          #+#    #+#              #
-#    Updated: 2019/04/23 18:52:48 by mhernand         ###   ########.fr        #
+#    Updated: 2019/04/25 11:32:57 by mhernand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = fdf
 
 CC = gcc
 
-CFLAGS = -Wall -Werror -Wextra # DON'T FORGET TO ADD MEEEEEEEEEE!
+CFLAGS = -Wall -Werror -Wextra -g # DON'T FORGET TO ADD MEEEEEEEEEE!
 
 SRCS = main.c\
 	   reader.c\
@@ -22,8 +22,9 @@ SRCS = main.c\
 	   visualize.c\
 	   texting.c\
 	   touch.c\
-	   points.c
-		#line.c
+	   points.c\
+	   projection.c\
+	   line.c
 
 OBJECTS = $(SRCS:.c=.o)
 

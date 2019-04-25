@@ -32,55 +32,37 @@ int		key_press(int key, t_env *e)
 	return (0);
 }
 
-void	fake_draw_x(t_cor co, t_cor nxt, t_env *e)
-{
-	while (co.x2 < nxt.x2)
-	{
-		mlx_pixel_put(e->w.m_p, e->w.w_p, co.x2, co.y2,  0x00FF00);
-		co.x2++;
-	}
-}
-
-void	fake_draw_y(t_cor co, t_cor nxt, t_env *e)
-{
-	while (co.y2 < nxt.y2)
-	{
-		mlx_pixel_put(e->w.m_p, e->w.w_p, co.x2, co.y2,  0x00FF00);
-		co.y2++;
-	}
-}
-
 int		visualize(t_env *e)
 {
-	e->w.m_p = mlx_init(); //NEED
-	if (!(e->w.m_p)) // NEED
-		return (-1);
-	e->w.w_p = mlx_new_window(e->w.m_p, e->w.wx, e->w.wy, "FDF"); //NEED
-	texting(e); //NEED
-	mlx_pixel_put(e->w.m_p, e->w.w_p, e->pla.hx, e->pla.hy, 0xFF0000);
-	
-	int y = 0;
+	int y;
 	int x;
-	while (y < e->pla.ly)
-	{
-		x = 0;
-		while (x < e->pla.lx)
-		{
-			//mlx_pixel_put(e->w.m_p, e->w.w_p, e->co[y][x].x2, e->co[y][x].y2, 0xFF0000);
-			if (y + 1 < e->pla.ly)
-				fake_draw_y(e->co[y][x], e->co[y + 1][x], e);
-			if (x + 1 < e->pla.lx)
-				fake_draw_x(e->co[y][x], e->co[y][x + 1], e);
-			x++;
-		}
-		y++;
-	}
 
+	y = -1;
+	if (!(e->w.mp = mlx_init()))
+		return (-1);
+	e->w.wp = mlx_new_window(e->w.mp, e->w.wx, e->w.wy, "FDF");
+//	if (!(e->i.img = mlx_new_image(e->w.mp, e->w.wx, e->w.wy)))
+//		return (-1);
+//	e->i.data = mlx_get_data_addr(e->i.img, &e->i.bpp, &e->i.s_li, &e->i.ed);
+	texting(e);
+	mlx_pixel_put(e->w.mp, e->w.wp, 1632/2, 1224/2, 0xFF0000);
+	printf("%d = %d\n", e->pla.hx, e->pla.hy);
+	while (++y < e->pla.ly)
+	{
+		x = -1;
+		while (++x < e->pla.lx)
+		{
+			if (y + 1 < e->pla.ly)
+				lines(e->co[y][x], e->co[y + 1][x], e);
+			if (x + 1 < e->pla.lx)
+				lines(e->co[y][x], e->co[y][x + 1], e);
+		}
+	}
 	// these need to be separate from above 
-	mlx_hook(e->w.w_p, 2, 1L << 2, key_press, e);
-	mlx_hook(e->w.w_p, 3, 1L << 3, key_release, e);
-	mlx_hook(e->w.w_p, 17, 1L << 17, quit, e);
-	mlx_loop_hook(e->w.m_p, touch, e); // call touch function here !
-	mlx_loop(e->w.m_p);
+	mlx_hook(e->w.wp, 2, 1L << 2, key_press, e);
+	mlx_hook(e->w.wp, 3, 1L << 3, key_release, e);
+	mlx_hook(e->w.wp, 17, 1L << 17, quit, e);
+	mlx_loop_hook(e->w.mp, touch, e); // call touch function here !
+	mlx_loop(e->w.mp);
 	return (0);
 }

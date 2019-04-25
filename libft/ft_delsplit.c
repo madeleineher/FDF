@@ -17,7 +17,9 @@ void		ft_delsplit(char **tab)
 	int		i;
 
 	i = 0;
-	while (tab[++i] != NULL)
+	if (!tab)
+		return ;
+	while (tab[i] != NULL)
 	{
 		if (tab[i])
 		{

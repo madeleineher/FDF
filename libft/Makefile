@@ -6,7 +6,7 @@
 #    By: mhernand <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/26 20:04:08 by mhernand          #+#    #+#              #
-#    Updated: 2019/04/23 18:50:10 by mhernand         ###   ########.fr        #
+#    Updated: 2019/04/24 18:25:05 by mhernand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = libft.a
 
 HEADER = libft.h
 
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g
 
 SRCS = ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c \
      ft_isascii.c ft_isdigit.c ft_isprint.c ft_memccpy.c \

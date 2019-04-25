@@ -6,7 +6,7 @@
 /*   By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 10:17:43 by mhernand          #+#    #+#             */
-/*   Updated: 2019/04/23 17:42:48 by mhernand         ###   ########.fr       */
+/*   Updated: 2019/04/24 19:23:26 by mhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	delevr(t_env *ev)
 	tmp = ev->lines;
 	while (tmp)
 	{
+	//	printf("[tmp->content]addr:%p\n", tmp->content);
 		ft_delsplit(tmp->content);
 		tmp->content = NULL;
 		tmp2 = tmp;

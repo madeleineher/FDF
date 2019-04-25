@@ -6,91 +6,86 @@
 /*   By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:54:59 by mhernand          #+#    #+#             */
-/*   Updated: 2019/04/23 19:17:25 by mhernand         ###   ########.fr       */
+/*   Updated: 2019/04/25 16:47:33 by mhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/fdf.h"
-/*
-void	diagnol()
+
+void	slope_plus_one(t_cor co, t_cor nx, t_env *e, int dec)
 {
-
-}
-
-void	slope_plus_one(t_env *ev)
-{
-	if ()
-
-	else
+	while (co.y2 < nx.y2)
 	{
-		// this all needs to be in a while loop
-		if (ev->be.dec >= 0)
+		if (dec >= 0)
 		{
-			ev->be.x = ev->be.x + 1;
-			ev->be.dec = ev->be.dec + ev->be.tdxdy;
+			co.x2++;
+			dec = dec + e->be.tdxdy;
 		}
-		else if (ev->be.dec < 0)
-		{
-			ev->be.x = ev->be.x;
-			ev->be.dec = ev->be.dec + (2 * (ev->be.x2 - ev->be.x1));
-		}
-		ev->be.y = ev->be.y + 1;
-		slope_plus_one(ev);
+		else if (dec < 0)
+			dec = dec + (2 * e->be.dx);
+		co.y2++;
 	}
 }
 
-void	slope_less_one(t_env *ev)
+void	slope_less_one(t_cor co, t_cor nx, t_env *e, int dec)
 {
-	if (ev->)
-
-	else
+	while (co.x2 < nx.x2)
 	{
-		// this all needs to be in a while loop
-		if (ev->be.dec >= 0)
+		if (dec >= 0)
 		{
-			ev->be.y = ev->be.y + 1;
-			ev->be.dec = ev->be.dec + ev->be.tdydx;
+			dec = dec + e->be.tdydx;
+			co.y2++;
 		}
-		else if (ev->be.dec < 0)
-		{
-			ev->be.y = ev->be.y;
-			ev->be.dec = ev->be.dec + (2 * (ev->be.y2 - ev->be.y1));
-		}
-		ev->be.x = ev->be.x + 1;
-		slope_less_one(ev);
-	}
-}
-*/
-void	hore(t_env *e)
-{
-	if (e->tp.x1 < e->tp.x2)
-	{
-		mlx_pixel_put(e->w.m_p, e->w.w_p, e->tp.x1 + ev->pla.px + e->spa, e->tp.y1 + e->pla.py + ev->spa, 0xFF0000);
-		//printf("x : [%d] ++ ", ev->tp.x1);
-		//printf(" y : [%d] ", ev->tp.y1);
+		else if (dec < 0)
+			dec = dec + (2 * e->be.dy);
+		co.x2++;
 	}
 }
 
-void	lines(t_env *e)
+void	vertical_horizontal(t_cor co, t_cor nx, t_env *e)
 {
-	e->be.m = abs(e->tp.y2 - e->tp.y1) / abs(e->tp.x2 - e->tp.x1); // correct parameter needs to be sent
-	e->be.tdydx = 2 * ((e->tp.y2 - e->tp.y1) - (e->tp.x2 - e->tp.x1));
-	e->be.tdxdy = 2 * ((e->tp.x2 - e->tp.x1) - (e->tp.y2 - e->tp.y1));
+	if (e->be.dy == 0)
+	{
+		while (co.x2++ < nx.x2)
+		{
+		//	if (co.z != 0)
+		//		mlx_pixel_put(e->w.mp, e->w.wp, co.x2, co.y2 - (co.z * 30), 0x00FF00);
+		//	else
+				mlx_pixel_put(e->w.mp, e->w.wp, co.x2, co.y2, 0x00FF00);
+		}
+	}
+	else if (e->be.dx == 0)
+	{
+		while (co.y2++ < nx.y2)
+		{
+		//	if (co.z != 0)
+		//		mlx_pixel_put(e->w.mp, e->w.wp, co.x2, co.y2 - (co.z * 30), 0x00FF00);
+		//	else
+				mlx_pixel_put(e->w.mp, e->w.wp, co.x2, co.y2, 0x00FF00);
+		}
+	}
+}
 
-	if (e->be.m == 0) // horizontal line ~*
-		hore(e);
-	/*
-	if (ev->be.m > 1)
+void	lines(t_cor co, t_cor nx, t_env *e)
+{
+	e->be.dx = (nx.x2 - co.x2);
+	e->be.dy = (nx.y2 - co.y2);
+	if (e->be.dx == 0 || e->be.dy == 0) 
+		vertical_horizontal(co, nx, e);
+	else if (e->be.dx != 0 && e->be.dy != 0)
 	{
-		ev->be.dec = (2 * (ev->be.x2 - ev->be.x1)) - (y2 - y1);
-		slope_less_one(ev);
+		e->be.m = e->be.dy / e->be.dx;
+		e->be.tdydx = 2 * (e->be.dy - e->be.dx);
+		e->be.tdxdy = 2 * (e->be.dy - e->be.dy);
+		if (e->be.m > 1)
+		{
+			e->be.dec = (2 * e->be.dx) - e->be.dy;
+			slope_less_one(co, nx, e, e->be.dec);
+		}
+		else if (e->be.m <= 1)
+		{
+			e->be.dec = (2 * e->be.dy) - e->be.dx;
+			slope_plus_one(co, nx, e, e->be.dec);
+		}
 	}
-	else if (ev->be.m == 0) // horizontal line ~*
-		hore(ev);
-	else if (ev->be.m <= 1 && ev->be.m != 0)
-	{
-		ev->be.dec = (2 * (ev->be.y2 - ev->be.y1)) - (x2 - y1);
-		slope_plus_one(ev);
-	}
-	*/
 }
