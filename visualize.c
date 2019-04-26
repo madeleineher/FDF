@@ -45,9 +45,6 @@ int		visualize(t_env *e)
 		return (-1);
 	e->i.data = mlx_get_data_addr(e->i.img, &e->i.bpp, &e->i.s_li, &e->i.ed);
 	texting(e);
-	mlx_pixel_put(e->w.mp, e->w.wp, 1632/2, 1224/2, 0xFF0000);
-	printf("wx : %d = wy : %d\n", e->w.wx, e->w.wy);
-	printf("lx : %d = ly : %d\n", e->pla.lx, e->pla.ly);
 	while (++y < e->pla.ly)
 	{
 		x = -1;

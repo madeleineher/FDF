@@ -6,7 +6,7 @@
 /*   By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 09:41:31 by mhernand          #+#    #+#             */
-/*   Updated: 2019/04/25 18:52:14 by mhernand         ###   ########.fr       */
+/*   Updated: 2019/04/26 11:33:46 by mhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,6 @@ int		points(t_env *e)
 		printf("\n");
 		y++;
 	}
-	delevr(e);
+	delevr(e, 1);
 	return (1);
 }

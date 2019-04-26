@@ -6,7 +6,7 @@
 /*   By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 08:41:35 by mhernand          #+#    #+#             */
-/*   Updated: 2019/04/25 18:54:07 by mhernand         ###   ########.fr       */
+/*   Updated: 2019/04/26 12:45:55 by mhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ typedef struct		s_ll
 
 typedef struct		s_rgb
 {
-	float			r;
-	float			g;
-	float			b;
+	int				r;
+	int				g;
+	int				b;
 }					t_rgb;
 
 typedef struct		s_cor
@@ -106,6 +106,7 @@ typedef struct		s_env
 	int				ks[300]; //keys
 	int				ret; // return for GNL
 	int				spax;
+	int				iso;
 	int				spay;
 	int				ml;
 	int				mx;
@@ -122,7 +123,7 @@ typedef struct		s_env
 }					t_env;
 
 int					reader(int fd, t_env *ev);
-void				delevr(t_env *ev);
+void				delevr(t_env *ev, int w);
 void				free_link(t_ll *link);
 int					visualize(t_env *ev);
 int					points(t_env *ev);
