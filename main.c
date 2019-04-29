@@ -6,7 +6,7 @@
 /*   By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 16:04:07 by mhernand          #+#    #+#             */
-/*   Updated: 2019/04/26 14:33:40 by mhernand         ###   ########.fr       */
+/*   Updated: 2019/04/29 17:55:06 by mhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,9 @@ void		win(t_env *e)
 		while (e->spay-- >= 5)
 			if ((e->pla.ly * e->spay) <= (e->w.wy - 100))
 				break ;
-	printf("i am space X : [%d] -- and i am space Y : [%d]\n", e->spax, e->spay);
 	ft_bzero(e->ks, sizeof(e->ks));
 	e->pla.px = e->pla.hx - ((e->pla.lx * e->spax) / 2);
 	e->pla.py = e->pla.hy - ((e->pla.ly * e->spay) / 2);
-	printf("i am half X : [%d] - i am half Y : [%d]\n", e->w.wx, e->w.wy);
-	printf("i am place X : [%d] - i am place Y : [%d]\n", e->pla.hx, e->pla.hy);
 }
 
 int			main(int argc, char **argv)
@@ -77,7 +74,7 @@ int			main(int argc, char **argv)
 	head = e->lines;
 	if (!(points(e)))
 		ft_bad(7);
-	if (visualize(e) == -1)
+	if (visualize(e, 0) == -1)
 		ft_bad(6);
 	return (0);
 }

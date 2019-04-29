@@ -6,7 +6,7 @@
 /*   By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 08:41:35 by mhernand          #+#    #+#             */
-/*   Updated: 2019/04/26 12:45:55 by mhernand         ###   ########.fr       */
+/*   Updated: 2019/04/29 17:55:19 by mhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ typedef struct		s_bre
 {
 	int				dx;
 	int				dy;
+	int				tdx;
+	int				tdy;
+	int				tmp_y;
+	int				tmp_x;
 	int				dec;
-	int				dydx;
-	int				tdydx;
-	int				tdxdy;
-	int				m;
 }					t_bre;
 
 typedef struct		s_win
@@ -111,8 +111,8 @@ typedef struct		s_env
 	int				ml;
 	int				mx;
 	int				my;
-	int				prx;
-	int				pry;
+	int				rr;
+	int				rl;
 	t_win			w; // my window and mlx variables
 	t_img			i; // for my images !
 	t_ll			*lines; // linked list of strings 
@@ -125,7 +125,7 @@ typedef struct		s_env
 int					reader(int fd, t_env *ev);
 void				delevr(t_env *ev, int w);
 void				free_link(t_ll *link);
-int					visualize(t_env *ev);
+int					visualize(t_env *ev, int n);
 int					points(t_env *ev);
 void				texting(t_env *ev);
 void				lines(t_cor co, t_cor nx, t_env *ev);
