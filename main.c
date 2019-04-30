@@ -6,7 +6,7 @@
 /*   By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 16:04:07 by mhernand          #+#    #+#             */
-/*   Updated: 2019/04/29 17:55:06 by mhernand         ###   ########.fr       */
+/*   Updated: 2019/04/30 18:28:29 by mhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void		win(t_env *e)
 	e->w.wy = 1224;
 	e->pla.hx = e->w.wx / 2;
 	e->pla.hy = e->w.wy / 2;
+	e->hi = 10;
+	e->iso_check = 1;
 	e->spax = 30;
 	if ((e->pla.lx * e->spax) > (e->w.wx - 100))
 		while (e->spax-- >= 5)
@@ -74,7 +76,7 @@ int			main(int argc, char **argv)
 	head = e->lines;
 	if (!(points(e)))
 		ft_bad(7);
-	if (visualize(e, 0) == -1)
+	if (visualize(e) == -1)
 		ft_bad(6);
 	return (0);
 }

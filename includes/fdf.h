@@ -6,7 +6,7 @@
 /*   By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 08:41:35 by mhernand          #+#    #+#             */
-/*   Updated: 2019/04/29 17:55:19 by mhernand         ###   ########.fr       */
+/*   Updated: 2019/04/30 18:52:58 by mhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 # define W		13
 # define S		1
 # define C		8
-# define I		34
-# define O		31
+# define Q		12	
+# define E		14
 # define KEY_1	18
 # define KEY_2	19
 # define M		46
@@ -113,6 +113,8 @@ typedef struct		s_env
 	int				my;
 	int				rr;
 	int				rl;
+	int				hi;
+	int				iso_check;
 	t_win			w; // my window and mlx variables
 	t_img			i; // for my images !
 	t_ll			*lines; // linked list of strings 
@@ -122,15 +124,17 @@ typedef struct		s_env
 	t_pl			pla;
 }					t_env;
 
-int					reader(int fd, t_env *ev);
-void				delevr(t_env *ev, int w);
+int					reader(int fd, t_env *e);
+void				delevr(t_env *e, int w);
 void				free_link(t_ll *link);
-int					visualize(t_env *ev, int n);
-int					points(t_env *ev);
-void				texting(t_env *ev);
-void				lines(t_cor co, t_cor nx, t_env *ev);
-int					touch(t_env *ev);
-void				projection(t_env *ev);
+int					visualize(t_env *e);
+int					points(t_env *e);
+void				texting(t_env *e);
+void				lines(t_cor co, t_cor nx, t_env *e);
+void				draw_me(t_env *e);
+int					touch(t_env *e);
+void				projection(t_env *e);
+int					tmp(t_env *e);
 int					main(int argc, char **argv);
 
 #endif

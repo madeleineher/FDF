@@ -6,7 +6,7 @@
 /*   By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 09:41:31 by mhernand          #+#    #+#             */
-/*   Updated: 2019/04/29 18:11:28 by mhernand         ###   ########.fr       */
+/*   Updated: 2019/04/30 18:23:27 by mhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,8 @@ t_cor	*minico(t_ll *link, t_cor *mi, t_env *e, int y)
 		mi[x].x1 = x;
 		mi[x].y1 = y;
 		mi[x].z = ft_atoi(link->content[x]);
-		mi[x].x2 = (e->pla.px + x * e->spax) + e->ml + e->mx + e->my; //+ e->rl + e->rr;
-		mi[x].y2 = (e->pla.py + y * e->spay) + e->ml + e->mx + e->my; // + e->rl + e->rr;
-		if (mi[x].z > 0 && mi[x].z != 0)
-			mi[x].y2 += (mi[x].z * 20);
-		else if (mi[x].z < 0 && mi[x].z != 0)
-			mi[x].y2 -= (mi[x].z * 20);
+		mi[x].x2 = (e->pla.px + x * e->spax) + e->ml + e->mx; //+ e->rl + e->rr;
+		mi[x].y2 = (e->pla.py + y * e->spay) + e->ml + e->my - (mi[x].z * e->hi); // + e->rl + e->rr;
 		x++;
 	}
 	return (mi);

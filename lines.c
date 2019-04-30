@@ -6,7 +6,7 @@
 /*   By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:54:59 by mhernand          #+#    #+#             */
-/*   Updated: 2019/04/29 18:11:14 by mhernand         ###   ########.fr       */
+/*   Updated: 2019/04/30 19:24:48 by mhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,29 +24,6 @@ void	move_x(t_cor co, t_cor nx, t_env *e)
 	}
 	e->be.dec = e->be.tdy - e->be.dx;
 	while (co.x2++ < nx.x2)
-	{
-		mlx_pixel_put(e->w.mp, e->w.wp, co.x2, co.y2, 0xFFFFFF);
-		if (e->be.dec > 0)
-		{
-			co.y2 += tmp_y;
-			e->be.dec = e->be.dec - e->be.tdx;
-		}
-		e->be.dec = e->be.dec + e->be.tdy;
-	}
-}
-
-void	special(t_cor co, t_cor nx, t_env *e)
-{
-	int tmp_y;
-
-	tmp_y = 1;
-	if (e->be.dy < 0)
-	{
-		tmp_y = -1;
-		e->be.dy = -e->be.dy;
-	}
-	e->be.dec = e->be.tdy - e->be.dx;
-	while (co.x2-- > nx.x2)
 	{
 		mlx_pixel_put(e->w.mp, e->w.wp, co.x2, co.y2, 0xFFFFFF);
 		if (e->be.dec > 0)
@@ -81,6 +58,29 @@ void	move_y(t_cor co, t_cor nx, t_env *e)
 	}
 }
 
+void	special(t_cor co, t_cor nx, t_env *e)
+{
+	int tmp_y;
+
+	tmp_y = 1;
+	if (e->be.dy < 0)
+	{
+		tmp_y = -1;
+		e->be.dy = -e->be.dy;
+	}
+	e->be.dec = e->be.tdy - e->be.dx;
+	while (co.x2-- > nx.x2)
+	{
+		mlx_pixel_put(e->w.mp, e->w.wp, co.x2, co.y2, 0xFFFFFF);
+		if (e->be.dec > 0)
+		{
+			co.y2 += tmp_y;
+			e->be.dec = e->be.dec - e->be.tdx;
+		}
+		e->be.dec = e->be.dec + e->be.tdy;
+	}
+}
+
 void	lines(t_cor co, t_cor nx, t_env *e)
 {
 	e->be.dx = abs(nx.x2 - co.x2);
@@ -103,5 +103,25 @@ void	lines(t_cor co, t_cor nx, t_env *e)
 			move_y(nx, co, e);
 		else
 			move_y(co, nx, e);
+	}
+}
+
+void	draw_me(t_env *e)
+{
+	int		x;
+	int		y;
+
+	y = -1;
+	while (++y < e->pla.ly)
+	{
+		x = -1;
+		while (++x < e->pla.lx)
+		{
+			if (x + 1 < e->pla.lx)
+				lines(e->co[y][x], e->co[y][x + 1], e);
+			if (y + 1 < e->pla.ly)
+				lines(e->co[y][x], e->co[y + 1][x], e);
+
+		}
 	}
 }
