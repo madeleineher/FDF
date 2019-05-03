@@ -6,103 +6,187 @@
 /*   By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:54:59 by mhernand          #+#    #+#             */
-/*   Updated: 2019/04/30 19:24:48 by mhernand         ###   ########.fr       */
+/*   Updated: 2019/05/03 18:42:46 by mhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/fdf.h"
 
-void	move_x(t_cor co, t_cor nx, t_env *e)
-{
-	int tmp_y;
-
-	tmp_y = 1;
-	if (e->be.dy < 0)
-	{
-		tmp_y = -1;
-		e->be.dy = -e->be.dy;
-	}
-	e->be.dec = e->be.tdy - e->be.dx;
-	while (co.x2++ < nx.x2)
-	{
-		mlx_pixel_put(e->w.mp, e->w.wp, co.x2, co.y2, 0xFFFFFF);
-		if (e->be.dec > 0)
-		{
-			co.y2 += tmp_y;
-			e->be.dec = e->be.dec - e->be.tdx;
-		}
-		e->be.dec = e->be.dec + e->be.tdy;
-	}
-}
-
-void	move_y(t_cor co, t_cor nx, t_env *e)
-{
-	int tmp_x;
-
-	tmp_x = 1;
-	if (e->be.dx < 0)
-	{
-		tmp_x = -1;
-		e->be.dx = -e->be.dx;
-	}
-	e->be.dec = e->be.tdx - e->be.dy;
-	while (co.y2++ < nx.y2)
-	{
-		mlx_pixel_put(e->w.mp, e->w.wp, co.x2, co.y2, 0xFFFFFF);
-		if (e->be.dec > 0)
-		{
-			co.x2 += tmp_x;
-			e->be.dec = e->be.dec - e->be.tdy;
-		}
-		e->be.dec = e->be.dec + e->be.tdx;
-	}
-}
-
-void	special(t_cor co, t_cor nx, t_env *e)
-{
-	int tmp_y;
-
-	tmp_y = 1;
-	if (e->be.dy < 0)
-	{
-		tmp_y = -1;
-		e->be.dy = -e->be.dy;
-	}
-	e->be.dec = e->be.tdy - e->be.dx;
-	while (co.x2-- > nx.x2)
-	{
-		mlx_pixel_put(e->w.mp, e->w.wp, co.x2, co.y2, 0xFFFFFF);
-		if (e->be.dec > 0)
-		{
-			co.y2 += tmp_y;
-			e->be.dec = e->be.dec - e->be.tdx;
-		}
-		e->be.dec = e->be.dec + e->be.tdy;
-	}
-}
-
 void	lines(t_cor co, t_cor nx, t_env *e)
 {
+	int	er;
+	int	t_x = co.x2;
+	int	t_y = co.y2;
 	e->be.dx = abs(nx.x2 - co.x2);
 	e->be.dy = abs(nx.y2 - co.y2);
 	e->be.tdx = 2 * e->be.dx;
 	e->be.tdy = 2 * e->be.dy;
 
-	if ((nx.x2 - co.x2) < 0)
-		special(co, nx, e);
-	else if ((nx.y2 - co.y2) < (nx.x2 - co.x2))
+	if (e->be.dx != 0)
 	{
-		if (co.x2 > nx.x2)
-			move_x(nx, co, e);
-		else
-			move_x(co, nx, e);
+		if (e->be.dx > 0)
+		{
+			if (e->be.dy > 0)	
+			{
+				if (e->be.dx >= e->be.dy) // 1st octant
+				{
+					er = e->be.dx;
+					e->be.dx = er * 2 ;
+					e->be.dy = e->be.dy * 2 ; // e est positif
+					while (t_x++ < nx.x2)  // déplacements horizontaux
+					{
+						mlx_pixel_put(e->w.mp, e->w.wp, t_x, t_y, 0xFFFFFF);
+						if ((er = er - e->be.dy) < 0)
+						{
+							t_y += 1 ;  // déplacement diagonal
+							er += e->be.dx;
+						}
+					}
+				}
+				else // 2nd octant
+				{
+					er = e->be.dy;
+					e->be.dy = er * 2 ; 
+					e->be.dx = e->be.dx * 2 ;  // e est positif
+					while (t_y++ < nx.y2) // déplacements verticaux
+					{
+						mlx_pixel_put(e->w.mp, e->w.wp, t_x, t_y, 0xFFFFFF);
+						if ((er = er - e->be.dx) < 0)
+						{
+							t_x += 1; // déplacement diagonal
+							er += e->be.dy;
+						}
+					}
+				}
+			}
+			else if (e->be.dy < 0) // (e->be.dy < 0) && e->be.dx > 0 // 4th cadran
+			{
+				if (e->be.dx >= -e->be.dy) // vecteur diagonal ou oblique proche de l’horizontale, 8e octant
+				{
+					er = e->be.dx;
+					e->be.dx = er * 2;
+					e->be.dy = e->be.dy * 2 ;  // e est positif
+					while (t_x-- > nx.x2)  // déplacements horizontaux
+					{
+						mlx_pixel_put(e->w.mp, e->w.wp, t_x, t_y, 0xFF0000);
+						if ((er = er + e->be.dy) < 0)
+						{
+							t_y -= 1 ;  // déplacement diagonal
+							er += e->be.dx ;
+						}	
+					}
+				}
+				else // 7th octant
+				{
+					er = -e->be.dy;
+					e->be.dy = er * 2 ; 
+					e->be.dx = e->be.dx * 2 ;  // e est négatif
+					while (t_y-- > nx.y2)  // déplacements verticaux
+					{
+						mlx_pixel_put(e->w.mp, e->w.wp, t_x, t_y, 0xFFFFFF);
+						if ((er = er + e->be.dx) > 0)
+						{
+							t_x += 1;  // déplacement diagonal
+							er += e->be.dy;
+						}
+					}
+				}
+			}
+			else if (e->be.dy == 0 && e->be.dx > 0)// dy = 0 and dx > 0 // vertical towards the right
+			{
+				while (t_x++ < nx.x2) // jusqu’à ce que (x1 ← x1 + 1) = x
+					mlx_pixel_put(e->w.mp, e->w.wp, t_x, t_y, 0xFFFFFF);
+			}
+		}
+		else if (e->be.dx < 0)
+		{
+			if (e->be.dy != 0)
+			{
+				if (e->be.dy > 0) // 2eme quadran
+				{
+					if (-e->be.dx >= e->be.dy) // vecteur diagonal ou oblique proche de l’horizontale, dans le 4e octant
+					{
+						er = -e->be.dx;
+						e->be.dx = er * 2 ; 
+						e->be.dy = e->be.dy * 2 ;  // e est négatif
+						while (t_x++ < nx.x2)  // déplacements horizontaux
+						{
+							mlx_pixel_put(e->w.mp, e->w.wp, t_x, t_y, 0xFFFFFF);
+							if ((er = er + e->be.dy) >= 0)
+							{
+								t_y += 1 ;  // déplacement diagonal
+								er += e->be.dx;
+							}
+						}
+					}
+					else // if vecteur oblique proche de la verticale, dans le 3e octant
+					{
+						er = e->be.dy;
+						e->be.dy = er * 2; 
+						e->be.dx = e->be.dx * 2;  // e est positif
+						while (t_y++ < nx.y2) // déplacements verticaux
+						{
+							mlx_pixel_put(e->w.mp, e->w.wp, t_x, t_y, 0xFFFFFF);
+							if ((er = er + e->be.dx) <= 0)
+							{
+								t_x -= 1; // déplacement diagonal
+								er += e->be.dy;
+							}
+						}
+					}
+				}
+				else // dy < 0 (et dx < 0) // vecteur oblique dans le 3e cadran
+				{
+					if (e->be.dx <= e->be.dy)
+					{
+						er = -e->be.dx;
+						e->be.dx = er * 2 ; 
+						e->be.dy = e->be.dy * 2 ;  // e est négatif
+						while (t_x-- > nx.x2) // déplacements horizontaux
+						{
+							mlx_pixel_put(e->w.mp, e->w.wp, t_x, t_y, 0xFFFFFF);
+							if ((er = er - e->be.dy) >= 0)
+							{
+								t_y -= 1;  // déplacement diagonal
+								er += e->be.dx;
+							}
+						}		
+					}
+					else // vecteur oblique proche de la verticale, dans le 6e octant
+					{
+						er = -e->be.dy;
+						e->be.dy = er * 2 ; 
+						e->be.dx = e->be.dx * 2 ;  // e est négatif
+						while (t_y++ > nx.y2)  // déplacements verticaux
+						{
+							mlx_pixel_put(e->w.mp, e->w.wp, t_x, t_y, 0xFFFFFF);
+							if ((er = er - e->be.dx) >= 0)
+							{
+								t_x -= 1;  // déplacement diagonal
+								er += e->be.dy;
+							}
+						}
+					}
+				}
+			}
+			else if (e->be.dy == 0 && e->be.dx < 0)
+			{
+				while (t_x-- > nx.x2) //jusqu’à ce que (x1 ← x1 - 1) = x2; 
+					mlx_pixel_put(e->w.mp, e->w.wp, t_x, t_y, 0xFFFFFF);
+			}
+		}
 	}
-	else
+	else if (e->be.dx == 0)
 	{
-		if (co.y2 > nx.y2)
-			move_y(nx, co, e);
-		else
-			move_y(co, nx, e);
+		if (e->be.dy != 0)
+		{
+			if (e->be.dy > 0)
+				while (t_y++ < nx.y2)
+					mlx_pixel_put(e->w.mp, e->w.wp, t_x, t_y, 0xFFFFFF);
+			else if (e->be.dy < 0)
+				while (t_y-- > nx.y2)
+					mlx_pixel_put(e->w.mp, e->w.wp, t_x, t_y, 0xFFFFFF);
+		}
 	}
 }
 

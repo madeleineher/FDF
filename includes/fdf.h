@@ -6,7 +6,7 @@
 /*   By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 08:41:35 by mhernand          #+#    #+#             */
-/*   Updated: 2019/04/30 18:52:58 by mhernand         ###   ########.fr       */
+/*   Updated: 2019/05/01 20:32:53 by mhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef struct		s_bre
 	int				tmp_y;
 	int				tmp_x;
 	int				dec;
+	int				er2;
 }					t_bre;
 
 typedef struct		s_win
@@ -114,6 +115,7 @@ typedef struct		s_env
 	int				rr;
 	int				rl;
 	int				hi;
+	int				tp;
 	int				iso_check;
 	t_win			w; // my window and mlx variables
 	t_img			i; // for my images !
@@ -130,7 +132,6 @@ void				free_link(t_ll *link);
 int					visualize(t_env *e);
 int					points(t_env *e);
 void				texting(t_env *e);
-void				lines(t_cor co, t_cor nx, t_env *e);
 void				draw_me(t_env *e);
 int					touch(t_env *e);
 void				projection(t_env *e);
