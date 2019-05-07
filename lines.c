@@ -6,7 +6,7 @@
 /*   By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:54:59 by mhernand          #+#    #+#             */
-/*   Updated: 2019/05/06 19:26:15 by mhernand         ###   ########.fr       */
+/*   Updated: 2019/05/07 11:21:14 by mhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	lines(t_cor co, t_cor nx, t_env *e)
 						copy_dy = copy_dy * 2 ; // e est positif
 						while (t_x++ < nx.x2)  // déplacements horizontaux
 						{
-							mlx_pixel_put(e->w.mp, e->w.wp, t_x, t_y, 0xFF0000);
+							mlx_pixel_put(e->w.mp, e->w.wp, t_x, t_y, 0xFFFFFF);
 							if ((er = er - copy_dy) < 0)
 							{
 								t_y += 1 ;  // déplacement diagonal
@@ -55,7 +55,7 @@ void	lines(t_cor co, t_cor nx, t_env *e)
 						copy_dx = copy_dx * 2 ;  // e est positif
 						while (t_y++ < nx.y2) // déplacements verticaux
 						{
-							mlx_pixel_put(e->w.mp, e->w.wp, t_x, t_y, 0xFF0000);
+							mlx_pixel_put(e->w.mp, e->w.wp, t_x, t_y, 0xFFFFFF);
 							if ((er = er - copy_dx) < 0)
 							{
 								t_x += 1; // déplacement diagonal
@@ -73,7 +73,7 @@ void	lines(t_cor co, t_cor nx, t_env *e)
 						copy_dy = copy_dy * 2 ;  // e est positif
 						while (t_x++ < nx.x2) // déplacements horizontaux
 						{
-							mlx_pixel_put(e->w.mp, e->w.wp, t_x, t_y, 0x00FF00);
+							mlx_pixel_put(e->w.mp, e->w.wp, t_x, t_y, 0xFFFFFF);
 							er = er + copy_dy; 
 							if (er < 0)
 							{
@@ -84,13 +84,13 @@ void	lines(t_cor co, t_cor nx, t_env *e)
 					}
 					else 
 					{
-						printf("abs dx : [%d]\nabs dy : [%d]\ndx : [%d]\ndy : [%d]\n\n", e->be.dx, e->be.dy, copy_dx, copy_dy);
+					//	printf("abs dx : [%d]\nabs dy : [%d]\ndx : [%d]\ndy : [%d]\n\n", e->be.dx, e->be.dy, copy_dx, copy_dy);
 						er = copy_dy;
 						copy_dy = er * 2 ; 
 						copy_dx = copy_dx * 2 ;  // e est négatif
 						while (t_y-- > nx.y2)  // déplacements verticaux
 						{
-							mlx_pixel_put(e->w.mp, e->w.wp, t_x, t_y, 0x00FF00);
+							mlx_pixel_put(e->w.mp, e->w.wp, t_x, t_y, 0xFFFFFF);
 							er = er + copy_dx;
 							if (er > 0)
 							{
@@ -122,7 +122,7 @@ void	lines(t_cor co, t_cor nx, t_env *e)
 						copy_dy = copy_dy * 2 ;  // e est négatif
 						while (t_x-- > nx.x2)  // déplacements horizontaux
 						{
-							mlx_pixel_put(e->w.mp, e->w.wp, t_x, t_y, 0xFFF000);
+							mlx_pixel_put(e->w.mp, e->w.wp, t_x, t_y, 0xFFFFFF);
 							er = er + copy_dy;
 							if (er >= 0)
 							{
@@ -138,7 +138,7 @@ void	lines(t_cor co, t_cor nx, t_env *e)
 						copy_dx = copy_dx * 2;  // e est positif
 						while (t_y++ < nx.y2) // déplacements verticaux
 						{
-							mlx_pixel_put(e->w.mp, e->w.wp, t_x, t_y, 0xFFF000);
+							mlx_pixel_put(e->w.mp, e->w.wp, t_x, t_y, 0xFFFFFF);
 							er = er + copy_dx;
 							if (er <= 0)
 							{
@@ -157,7 +157,7 @@ void	lines(t_cor co, t_cor nx, t_env *e)
 						copy_dy = copy_dy * 2 ;  // e est négatif
 						while (t_x-- > nx.x2) // déplacements horizontaux
 						{
-							mlx_pixel_put(e->w.mp, e->w.wp, t_x, t_y, 0x00FFFF);
+							mlx_pixel_put(e->w.mp, e->w.wp, t_x, t_y, 0xFFFFFF);
 							er = er - copy_dy;
 							if (er >= 0)
 							{
@@ -203,31 +203,31 @@ void	lines(t_cor co, t_cor nx, t_env *e)
 void	draw_me(t_env *e)
 {
 
-/*		t_cor	tmp_start = {0, 0, e->pla.hx, e->pla.hy, 0};
+	t_cor	tmp_start = {0, 0, e->pla.hx, e->pla.hy, 0};
 
-		t_cor	tmp_1_8 = {0, 0, 1632, 612, 0};
-		t_cor	tmp_6_7 = {0, 0, 816, 0, 0};
-		t_cor	tmp_5_4 = {0, 0, 0, 612, 0};
-		t_cor	tmp_3_2 = {0, 0, 816, 1224, 0};
+	t_cor	tmp_1_8 = {0, 0, 1632, 612, 0};
+	t_cor	tmp_6_7 = {0, 0, 816, 0, 0};
+	t_cor	tmp_5_4 = {0, 0, 0, 612, 0};
+	t_cor	tmp_3_2 = {0, 0, 816, 1224, 0};
 
-		t_cor	tmp_7_8 = {0, 0, 1632, 0, 0};
-		t_cor	tmp_1_2 = {0, 0, 1632, 1224, 0};
-		t_cor	tmp_4_3 = {0, 0, 0, 1224, 0};
-		t_cor	tmp_5_6 = {0, 0, 0, 0, 0};
+	t_cor	tmp_7_8 = {0, 0, 1632, 0, 0};
+	t_cor	tmp_1_2 = {0, 0, 1632, 1224, 0};
+	t_cor	tmp_4_3 = {0, 0, 0, 1224, 0};
+	t_cor	tmp_5_6 = {0, 0, 0, 0, 0};
 
-		t_cor	tmp_8 = {0, 0, 1632, 332, 0};
-		t_cor	tmp_1 = {0, 0, 1632, 652, 0};
+	t_cor	tmp_8 = {0, 0, 1632, 332, 0};
+	t_cor	tmp_1 = {0, 0, 1632, 652, 0};
 
-		t_cor	tmp_2 = {0, 0, 836, 1224, 0};
-		t_cor	tmp_3 = {0, 0, 700, 1224, 0};
+	t_cor	tmp_2 = {0, 0, 836, 1224, 0};
+	t_cor	tmp_3 = {0, 0, 700, 1224, 0};
 
-		t_cor	tmp_4 = {0, 0, 6, 652, 0};
-		t_cor	tmp_5 = {0, 0, 0, 590, 0};
+	t_cor	tmp_4 = {0, 0, 6, 652, 0};
+	t_cor	tmp_5 = {0, 0, 0, 590, 0};
 
-		t_cor	tmp_6 = {0, 0, 796, 0, 0};
-		t_cor	tmp_7 = {0, 0, 826, 0, 0};
+	t_cor	tmp_6 = {0, 0, 796, 0, 0};
+	t_cor	tmp_7 = {0, 0, 826, 0, 0};
 
-		printf("hx : [%d] -- hy : [%d]\n", e->pla.hx, e->pla.hy);
+	printf("hx : [%d] -- hy : [%d]\n", e->pla.hx, e->pla.hy);
 	//horizontal && vertical
 	lines(tmp_start, tmp_1_8, e);
 	lines(tmp_start, tmp_6_7, e);
@@ -254,7 +254,7 @@ void	draw_me(t_env *e)
 	lines(tmp_start, tmp_7, e); // DOES NOT WORK !
 	lines(tmp_start, tmp_8, e);
 
-*/	
+/*	
 	int		x;
 	int		y;
  	y = -1;
@@ -270,5 +270,5 @@ void	draw_me(t_env *e)
 
 		}
 	}
-//	*/
+	*/
 }

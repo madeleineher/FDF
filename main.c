@@ -39,6 +39,7 @@ void		win(t_env *e)
 	e->pla.hx = e->w.wx / 2;
 	e->pla.hy = e->w.wy / 2;
 	e->hi = 10;
+	e->zo = 1;
 	e->iso_check = 1;
 	e->spax = 30;
 	if ((e->pla.lx * e->spax) > (e->w.wx - 100))

@@ -112,6 +112,7 @@ typedef struct		s_env
 	int				ml;
 	int				mx;
 	int				my;
+	int				zo;
 	int				rr;
 	int				rl;
 	int				hi;
