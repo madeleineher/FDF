@@ -15,246 +15,178 @@
 void	lines(t_cor co, t_cor nx, t_env *e)
 {
 	int	er;
-	// int inc = 1;
-	int	t_x = co.x2;
-	int	t_y = co.y2;
-	e->be.dx = abs(nx.x2 - co.x2);
-	e->be.dy = abs(nx.y2 - co.y2);
+	e->b.dx = abs(nx.x2 - co.x2);
+	e->b.dy = abs(nx.y2 - co.y2);
 	int copy_dx = nx.x2 - co.x2;
 	int copy_dy = nx.y2 - co.y2;
+	e->b.tdx = 2 * e->b.dx;
+	e->b.tdy = 2 * e->b.dy;
 
-	e->be.tdx = 2 * copy_dx;
-	e->be.tdy = 2 * copy_dy;
+	int	inc_x = (copy_dx > 0 ? 1 : -1);
+	int	inc_y = (copy_dy < 0 ? -1 : 1);
 
 	if (copy_dx > 0)
 	{
-		if (copy_dy != 0)
+		if (copy_dy > 0) // 1ere cadran	
 		{
-			if (copy_dy > 0) // 1st quadran	
+			er = (copy_dx >= (copy_dy * inc_y) ? copy_dx : copy_dy);
+			copy_dx = (er == copy_dx ? er * 2 : copy_dx * 2);
+			copy_dy = (er == copy_dy ? er * 2 : copy_dy * 2);
+			if (copy_dx >= copy_dy) // 1st octant // e est positif
 			{
-				er = (copy_dx >= copy_dy ? copy_dx : copy_dy);
-				if (copy_dx >= copy_dy) // 1st octant
+				while (e->b.t_x < nx.x2)
 				{
-					// er = copy_dx;
-					copy_dx = er * 2 ;
-					copy_dy = copy_dy * 2 ; // e is positive
-					while (t_x++ < nx.x2)
+					mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x++, e->b.t_y, 0xFFFFFF);
+					if ((er = er - copy_dy) < 0)
 					{
-						mlx_pixel_put(e->w.mp, e->w.wp, t_x, t_y, 0xFFFFFF);
-						if ((er = er - copy_dy) < 0)
-						{
-							t_y += 1;
-							er += copy_dx;
-						}
-					}
-				}
-				else // 2nd octant
-				{
-					// er = copy_dy;
-					copy_dy = er * 2 ; 
-					copy_dx = copy_dx * 2 ;  // e is positive
-					while (t_y++ < nx.y2)
-					{
-						mlx_pixel_put(e->w.mp, e->w.wp, t_x, t_y, 0xFFFFFF);
-						if ((er = er - copy_dx) < 0)
-						{
-							t_x += 1;
-							er += copy_dy;
-						}
+						e->b.t_y += inc_y;
+						er += copy_dx;
 					}
 				}
 			}
-			else if (copy_dy < 0)// 4th quadran
+			else // 2nd octant // e est positif
 			{
-				if (copy_dx >= (copy_dy * -1)) // 8th octant
+				while (e->b.t_y < nx.y2)
 				{
-					er = copy_dx;
-					copy_dx = er * 2;
-					copy_dy = copy_dy * 2 ;  // e is positive
-					while (t_x++ < nx.x2)
+					mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x, e->b.t_y++, 0xFFFFFF);
+					if ((er = er - copy_dx) < 0)
 					{
-						mlx_pixel_put(e->w.mp, e->w.wp, t_x, t_y, 0xFFFFFF);
-						if ((er = er + copy_dy) < 0)
-						{
-							t_y -= 1 ;
-							er += copy_dx;
-						}	
-					}
-				}
-				else 
-				{
-					er = copy_dy;
-					copy_dy = er * 2 ; 
-					copy_dx = copy_dx * 2 ;  // e is negative
-					while (t_y-- > nx.y2)
-					{
-						mlx_pixel_put(e->w.mp, e->w.wp, t_x, t_y, 0xFFFFFF);
-						if ((er = er + copy_dx) > 0)
-						{
-							t_x += 1;
-							er += copy_dy;
-						}
+						e->b.t_x += inc_x;
+						er += copy_dy;
 					}
 				}
 			}
 		}
-		else if (copy_dy == 0 && copy_dx > 0)// dy = 0 and dx > 0 // vertical towards the right
-			while (t_x < nx.x2) // until (x1 ← x1 + 1) = x
-				mlx_pixel_put(e->w.mp, e->w.wp, t_x++, t_y, 0xFFFFFF);
+		else if (copy_dy < 0) // 4th cadran
+		{
+			er = (copy_dx >= (copy_dy * inc_y) ? copy_dx : copy_dy);
+			copy_dx = (er == copy_dx ? er * 2 : copy_dx * 2);
+			copy_dy = (er == copy_dy ? er * 2 : copy_dy * 2);
+			if (copy_dx >= (copy_dy * inc_y)) // 8e octant  // e est positif
+			{
+				while (e->b.t_x < nx.x2)
+				{
+					mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x++, e->b.t_y, 0xFFFFFF);
+					if ((er = er + copy_dy) < 0)
+					{
+						e->b.t_y += inc_y;
+						er += copy_dx;
+					}	
+				}
+			}
+			else // e est négatif
+			{
+				while (e->b.t_y > nx.y2)
+				{
+					mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x, e->b.t_y--, 0xFFFFFF);
+					if ((er = er + copy_dx) > 0)
+					{
+						e->b.t_x += inc_x;
+						er += copy_dy;
+					}
+				}
+			}
+		}
 	}
 	else if (copy_dx < 0)
 	{
-		if (copy_dy != 0)
+		if (copy_dy > 0) // 2eme quadran
 		{
-			if (copy_dy > 0) // 2nd quadran
+			er = ((copy_dx * inc_x) >= copy_dy ? copy_dx : copy_dy);
+			copy_dx = (er == copy_dx ? er * 2 : copy_dx * 2);
+			copy_dy = (er == copy_dy ? er * 2 : copy_dy * 2);
+			if ((copy_dx * inc_x) >= copy_dy) // 4e octant // e est négatif
 			{
-				er = ((copy_dx * -1) >= copy_dy ? copy_dx : copy_dy);
-				copy_dx = (er == copy_dx ? er * 2 : copy_dx * 2);
-				copy_dy = (er == copy_dy ? er * 2 : copy_dy * 2);
-				if ((copy_dx * -1) >= copy_dy) // 4th octant // e is negative
+				while (e->b.t_x > nx.x2)
 				{
-					while (t_x > nx.x2)
+					mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x--, e->b.t_y, 0xFFFFFF);
+					if ((er = er + copy_dy) >= 0)
 					{
-						mlx_pixel_put(e->w.mp, e->w.wp, t_x--, t_y, 0xFFFFFF);  // missing pixel is here ~*
-						if ((er = er + copy_dy) >= 0)
-						{
-							t_y += 1;
-							er += copy_dx;
-						}
-					}
-				}
-				else // 3rd octant // e is positive
-				{
-					while (t_y++ < nx.y2)
-					{
-						mlx_pixel_put(e->w.mp, e->w.wp, t_x, t_y, 0xFFFFFF);
-						if ((er = er + copy_dx) <= 0)
-						{
-							t_x -= 1;
-							er += copy_dy;
-						}
+						e->b.t_y += inc_y;
+						er += copy_dx;
 					}
 				}
 			}
-			else // dy < 0 (et dx < 0) // 3rd quadran
+			else // 3e octant // e est positif
 			{
-				er = (copy_dx <= copy_dy ? copy_dx : copy_dy);
-				copy_dx = (er == copy_dx ? er * 2 : copy_dx * 2);
-				copy_dy = (er == copy_dy ? er * 2 : copy_dy * 2);
-				if (copy_dx <= copy_dy)
-				{ // e is negative
-					while (t_x-- > nx.x2)
+				while (e->b.t_y < nx.y2)
+				{
+					mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x, e->b.t_y++, 0xFFFFFF);
+					if ((er = er + copy_dx) <= 0)
 					{
-						mlx_pixel_put(e->w.mp, e->w.wp, t_x, t_y, 0xFFFFFF);
-						if ((er = er - copy_dy) >= 0)
-						{
-							t_y -= 1;
-							er += copy_dx;
-						}
-					}		
-				}
-				else // 6th octant
-				{// e is negtive
-					while (t_y-- > nx.y2)
-					{
-						mlx_pixel_put(e->w.mp, e->w.wp, t_x, t_y, 0xFFFFFF);
-						if ((er = er - copy_dx) >= 0)
-						{
-							t_x -= 1;
-							er += copy_dy;
-						}
+						e->b.t_x += inc_x;
+						er += copy_dy;
 					}
 				}
 			}
 		}
-		else if (copy_dy == 0)
-			while (t_x > nx.x2) //until (x1 ← x1 - 1) = x2; 
-				mlx_pixel_put(e->w.mp, e->w.wp, t_x--, t_y, 0xFFFFFF);
+		else // 3e cadran
+		{
+			er = ((copy_dx * inc_x) <= copy_dy ? copy_dx : copy_dy);
+			copy_dx = (er == copy_dx ? er * 2 : copy_dx * 2);
+			copy_dy = (er == copy_dy ? er * 2 : copy_dy * 2);
+			if (copy_dx <= copy_dy) // e est négatif
+			{
+				while (e->b.t_x > nx.x2)
+				{
+					mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x--, e->b.t_y, 0xFFFFFF);
+					if ((er = er - copy_dy) >= 0)
+					{
+						e->b.t_y += inc_y;
+						er += copy_dx;
+					}
+				}		
+			}
+			else // 6e octant // e est négatif
+			{
+				while (e->b.t_y > nx.y2)
+				{
+					mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x, e->b.t_y--, 0xFFFFFF);
+					if ((er = er - copy_dx) >= 0)
+					{
+						e->b.t_x += inc_x;
+						er += copy_dy;
+					}
+				}
+			}
+		}
 	}
-
 }
 
 void	parse_lines(t_cor co, t_cor nx, t_env *e)
 {
-	int	t_x = co.x2;
-	int	t_y = co.y2;
-	int copy_dx = nx.x2 - co.x2;
+	e->b.t_x = co.x2;
+	e->b.t_y = co.y2;
 	int copy_dy = nx.y2 - co.y2;
+	int copy_dx = nx.x2 - co.x2;
 
-	if (copy_dx != 0)
-		lines(co, nx, e);
-	else if (copy_dx == 0)
+	if ((nx.x2 - co.x2) != 0)
 	{
-		if (copy_dx == 0)
-		{	
-			if (copy_dy > 0)	
-				while (t_y < nx.y2)
-					mlx_pixel_put(e->w.mp, e->w.wp, t_x, t_y++, 0xFFFFFF);
-			else if (copy_dy < 0)
-				while (t_y > nx.y2)
-					mlx_pixel_put(e->w.mp, e->w.wp, t_x, t_y--, 0xFFFFFF);
-		}
+		if (copy_dy == 0 && copy_dx > 0)
+			while (e->b.t_x < nx.x2)
+				mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x++, e->b.t_y, 0xFFFFFF);
+		else if (copy_dy == 0 && copy_dx < 0)
+			while (e->b.t_x > nx.x2)
+				mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x--, e->b.t_y, 0xFFFFFF);
+		else
+			lines(co, nx, e);
 	}
-
+	else if ((nx.x2 - co.x2) == 0)
+	{
+		if (copy_dy > 0)
+			while (e->b.t_y < nx.y2)
+				mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x, e->b.t_y++, 0xFFFFFF);
+		else if (copy_dy < 0)
+			while (e->b.t_y > nx.y2)
+				mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x, e->b.t_y--, 0xFFFFFF);
+	}	
 }
 
 void	draw_me(t_env *e)
 {
-/*
-	t_cor	tmp_start = {0, 0, e->pla.hx, e->pla.hy, 0};
-
-	t_cor	tmp_1_8 = {0, 0, 1632, 612, 0};
-	t_cor	tmp_6_7 = {0, 0, 816, 0, 0};
-	t_cor	tmp_5_4 = {0, 0, 0, 612, 0};
-	t_cor	tmp_3_2 = {0, 0, 816, 1224, 0};
-
-	t_cor	tmp_7_8 = {0, 0, 1632, 0, 0};
-	t_cor	tmp_1_2 = {0, 0, 1632, 1224, 0};
-	t_cor	tmp_4_3 = {0, 0, 0, 1224, 0};
-	t_cor	tmp_5_6 = {0, 0, 0, 0, 0};
-
-	t_cor	tmp_8 = {0, 0, 1632, 332, 0};
-	t_cor	tmp_1 = {0, 0, 1632, 652, 0};
-
-	t_cor	tmp_2 = {0, 0, 836, 1224, 0};
-	t_cor	tmp_3 = {0, 0, 700, 1224, 0};
-
-	t_cor	tmp_4 = {0, 0, 6, 652, 0};
-	t_cor	tmp_5 = {0, 0, 0, 590, 0};
-
-	t_cor	tmp_6 = {0, 0, 796, 0, 0};
-	t_cor	tmp_7 = {0, 0, 826, 0, 0};
-
-	printf("hx : [%d] -- hy : [%d]\n", e->pla.hx, e->pla.hy);
-	//horizontal && vertical
-	lines(tmp_start, tmp_1_8, e);
-	lines(tmp_start, tmp_6_7, e);
-	lines(tmp_start, tmp_5_4, e);
-	lines(tmp_start, tmp_3_2, e);
-
-	//diagonal
-	lines(tmp_start, tmp_7_8, e);
-	lines(tmp_start, tmp_1_2, e);
-	lines(tmp_start, tmp_4_3, e);
-	lines(tmp_start, tmp_5_6, e);
-
-	printf("\n\n--------------------------------------------------------------------------------\n\n");
-
-	lines(tmp_start, tmp_1, e);
-	lines(tmp_start, tmp_2, e);
-
-	lines(tmp_start, tmp_3, e);
-	lines(tmp_start, tmp_4, e);
-
-	lines(tmp_start, tmp_5, e);
-	lines(tmp_start, tmp_6, e);
-
-	lines(tmp_start, tmp_7, e); 
-	lines(tmp_start, tmp_8, e);
-*/
-///*	
 	int		x;
 	int		y;
+ 
  	y = -1;
 	while (++y < e->pla.ly)
 	{
@@ -268,5 +200,4 @@ void	draw_me(t_env *e)
 
 		}
 	}
-//*/
 }
