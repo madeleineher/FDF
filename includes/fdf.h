@@ -6,7 +6,7 @@
 /*   By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 08:41:35 by mhernand          #+#    #+#             */
-/*   Updated: 2019/05/01 20:32:53 by mhernand         ###   ########.fr       */
+/*   Updated: 2019/05/08 19:13:20 by mhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@
 # define KEY_2	19
 # define M		46
 # define L		37
+# define K		40
+# define N		45
 
 typedef struct		s_ll
 {
@@ -42,13 +44,6 @@ typedef struct		s_ll
 	char			**content;
 	struct s_ll		*next;
 }					t_ll;
-
-typedef struct		s_rgb
-{
-	int				r;
-	int				g;
-	int				b;
-}					t_rgb;
 
 typedef struct		s_cor
 {
@@ -75,10 +70,11 @@ typedef struct		s_bre
 	int				dy;
 	int				tdx;
 	int				tdy;
-	int				tmp_y;
-	int				tmp_x;
-	int				dec;
+	int				t_y;
+	int				t_x;
 	int				er2;
+	int				ix;
+	int				iy;
 }					t_bre;
 
 typedef struct		s_win
@@ -117,13 +113,13 @@ typedef struct		s_env
 	int				rl;
 	int				hi;
 	int				tp;
+
 	int				iso_check;
 	t_win			w; // my window and mlx variables
 	t_img			i; // for my images !
 	t_ll			*lines; // linked list of strings 
-	t_rgb			rgb; // colours
 	t_cor			**co; // ALL OF MY INFO 'POINTS' !! 
-	t_bre			be; // bresenham algo
+	t_bre			b; // bresenham algo
 	t_pl			pla;
 }					t_env;
 

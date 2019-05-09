@@ -22,13 +22,10 @@ void	move(t_env *e)
 		e->my -= 10;
 	if (e->ks[S])
 		e->my += 10;
-	if (e->mx < -e->pla.hx || e->my > -e->pla.hy)
-	{
-		if (e->mx > 2 * e->w.wx || e->mx < -e->w.wx)
-			e->mx = 0;
-		if (e->my >  2 * e->w.wy || e->my < -e->w.wy)
-			e->mx = 0;
-	}
+	if (e->mx > 2000 || e->mx < -2000)
+		e->mx = 0;
+	if (e->my > 2000 || e->my < -2000)
+		e->my = 0;
 }
 
 void	space(t_env *e)
@@ -43,14 +40,35 @@ void	space(t_env *e)
 		e->spax -= 1;
 		e->spay -= 1;
 	}
+	if ((e->spax > 150 && e->spay > 150) || (e->spax < -150 && e->spay < -150))
+	{
+		e->spax = 0;
+		e->spay = 0;
+	}
 }
+
+// void	rotate(t_env *e)
+// {
+// 	if (e->ks[M])
+// 	{
+// 		e->spax += 1;
+// 		e->spay += 1;
+// 	}
+// 	if (e->ks[L])
+// 	{
+// 		e->spax -= 1;
+// 		e->spay -= 1;
+// 	}
+// }
 
 void	depth(t_env *e)
 {
 	if (e->ks[Q])
-		e->hi += 2;
+		e->hi += 1;
 	if (e->ks[E])
-		e->hi -= 2;
+		e->hi -= 1;
+	if (e->hi < -100 || e->hi > 100)
+		e->hi = 0;
 }
 
 int		touch(t_env *e)
@@ -63,49 +81,25 @@ int		touch(t_env *e)
 		exit(0);
 	}
 	if (e->ks[A] || e->ks[D] || e->ks[W] || e->ks[S])
-	{
 		move(e);
-		projection(e);
-		mlx_clear_window(e->w.mp, e->w.wp);
-		mlx_put_image_to_window(e->w.mp, e->w.wp, e->i.img, e->w.wx, e->w.wy);
-		draw_me(e);
-		tmp(e);
-	}
 	if (e->ks[M] || e->ks[L])
-	{
 		space(e);
-		projection(e);
-		mlx_clear_window(e->w.mp, e->w.wp);
-		mlx_put_image_to_window(e->w.mp, e->w.wp, e->i.img, e->w.wx, e->w.wy);
-		draw_me(e);
-		tmp(e);
-	}
+	// if (e->ks[K] || e->ks[N])
+	// 	rotate(e);
 	if (e->ks[Q] || e->ks[E])
-	{
 		depth(e);
-		projection(e);
-		mlx_clear_window(e->w.mp, e->w.wp);
-		mlx_put_image_to_window(e->w.mp, e->w.wp, e->i.img, e->w.wx, e->w.wy);
-		draw_me(e);
-		tmp(e);
-	}
-
+	// if (e->ks[C])
+	// 	couleur(e);
 	if (e->ks[KEY_1])
-	{
 		e->iso_check = 1;
-		projection(e);
-		mlx_clear_window(e->w.mp, e->w.wp);
-		mlx_put_image_to_window(e->w.mp, e->w.wp, e->i.img, e->w.wx, e->w.wy);
-		draw_me(e);
-		tmp(e);
-	}
 	if (e->ks[KEY_2])
+		e->iso_check = 2;
+	if (e->ks[KEY_1] || e->ks[KEY_2] || e->ks[Q] || e->ks[E] || e->ks[M] 
+		|| e->ks[L] || e->ks[A] || e->ks[D] || e->ks[W] || e->ks[S])
 	{
-		e->iso_check = 2; 
 		projection(e);
 		mlx_clear_window(e->w.mp, e->w.wp);
-		mlx_put_image_to_window(e->w.mp, e->w.wp, e->i.img, e->w.wx, e->w.wy);
-		draw_me(e);
+		// mlx_put_image_to_window(e->w.mp, e->w.wp, e->i.img, 0, 0);
 		tmp(e);
 	}
 	return (0);

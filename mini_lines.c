@@ -102,6 +102,19 @@ void	lines(t_cor co, t_cor nx, t_env *e, int c)
 				}
 			}
 		}
+		else if (copy_dx <= copy_dy && copy_dy < 0)
+		{
+				while (e->b.t_x != nx.x2) // 5th octant 
+				{
+					mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x, e->b.t_y, 0xFFFFFF);
+					e->b.t_x += inc_x;
+					if ((er = er - copy_dy) >= 0)
+					{
+						e->b.t_y += inc_y;
+						er += copy_dx;
+					}
+				}		
+		}
 		else if ((copy_dx * inc_x) <= (copy_dy * inc_y) && copy_dy > 0)// 3e octant // e est positif
 		{
 			while (e->b.t_y != nx.y2)
@@ -115,19 +128,6 @@ void	lines(t_cor co, t_cor nx, t_env *e, int c)
 					er += copy_dy;
 				}
 			}
-		}
-		else if (copy_dx <= copy_dy && copy_dy < 0)// 3e cadran
-		{
-				while (e->b.t_x != nx.x2) // 5th octant 
-				{
-					mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x, e->b.t_y, 0xFFFFFF);
-					e->b.t_x += inc_x;
-					if ((er = er - copy_dy) >= 0)
-					{
-						e->b.t_y += inc_y;
-						er += copy_dx;
-					}
-				}		
 		}
 		else if (copy_dx >= copy_dy && copy_dy < 0)// 6e octant // e est négatif
 		{

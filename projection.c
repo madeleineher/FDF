@@ -23,7 +23,7 @@ void	iso(t_env *e, int y)
 		{
 			if (e->iso == 0)
 				e->iso = e->pla.hx - ((y - x) * (e->spax / 2) + e->pla.px);
-			e->co[y][x].x2 = (y - x) * (e->spax / 2) + e->pla.px + e->iso + e->ml + e->mx;
+			e->co[y][x].x2 = (x - y) * (e->spax / 2) + e->pla.px + e->iso + e->ml + e->mx;
 			e->co[y][x].y2 = (x + y) * (e->spay / 2) + e->pla.py + e->ml + e->my - (e->co[y][x].z * e->hi);
 		}
 	}

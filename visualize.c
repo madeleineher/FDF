@@ -34,8 +34,9 @@ int		key_press(int key, t_env *e)
 
 int		tmp(t_env *e)
 {
-	texting(e);
 	draw_me(e);
+	mlx_put_image_to_window(e->w.mp, e->w.wp, e->i.img, 0, 0);
+	texting(e);
 	mlx_hook(e->w.wp, 2, 1L << 2, key_press, e); // these need to be separate from above 
 	mlx_hook(e->w.wp, 3, 1L << 3, key_release, e);
 	mlx_hook(e->w.wp, 17, 1L << 17, quit, e);

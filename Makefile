@@ -6,7 +6,7 @@
 #    By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/17 16:55:29 by mhernand          #+#    #+#              #
-#    Updated: 2019/04/30 17:37:40 by mhernand         ###   ########.fr        #
+#    Updated: 2019/05/08 11:32:49 by mhernand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ SRCS = main.c\
 	   touch.c\
 	   points.c\
 	   projection.c\
-	   mini_lines.c
+	   attempt_9000.c
 
 OBJECTS = $(SRCS:.c=.o)
 
@@ -36,7 +36,10 @@ MINI_F = minilibx_macos/
 
 LIBMLX = -L ./minilibx_macos/ -lmlx -framework OpenGL -framework Appkit
 
-all:$(NAME)
+all: superfast
+
+superfast:
+	make -j8 $(NAME)
 
 ### REMOVE -g3 FLAGGGGGGGGGGG!
 

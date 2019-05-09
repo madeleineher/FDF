@@ -22,7 +22,6 @@ t_cor	*minico(t_ll *link, t_cor *mi, t_env *e, int y)
 		return (NULL);
 	while (link->content[x])
 	{
-		printf("%s ", link->content[x]);
 		mi[x].x1 = x;
 		mi[x].y1 = y;
 		mi[x].z = ft_atoi(link->content[x]);
@@ -50,7 +49,6 @@ int		points(t_env *e)
 		if (!(e->co[y]))
 			return (0);
 		tp = tp->next;
-		printf("\n");
 		y++;
 	}
 	delevr(e, 1);

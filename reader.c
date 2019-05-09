@@ -21,7 +21,8 @@ int			check_chars(char *line)
 	{
 		if (line[i] == ',' || line[i] == '-' || line[i] == 'F' || line[i] == 'X'
 			   	|| line[i] == 'x' || line[i] == 'f' || line[i] == ' ' 
-				|| line[i] == '\n' || (line[i] > 47 && line[i] < 58))
+				|| line[i] == '\n' || (line[i] > 47 && line[i] < 58)
+				|| line[i] == 'a' || line[i] == 'b' || line[i] == 'c')
 			return (1);
 		else
 			return (-1);

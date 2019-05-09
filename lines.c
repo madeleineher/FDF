@@ -227,7 +227,7 @@ void	draw_me(t_env *e)
 	t_cor	tmp_6 = {0, 0, 796, 0, 0};
 	t_cor	tmp_7 = {0, 0, 826, 0, 0};
 
-	printf("hx : [%d] -- hy : [%d]\n", e->pla.hx, e->pla.hy);
+	// printf("hx : [%d] -- hy : [%d]\n", e->pla.hx, e->pla.hy);
 	//horizontal && vertical
 	lines(tmp_start, tmp_1_8, e);
 	lines(tmp_start, tmp_6_7, e);
@@ -240,7 +240,7 @@ void	draw_me(t_env *e)
 	lines(tmp_start, tmp_4_3, e);
 	lines(tmp_start, tmp_5_6, e);
 
-	printf("\n\n--------------------------------------------------------------------------------\n\n");
+	// printf("\n\n--------------------------------------------------------------------------------\n\n");
 
 	lines(tmp_start, tmp_1, e);
 	lines(tmp_start, tmp_2, e);
@@ -254,7 +254,7 @@ void	draw_me(t_env *e)
 	lines(tmp_start, tmp_7, e); // DOES NOT WORK !
 	lines(tmp_start, tmp_8, e);
 
-/*	
+	
 	int		x;
 	int		y;
  	y = -1;
@@ -270,5 +270,4 @@ void	draw_me(t_env *e)
 
 		}
 	}
-	*/
 }
