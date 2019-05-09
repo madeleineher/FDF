@@ -20,6 +20,15 @@ int		color_me(t_cor co, t_cor nx, t_env *e)
 	return (0);
 }
 
+void	swap_me(int *one, int *two)
+{
+	int	tmp;
+
+	tmp = *one;
+	*one = *two;
+	*two = tmp;
+}
+
 void	lines(t_cor co, t_cor nx, t_env *e, int c)
 {
 	(void)c;
@@ -38,12 +47,13 @@ void	lines(t_cor co, t_cor nx, t_env *e, int c)
 	copy_dy = (er == copy_dy ? er * 2 : copy_dy * 2);
 	if (copy_dx > 0)
 	{
-		if ((copy_dx * inc_x) >= (copy_dy * inc_y) && copy_dy > 0) // 1st octant // e est positif
+		if ((copy_dx * inc_x) >= (copy_dy * inc_y)) // 1st octant // 8th octant // e est positif
 		{
-			while (e->b.t_x < nx.x2)
+			while (e->b.t_x != nx.x2)
 			{
-				mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x++, e->b.t_y, 0xFFFFFF);
-				if ((er = er - copy_dy) < 0)
+				mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x, e->b.t_y, 0xFFFFFF);
+				e->b.t_x += inc_x;
+				if ((er = er - (copy_dy * inc_y)) < 0)
 				{
 					e->b.t_y += inc_y;
 					er += copy_dx;
@@ -52,34 +62,24 @@ void	lines(t_cor co, t_cor nx, t_env *e, int c)
 		}
 		else if ((copy_dx * inc_x) <= (copy_dy * inc_y) && copy_dy > 0)// 2nd octant // e est positif
 		{
-			while (e->b.t_y < nx.y2)
+			while (e->b.t_y != nx.y2)
 			{
-				mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x, e->b.t_y++, 0xFFFFFF);
-				if ((er = er - copy_dx) < 0)
+				mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x, e->b.t_y, 0xFFFFFF);
+				e->b.t_y += inc_y;
+				if ((er = er - copy_dx) < 0)  // diff here ~
 				{
 					e->b.t_x += inc_x;
 					er += copy_dy;
 				}
 			}
 		}
-		if ((copy_dx * inc_x) >= (copy_dy * inc_y) && copy_dy < 0) // 8e octant  // e est positif
-		{
-			while (e->b.t_x != nx.x2)
-			{
-				mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x++, e->b.t_y, 0xFFFFFF);
-				if ((er = er + copy_dy) < 0)
-				{
-					e->b.t_y += inc_y;
-					er += copy_dx;
-				}	
-			}
-		}
-		else if ((copy_dx * inc_x) <= (copy_dy * inc_y) && copy_dy < 0) // e est négatif
+		else if ((copy_dx * inc_x) <= (copy_dy * inc_y) && copy_dy < 0) // 7eme octant // e est négatif
 		{
 			while (e->b.t_y != nx.y2)
 			{
-				mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x, e->b.t_y--, 0xFFFFFF);
-				if ((er = er + copy_dx) > 0)
+				mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x, e->b.t_y, 0xFFFFFF);
+				e->b.t_y += inc_y;
+				if ((er = er + copy_dx) > 0)  // diff here ~
 				{
 					e->b.t_x += inc_x;
 					er += copy_dy;
@@ -93,7 +93,8 @@ void	lines(t_cor co, t_cor nx, t_env *e, int c)
 		{
 			while (e->b.t_x > nx.x2)
 			{
-				mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x--, e->b.t_y, 0xFFFFFF);
+				mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x, e->b.t_y, 0xFFFFFF);
+				e->b.t_x += inc_x;
 				if ((er = er + copy_dy) >= 0)
 				{
 					e->b.t_y += inc_y;
@@ -103,10 +104,11 @@ void	lines(t_cor co, t_cor nx, t_env *e, int c)
 		}
 		else if ((copy_dx * inc_x) <= (copy_dy * inc_y) && copy_dy > 0)// 3e octant // e est positif
 		{
-			while (e->b.t_y < nx.y2)
+			while (e->b.t_y != nx.y2)
 			{
 				//e->i.img[e->b.t_x + e->w.wx * e->b.t_y] = color_me(0xFFFFFF); // this needs to be done everywhere
-				mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x, e->b.t_y++, 0xFFFFFF); // take this out & replace with above line
+				mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x, e->b.t_y, 0xFFFFFF); // take this out & replace with above line
+				e->b.t_y += inc_y;
 				if ((er = er + copy_dx) <= 0)
 				{
 					e->b.t_x += inc_x;
@@ -116,9 +118,10 @@ void	lines(t_cor co, t_cor nx, t_env *e, int c)
 		}
 		else if (copy_dx <= copy_dy && copy_dy < 0)// 3e cadran
 		{
-				while (e->b.t_x > nx.x2) // 5th octant 
+				while (e->b.t_x != nx.x2) // 5th octant 
 				{
-					mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x--, e->b.t_y, 0xFFFFFF);
+					mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x, e->b.t_y, 0xFFFFFF);
+					e->b.t_x += inc_x;
 					if ((er = er - copy_dy) >= 0)
 					{
 						e->b.t_y += inc_y;
@@ -128,9 +131,10 @@ void	lines(t_cor co, t_cor nx, t_env *e, int c)
 		}
 		else if (copy_dx >= copy_dy && copy_dy < 0)// 6e octant // e est négatif
 		{
-			while (e->b.t_y > nx.y2)
+			while (e->b.t_y != nx.y2)
 			{
-				mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x, e->b.t_y--, 0xFFFFFF);
+				mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x, e->b.t_y, 0xFFFFFF);
+				e->b.t_y += inc_y;
 				if ((er = er - copy_dx) >= 0)
 				{
 					e->b.t_x += inc_x;
