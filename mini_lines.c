@@ -27,12 +27,10 @@ void	lines(t_cor co, t_cor nx, t_env *e)
 
 	if (copy_dx > 0)
 	{
-		if (copy_dy > 0) // 1ere cadran	
-		{
-			er = (copy_dx >= (copy_dy * inc_y) ? copy_dx : copy_dy);
-			copy_dx = (er == copy_dx ? er * 2 : copy_dx * 2);
-			copy_dy = (er == copy_dy ? er * 2 : copy_dy * 2);
-			if (copy_dx >= copy_dy) // 1st octant // e est positif
+		er = (copy_dx >= (copy_dy * inc_y) ? copy_dx : copy_dy);
+		copy_dx = (er == copy_dx ? er * 2 : copy_dx * 2);
+		copy_dy = (er == copy_dy ? er * 2 : copy_dy * 2);
+		if (copy_dx >= copy_dy && copy_dy > 0) // 1st octant // e est positif
 			{
 				while (e->b.t_x < nx.x2)
 				{
@@ -44,7 +42,7 @@ void	lines(t_cor co, t_cor nx, t_env *e)
 					}
 				}
 			}
-			else // 2nd octant // e est positif
+			else if (copy_dx <= copy_dy && copy_dy > 0)// 2nd octant // e est positif
 			{
 				while (e->b.t_y < nx.y2)
 				{
@@ -56,77 +54,63 @@ void	lines(t_cor co, t_cor nx, t_env *e)
 					}
 				}
 			}
-		}
-		else if (copy_dy < 0) // 4th cadran
+		if (copy_dx >= (copy_dy * inc_y) && copy_dy < 0) // 8e octant  // e est positif
 		{
-			er = (copy_dx >= (copy_dy * inc_y) ? copy_dx : copy_dy);
-			copy_dx = (er == copy_dx ? er * 2 : copy_dx * 2);
-			copy_dy = (er == copy_dy ? er * 2 : copy_dy * 2);
-			if (copy_dx >= (copy_dy * inc_y)) // 8e octant  // e est positif
+			while (e->b.t_x != nx.x2)
 			{
-				while (e->b.t_x < nx.x2)
+				mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x++, e->b.t_y, 0xFFFFFF);
+				if ((er = er + copy_dy) < 0)
 				{
-					mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x++, e->b.t_y, 0xFFFFFF);
-					if ((er = er + copy_dy) < 0)
-					{
-						e->b.t_y += inc_y;
-						er += copy_dx;
-					}	
-				}
+					e->b.t_y += inc_y;
+					er += copy_dx;
+				}	
 			}
-			else // e est négatif
+		}
+		else if (copy_dx <= (copy_dy * inc_y) && copy_dy < 0) // e est négatif
+		{
+			while (e->b.t_y != nx.y2)
 			{
-				while (e->b.t_y > nx.y2)
+				mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x, e->b.t_y--, 0xFFFFFF);
+				if ((er = er + copy_dx) > 0)
 				{
-					mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x, e->b.t_y--, 0xFFFFFF);
-					if ((er = er + copy_dx) > 0)
-					{
-						e->b.t_x += inc_x;
-						er += copy_dy;
-					}
+					e->b.t_x += inc_x;
+					er += copy_dy;
 				}
 			}
 		}
 	}
 	else if (copy_dx < 0)
 	{
-		if (copy_dy > 0) // 2eme quadran
+		er = ((copy_dx * inc_x) <= copy_dy ? copy_dx : copy_dy);
+		copy_dx = (er == copy_dx ? er * 2 : copy_dx * 2);
+		copy_dy = (er == copy_dy ? er * 2 : copy_dy * 2);
+		if ((copy_dx * inc_x) >= copy_dy && copy_dy > 0) // 4e octant // e est négatif
 		{
-			er = ((copy_dx * inc_x) >= copy_dy ? copy_dx : copy_dy);
-			copy_dx = (er == copy_dx ? er * 2 : copy_dx * 2);
-			copy_dy = (er == copy_dy ? er * 2 : copy_dy * 2);
-			if ((copy_dx * inc_x) >= copy_dy) // 4e octant // e est négatif
+			while (e->b.t_x > nx.x2)
 			{
-				while (e->b.t_x > nx.x2)
+				mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x--, e->b.t_y, 0xFFFFFF);
+				if ((er = er + copy_dy) >= 0)
 				{
-					mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x--, e->b.t_y, 0xFFFFFF);
-					if ((er = er + copy_dy) >= 0)
-					{
-						e->b.t_y += inc_y;
-						er += copy_dx;
-					}
-				}
-			}
-			else // 3e octant // e est positif
-			{
-				while (e->b.t_y < nx.y2)
-				{
-					mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x, e->b.t_y++, 0xFFFFFF);
-					if ((er = er + copy_dx) <= 0)
-					{
-						e->b.t_x += inc_x;
-						er += copy_dy;
-					}
+					e->b.t_y += inc_y;
+					er += copy_dx;
 				}
 			}
 		}
-		else // 3e cadran
+		else if ((copy_dx * inc_x) <= copy_dy && copy_dy > 0)// 3e octant // e est positif
 		{
-			er = ((copy_dx * inc_x) <= copy_dy ? copy_dx : copy_dy);
-			copy_dx = (er == copy_dx ? er * 2 : copy_dx * 2);
-			copy_dy = (er == copy_dy ? er * 2 : copy_dy * 2);
-			if (copy_dx <= copy_dy) // e est négatif
+			while (e->b.t_y < nx.y2)
 			{
+				//e->i.img[e->b.t_x + e->w.wx * e->b.t_y] = color_me(0xFFFFFF); // this needs to be done everywhere
+				mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x, e->b.t_y++, 0xFFFFFF); // take this out & replace with above line
+				if ((er = er + copy_dx) <= 0)
+				{
+					e->b.t_x += inc_x;
+					er += copy_dy;
+				}
+			}
+		}
+		else if (copy_dx <= copy_dy && copy_dy < 0)// 3e cadran
+		{
 				while (e->b.t_x > nx.x2)
 				{
 					mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x--, e->b.t_y, 0xFFFFFF);
@@ -136,17 +120,16 @@ void	lines(t_cor co, t_cor nx, t_env *e)
 						er += copy_dx;
 					}
 				}		
-			}
-			else // 6e octant // e est négatif
+		}
+		else if (copy_dx >= copy_dy && copy_dy < 0)// 6e octant // e est négatif
+		{
+			while (e->b.t_y > nx.y2)
 			{
-				while (e->b.t_y > nx.y2)
+				mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x, e->b.t_y--, 0xFFFFFF);
+				if ((er = er - copy_dx) >= 0)
 				{
-					mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x, e->b.t_y--, 0xFFFFFF);
-					if ((er = er - copy_dx) >= 0)
-					{
-						e->b.t_x += inc_x;
-						er += copy_dy;
-					}
+					e->b.t_x += inc_x;
+					er += copy_dy;
 				}
 			}
 		}
@@ -184,6 +167,57 @@ void	parse_lines(t_cor co, t_cor nx, t_env *e)
 
 void	draw_me(t_env *e)
 {
+	// t_cor	tmp_start = {0, 0, e->pla.hx, e->pla.hy, 0};
+
+	// t_cor	tmp_1_8 = {0, 0, 1632, 612, 0};
+	// t_cor	tmp_6_7 = {0, 0, 816, 0, 0};
+	// t_cor	tmp_5_4 = {0, 0, 0, 612, 0};
+	// t_cor	tmp_3_2 = {0, 0, 816, 1224, 0};
+
+	// t_cor	tmp_7_8 = {0, 0, 1632, 0, 0};
+	// t_cor	tmp_1_2 = {0, 0, 1632, 1224, 0};
+	// t_cor	tmp_4_3 = {0, 0, 0, 1224, 0};
+	// t_cor	tmp_5_6 = {0, 0, 0, 0, 0};
+
+	// t_cor	tmp_8 = {0, 0, 1632, 332, 0};
+	// t_cor	tmp_1 = {0, 0, 1632, 652, 0};
+
+	// t_cor	tmp_2 = {0, 0, 836, 1224, 0};
+	// t_cor	tmp_3 = {0, 0, 700, 1224, 0};
+
+	// t_cor	tmp_4 = {0, 0, 6, 652, 0};
+	// t_cor	tmp_5 = {0, 0, 0, 590, 0};
+
+	// t_cor	tmp_6 = {0, 0, 796, 0, 0};
+	// t_cor	tmp_7 = {0, 0, 826, 0, 0};
+
+	// // printf("hx : [%d] -- hy : [%d]\n", e->pla.hx, e->pla.hy);
+	// //horizontal && vertical
+	// lines(tmp_start, tmp_1_8, e);
+	// lines(tmp_start, tmp_6_7, e);
+	// lines(tmp_start, tmp_5_4, e);
+	// lines(tmp_start, tmp_3_2, e);
+
+	// //diagonal
+	// lines(tmp_start, tmp_7_8, e);
+	// lines(tmp_start, tmp_1_2, e);
+	// lines(tmp_start, tmp_4_3, e);
+	// lines(tmp_start, tmp_5_6, e);
+
+	// // printf("\n\n--------------------------------------------------------------------------------\n\n");
+
+	// lines(tmp_start, tmp_1, e);
+	// lines(tmp_start, tmp_2, e);
+
+	// lines(tmp_start, tmp_3, e);
+	// lines(tmp_start, tmp_4, e);
+
+	// lines(tmp_start, tmp_5, e);
+	// lines(tmp_start, tmp_6, e);
+
+	// lines(tmp_start, tmp_7, e); // DOES NOT WORK !
+	// lines(tmp_start, tmp_8, e);
+
 	int		x;
 	int		y;
  
