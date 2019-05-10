@@ -6,14 +6,14 @@
 /*   By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 16:04:07 by mhernand          #+#    #+#             */
-/*   Updated: 2019/05/08 19:13:28 by mhernand         ###   ########.fr       */
+/*   Updated: 2019/05/10 17:20:39 by mhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/fdf.h"
 
 int			ft_bad(int i)
-{	
+{
 	if (i == 1)
 		ft_putendl("usage: ./fdf map_file.fdf");
 	if (i == 2)
@@ -22,11 +22,11 @@ int			ft_bad(int i)
 		ft_putendl("error: could not read map.");
 	if (i == 4)
 		ft_putendl("error: poor map.");
-	if (i == 5) 
+	if (i == 5)
 		ft_putendl("error: bad variable in map.");
-	if (i == 6) 
+	if (i == 6)
 		ft_putendl("error: could not create visualizer.");
-	if (i == 7) 
+	if (i == 7)
 		ft_putendl("error: malloc returned NULL.");
 	exit(1);
 	return (-1);
@@ -38,7 +38,7 @@ void		win(t_env *e)
 	e->w.wy = 1224;
 	e->pla.hx = e->w.wx / 2;
 	e->pla.hy = e->w.wy / 2;
-	e->hi = 10;
+	e->hi = 5; // height for the Z
 	e->zo = 1;
 	e->iso_check = 1;
 	e->spax = 30;

@@ -38,6 +38,12 @@
 # define K		40
 # define N		45
 
+# define GRASS	0x32CD32
+# define SAND	0xF4A460
+# define ROCK	0x999999
+# define SNOW	0xFFF5EE
+# define WATER	0x1E90FF
+
 typedef struct		s_ll
 {
 	size_t			content_size;
@@ -87,11 +93,11 @@ typedef struct		s_win
 
 typedef struct		s_img
 {
-	void			*img;
-	char			*data;
+	void			*ig;
+	char			*dt;
 	int				bpp;
 	int				ed;
-	int				s_li;	
+	int				sl;	
 }					t_img;
 
 typedef struct		s_env
@@ -113,7 +119,6 @@ typedef struct		s_env
 	int				rl;
 	int				hi;
 	int				tp;
-
 	int				iso_check;
 	t_win			w; // my window and mlx variables
 	t_img			i; // for my images !

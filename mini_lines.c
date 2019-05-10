@@ -17,150 +17,73 @@ int		color_me(t_cor co, t_cor nx, t_env *e)
 	(void)co;
 	(void)nx;
 	(void)e;
-	return (0);
+	int couleur;
+
+	couleur = 0xffffff;
+	if (co.z <= 0)
+		couleur = WATER;
+	else if (co.z > 0 && co.z < 10)
+		couleur = SAND;
+	else if (co.z >= 10 && co.z < 20)
+		couleur = GRASS;
+	else if (co.z >= 20 && co.z < 40)
+		couleur = ROCK;
+	else if (co.z >= 40)
+		couleur = SNOW;
+	return (couleur);
 }
 
-void	swap_me(int *one, int *two)
+static void		line_setup(t_cor co, t_cor nx, t_cor *tmp, t_env *e, int c)
 {
-	int	tmp;
-
-	tmp = *one;
-	*one = *two;
-	*two = tmp;
+	tmp->x2 = co.x2;
+	tmp->y2 = co.y2;
+	tmp->z = co.z;
+	e->b.dx = nx.x2 - co.x2;
+	e->b.dy = nx.y2 - co.y2;
+	e->b.ix = (e->b.dx > 0) ? 1 : -1;
+	e->b.iy = (e->b.dy > 0) ? 1 : -1;
+	e->b.dx = abs(e->b.dx);
+	e->b.dy = abs(e->b.dy);		
+	*(int *)&e->i.dt[tmp->x2 * (e->i.bpp / 8) + tmp->y2 * e->i.sl] = c;
+	e->b.tdx = e->b.dx / 2;
+	e->b.tdy = e->b.dy / 2;
 }
 
 void	lines(t_cor co, t_cor nx, t_env *e, int c)
 {
-	(void)c;
-	int	er;
-	e->b.dx = abs(nx.x2 - co.x2);
-	e->b.dy = abs(nx.y2 - co.y2);
-	int copy_dx = nx.x2 - co.x2;
-	int copy_dy = nx.y2 - co.y2;
-	e->b.tdx = 2 * e->b.dx;
-	e->b.tdy = 2 * e->b.dy;
+	int		i;
+	t_cor	tmp;
 
-	int	inc_x = (copy_dx > 0 ? 1 : -1);
-	int	inc_y = (copy_dy < 0 ? -1 : 1);
-	er = ((copy_dx * inc_x) >= (copy_dy * inc_y) ? copy_dx : copy_dy);
-	copy_dx = (er == copy_dx ? er * 2 : copy_dx * 2);
-	copy_dy = (er == copy_dy ? er * 2 : copy_dy * 2);
-	if (copy_dx > 0)
+	i = -1;
+	line_setup(co, nx, &tmp, e, c);
+	if (e->b.dx > e->b.dy)
 	{
-		if ((copy_dx * inc_x) >= (copy_dy * inc_y)) // 1st octant // 8th octant // e est positif
+		while (++i < e->b.dx)
 		{
-			while (e->b.t_x != nx.x2)
+			tmp.x2 += e->b.ix;
+			e->b.tdx += e->b.dy;
+			if (e->b.tdx >= e->b.dx)
 			{
-				mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x, e->b.t_y, 0xFFFFFF);
-				e->b.t_x += inc_x;
-				if ((er = er - (copy_dy * inc_y)) < 0)
-				{
-					e->b.t_y += inc_y;
-					er += copy_dx;
-				}
+				e->b.tdx -= e->b.dx;
+				tmp.y2 += e->b.iy;
 			}
-		}
-		else if ((copy_dx * inc_x) <= (copy_dy * inc_y) && copy_dy > 0)// 2nd octant // e est positif
-		{
-			while (e->b.t_y != nx.y2)
-			{
-				mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x, e->b.t_y, 0xFFFFFF);
-				e->b.t_y += inc_y;
-				if ((er = er - copy_dx) < 0)  // diff here ~
-				{
-					e->b.t_x += inc_x;
-					er += copy_dy;
-				}
-			}
-		}
-		else if ((copy_dx * inc_x) <= (copy_dy * inc_y) && copy_dy < 0) // 7eme octant // e est négatif
-		{
-			while (e->b.t_y != nx.y2)
-			{
-				mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x, e->b.t_y, 0xFFFFFF);
-				e->b.t_y += inc_y;
-				if ((er = er + copy_dx) > 0)  // diff here ~
-				{
-					e->b.t_x += inc_x;
-					er += copy_dy;
-				}
-			}
+			*(int *)&e->i.dt[tmp.x2 * (e->i.bpp / 8) + tmp.y2 * e->i.sl] = c;
 		}
 	}
 	else
 	{
-		if ((copy_dx * inc_x) >= (copy_dy * inc_y) && copy_dy > 0) // 4e octant // e est négatif
+		while (++i < e->b.dy)
 		{
-			while (e->b.t_x > nx.x2)
+			tmp.y2 += e->b.iy;
+			e->b.tdy += e->b.dx;
+			if (e->b.tdy >= e->b.dy)
 			{
-				mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x, e->b.t_y, 0xFFFFFF);
-				e->b.t_x += inc_x;
-				if ((er = er + copy_dy) >= 0)
-				{
-					e->b.t_y += inc_y;
-					er += copy_dx;
-				}
+				e->b.tdy -= e->b.dy;
+				tmp.x2 += e->b.ix;
 			}
-		}
-		else if (copy_dx <= copy_dy && copy_dy < 0)
-		{
-				while (e->b.t_x != nx.x2) // 5th octant 
-				{
-					mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x, e->b.t_y, 0xFFFFFF);
-					e->b.t_x += inc_x;
-					if ((er = er - copy_dy) >= 0)
-					{
-						e->b.t_y += inc_y;
-						er += copy_dx;
-					}
-				}		
-		}
-		else if ((copy_dx * inc_x) <= (copy_dy * inc_y) && copy_dy > 0)// 3e octant // e est positif
-		{
-			while (e->b.t_y != nx.y2)
-			{
-				//e->i.img[e->b.t_x + e->w.wx * e->b.t_y] = color_me(0xFFFFFF); // this needs to be done everywhere
-				mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x, e->b.t_y, 0xFFFFFF); // take this out & replace with above line
-				e->b.t_y += inc_y;
-				if ((er = er + copy_dx) <= 0)
-				{
-					e->b.t_x += inc_x;
-					er += copy_dy;
-				}
-			}
-		}
-		else if (copy_dx >= copy_dy && copy_dy < 0)// 6e octant // e est négatif
-		{
-			while (e->b.t_y != nx.y2)
-			{
-				mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x, e->b.t_y, 0xFFFFFF);
-				e->b.t_y += inc_y;
-				if ((er = er - copy_dx) >= 0)
-				{
-					e->b.t_x += inc_x;
-					er += copy_dy;
-				}
-			}
+			*(int *)&e->i.dt[tmp.x2 * (e->i.bpp / 8) + tmp.y2 * e->i.sl] = c;
 		}
 	}
-}
-
-void	parse_lines(t_cor co, t_cor nx, t_env *e, int c)
-{
-	(void)c;
-	e->b.t_x = co.x2;
-	e->b.t_y = co.y2;
-	int copy_dy = nx.y2 - co.y2;
-	int copy_dx = nx.x2 - co.x2;
-
-	if (copy_dy == 0 && copy_dx > 0)
-		while (e->b.t_x < nx.x2)
-			mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x++, e->b.t_y, 0xFFFFFF);
-	else if (copy_dy == 0 && copy_dx < 0)
-		while (e->b.t_x > nx.x2)
-			mlx_pixel_put(e->w.mp, e->w.wp, e->b.t_x--, e->b.t_y, 0xFFFFFF);
-	else
-		lines(co, nx, e, c);
 }
 
 void	draw_me(t_env *e)
@@ -168,7 +91,8 @@ void	draw_me(t_env *e)
 	int		x;
 	int		y;
 	int		color;
- 
+
+	ft_bzero(e->i.dt, sizeof(e->i.dt));
 	color = 0;
  	y = -1;
 	while (++y < e->pla.ly)
@@ -179,12 +103,12 @@ void	draw_me(t_env *e)
 			if (x + 1 < e->pla.lx)
 			{
 				color = color_me(e->co[y][x], e->co[y][x + 1], e);
-				parse_lines(e->co[y][x], e->co[y][x + 1], e, color);
+				lines(e->co[y][x], e->co[y][x + 1], e, color);
 			}
 			if (y + 1 < e->pla.ly)
 			{
 				color = color_me(e->co[y][x], e->co[y][x + 1], e);
-				parse_lines(e->co[y][x], e->co[y + 1][x], e, color);
+				lines(e->co[y][x], e->co[y + 1][x], e, color);
 			}
 		}
 	}

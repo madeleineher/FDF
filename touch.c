@@ -12,6 +12,17 @@
 
 #include "includes/fdf.h"
 
+// void	clrimage
+
+// void	clean(t_env *e)
+// {
+//     clrimage(&mlx->image->ptr);
+//     clrgrid(mlx->map);
+//     mlx_clear_window(mlx->mlx, mlx->win);
+//     mlx->map = setweb(mlx->mp, mlx->map, f);
+//     fill_image(&mlx->image->ptr, mlx->map);
+// }
+
 void	move(t_env *e)
 {
 	if (e->ks[A])
@@ -49,15 +60,17 @@ void	space(t_env *e)
 
 // void	rotate(t_env *e)
 // {
-// 	if (e->ks[M])
+// 	int tmp_x;
+
+// 	tmp_x = 0;
+// 	if (e->ks[K])
 // 	{
-// 		e->spax += 1;
-// 		e->spay += 1;
+// 		e->rr = cos(x) - sin(y);
+// 		e->rr = sin(tmp_x) + cos(y);
 // 	}
-// 	if (e->ks[L])
+// 	if (e->ks[N])
 // 	{
-// 		e->spax -= 1;
-// 		e->spay -= 1;
+// 		e->rl -= 1;
 // 	}
 // }
 
@@ -76,7 +89,7 @@ int		touch(t_env *e)
 	if (e->ks[ESC])
 	{
 		delevr(e, 2);
-		mlx_destroy_image(e->w.mp, e->i.img);
+		mlx_destroy_image(e->w.mp, e->i.ig);
 		mlx_destroy_window(e->w.mp, e->w.wp);
 		exit(0);
 	}
@@ -88,8 +101,6 @@ int		touch(t_env *e)
 	// 	rotate(e);
 	if (e->ks[Q] || e->ks[E])
 		depth(e);
-	// if (e->ks[C])
-	// 	couleur(e);
 	if (e->ks[KEY_1])
 		e->iso_check = 1;
 	if (e->ks[KEY_2])
@@ -97,9 +108,8 @@ int		touch(t_env *e)
 	if (e->ks[KEY_1] || e->ks[KEY_2] || e->ks[Q] || e->ks[E] || e->ks[M] 
 		|| e->ks[L] || e->ks[A] || e->ks[D] || e->ks[W] || e->ks[S])
 	{
+		//clean(e);
 		projection(e);
-		mlx_clear_window(e->w.mp, e->w.wp);
-		// mlx_put_image_to_window(e->w.mp, e->w.wp, e->i.img, 0, 0);
 		tmp(e);
 	}
 	return (0);

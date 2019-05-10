@@ -14,7 +14,7 @@ NAME = fdf
 
 CC = gcc
 
-CFLAGS = -Wall -Werror -Wextra -g # DON'T FORGET TO ADD MEEEEEEEEEE!
+CFLAGS = -Wall -Werror -Wextra -g3 # DON'T FORGET REMOVE G3 FLAG!
 
 SRCS = main.c\
 	   reader.c\
@@ -24,7 +24,7 @@ SRCS = main.c\
 	   touch.c\
 	   points.c\
 	   projection.c\
-	   attempt_9000.c
+	   mini_lines.c
 
 OBJECTS = $(SRCS:.c=.o)
 
@@ -40,8 +40,6 @@ all: superfast
 
 superfast:
 	make -j8 $(NAME)
-
-### REMOVE -g3 FLAGGGGGGGGGGG!
 
 DUMB = -fsanitize=address  -fno-omit-frame-pointer -fsanitize-address-use-after-scope 
 

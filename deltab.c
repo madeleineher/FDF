@@ -6,7 +6,7 @@
 /*   By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 10:17:43 by mhernand          #+#    #+#             */
-/*   Updated: 2019/04/26 11:47:05 by mhernand         ###   ########.fr       */
+/*   Updated: 2019/05/10 17:19:14 by mhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	delevr(t_env *e, int w)
 	t_ll	*tmp2;
 
 	if (w == 2)
-		delproj(e);		
+		delproj(e);
 	else
 	{
 		tmp = e->lines;

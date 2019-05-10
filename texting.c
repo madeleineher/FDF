@@ -6,7 +6,7 @@
 /*   By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 11:35:31 by mhernand          #+#    #+#             */
-/*   Updated: 2019/04/25 16:14:14 by mhernand         ###   ########.fr       */
+/*   Updated: 2019/05/10 17:26:31 by mhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void		texting(t_env *e)
 {
 	mlx_string_put(e->w.mp, e->w.wp, 30, 20, 0xFFFFFF, "~ COMMANDS ~");
-	mlx_string_put(e->w.mp, e->w.wp, 
+	mlx_string_put(e->w.mp, e->w.wp,
 			e->w.wx - 150, e->w.wy - 60, 0xFFFFFF, "EXIT : ESC");
 	mlx_string_put(e->w.mp, e->w.wp, 30, 40, 0xFFFFFF, "PROJECTIONS");
 	mlx_string_put(e->w.mp, e->w.wp, 50, 55, 0xFFFFFF, "ISOMETRIC : 2");

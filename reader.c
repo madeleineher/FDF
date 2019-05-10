@@ -6,7 +6,7 @@
 /*   By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 11:50:20 by mhernand          #+#    #+#             */
-/*   Updated: 2019/04/24 19:24:31 by mhernand         ###   ########.fr       */
+/*   Updated: 2019/05/10 17:26:06 by mhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int			check_chars(char *line)
 	while (line[++i] != 0)
 	{
 		if (line[i] == ',' || line[i] == '-' || line[i] == 'F' || line[i] == 'X'
-			   	|| line[i] == 'x' || line[i] == 'f' || line[i] == ' ' 
+				|| line[i] == 'x' || line[i] == 'f' || line[i] == ' '
 				|| line[i] == '\n' || (line[i] > 47 && line[i] < 58)
 				|| line[i] == 'a' || line[i] == 'b' || line[i] == 'c')
 			return (1);
@@ -38,16 +38,16 @@ int			add_links(char **lin, t_ll **head)
 	last = *head;
 	new_link = NULL;
 	if (!(new_link = (t_ll*)malloc(sizeof(t_ll))))
-		return (0); // needs to be changed to NULL
+		return (0);// needs to be changed to NULL
 	new_link->content = lin;
 	new_link->next = NULL;
 	if (*head == NULL)
 		*head = new_link;
-	else 
+	else
 	{
 		while (last->next != NULL)
 			last = last->next;
-		last->next = new_link; 
+		last->next = new_link;
 	}
 	return (0);
 }
@@ -55,7 +55,7 @@ int			add_links(char **lin, t_ll **head)
 int			vertical_check(t_ll *head, t_env *e)
 {
 	int		len;
-	int 	i;
+	int		i;
 
 	len = -1;
 	while (head->content[++len] != NULL)
@@ -84,7 +84,6 @@ int			reader(int fd, t_env *e)
 		if ((check_chars(e->line)) == -1)
 			return (5);
 		e->lin = ft_strsplit(e->line, ' ');
-		//printf("addr:%p\n", e->lin);
 		add_links(e->lin, &head);
 		if (e->line)
 		{

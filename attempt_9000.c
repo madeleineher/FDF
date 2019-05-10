@@ -42,11 +42,11 @@ void	lines(t_cor co, t_cor nx, t_env *e, int c)
 	int		i;
 	t_cor	tmp;
 
-	i = 0;
+	i = -1;
 	line_setup(co, nx, &tmp, e);
 	if (e->b.dx > e->b.dy)
 	{
-		while (i < e->b.dx)
+		while (++i < e->b.dx)
 		{
 			tmp.x2 += e->b.ix;
 			e->b.tdx += e->b.dy;
@@ -57,12 +57,12 @@ void	lines(t_cor co, t_cor nx, t_env *e, int c)
 			}
 			*(int *)&e->i.data[tmp.x2 * (e->i.bpp / 8) + tmp.y2 * e->i.s_li] = 0xFFFFFF;
 			// mlx_pixel_put(e->w.mp, e->w.wp, tmp.x2, tmp.y2, 0xFFFFFF);
-			i++;
+			// i++;
 		}
 	}
 	else
 	{
-		while (i < e->b.dy)
+		while (++i < e->b.dy)
 		{
 			tmp.y2 += e->b.iy;
 			e->b.tdy += e->b.dx;
@@ -73,7 +73,6 @@ void	lines(t_cor co, t_cor nx, t_env *e, int c)
 			}
 			*(int *)&e->i.data[tmp.x2 * (e->i.bpp / 8) + tmp.y2 * e->i.s_li] = 0xFFFFFF;
 			// mlx_pixel_put(e->w.mp, e->w.wp, tmp.x2, tmp.y2, 0xFFFFFF);
-			i++;
 		}
 	}
 }

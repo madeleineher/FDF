@@ -1,4 +1,3 @@
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -35,24 +34,25 @@ int		key_press(int key, t_env *e)
 int		tmp(t_env *e)
 {
 	draw_me(e);
-	mlx_put_image_to_window(e->w.mp, e->w.wp, e->i.img, 0, 0);
+	mlx_put_image_to_window(e->w.mp, e->w.wp, e->i.ig, 0, 0);
 	texting(e);
-	mlx_hook(e->w.wp, 2, 1L << 2, key_press, e); // these need to be separate from above 
+	mlx_hook(e->w.wp, 2, 1L << 2, key_press, e);//these need to be separate from above
 	mlx_hook(e->w.wp, 3, 1L << 3, key_release, e);
 	mlx_hook(e->w.wp, 17, 1L << 17, quit, e);
-	mlx_loop_hook(e->w.mp, touch, e); // call touch function here !
+	mlx_loop_hook(e->w.mp, touch, e);// call touch function here !
 	mlx_loop(e->w.mp);
 	return (0);
 }
 
 int		visualize(t_env *e)
 {
-	if (!(e->w.mp = mlx_init()) 
-			|| (!(e->w.wp = mlx_new_window(e->w.mp, e->w.wx, e->w.wy, "FDF"))))
+	if (!(e->w.mp = mlx_init())
+		|| (!(e->w.wp = mlx_new_window(e->w.mp, e->w.wx, e->w.wy, "FDF"))))
 		return (-1);
-	if (!(e->i.img = mlx_new_image(e->w.mp, e->w.wx, e->w.wy)))
+	if (!(e->i.ig = mlx_new_image(e->w.mp, e->w.wx, e->w.wy)))
 		return (-1);
-	e->i.data = mlx_get_data_addr(e->i.img, &e->i.bpp, &e->i.s_li, &e->i.ed);
+	if (!(e->i.dt = mlx_get_data_addr(e->i.ig, &e->i.bpp, &e->i.sl, &e->i.ed)))
+		return (-1);
 	tmp(e);
 	return (0);
 }
