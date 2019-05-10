@@ -32,13 +32,24 @@ int			ft_bad(int i)
 	return (-1);
 }
 
+void		win_y(t_env *e)
+{
+	(void)e;
+	if ((e->pla.ly * e->spay + e->hi) < (e->w.wy))
+		while (e->hi-- >= 5)
+			if ((e->pla.ly * e->spay + e->hi) <= (e->w.wy - 50))
+				break ;
+	// need to fix y-centering here !
+	// printf(, );
+}
+
 void		win(t_env *e)
 {
 	e->w.wx = 1632;
 	e->w.wy = 1224;
 	e->pla.hx = e->w.wx / 2;
 	e->pla.hy = e->w.wy / 2;
-	e->hi = 5; // height for the Z
+	e->hi = 10; // height for the Z
 	e->zo = 1;
 	e->iso_check = 1;
 	e->spax = 30;
@@ -47,10 +58,11 @@ void		win(t_env *e)
 			if ((e->pla.lx * e->spax) <= (e->w.wx - 100))
 				break ;
 	e->spay = 30;
-	if ((e->pla.ly * e->spay) > (e->w.wy - 100))
+	if ((e->pla.ly * e->spay + e->hi) > (e->w.wy - 100))
 		while (e->spay-- >= 5)
 			if ((e->pla.ly * e->spay) <= (e->w.wy - 100))
 				break ;
+	win_y(e);
 	ft_bzero(e->ks, sizeof(e->ks));
 	e->pla.px = e->pla.hx - ((e->pla.lx * e->spax) / 2);
 	e->pla.py = e->pla.hy - ((e->pla.ly * e->spay) / 2);
