@@ -51,7 +51,7 @@ int		visualize(t_env *e)
 		return (-1);
 	if (!(e->i.ig = mlx_new_image(e->w.mp, e->w.wx, e->w.wy)))
 		return (-1);
-	if (!(e->i.dt = mlx_get_data_addr(e->i.ig, &e->i.bpp, &e->i.sl, &e->i.ed)))
+	if (!(e->i.dt = mlx_get_data_addr(e->i.ig, &e->i.bp, &e->i.sl, &e->i.ed)))
 		return (-1);
 	tmp(e);
 	return (0);

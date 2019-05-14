@@ -35,10 +35,14 @@ int			ft_bad(int i)
 void		win_y(t_env *e)
 {
 	(void)e;
-	if ((e->pla.ly * e->spay + e->hi) < (e->w.wy))
-		while (e->hi-- >= 5)
-			if ((e->pla.ly * e->spay + e->hi) <= (e->w.wy - 50))
-				break ;
+	// printf("hello\n");
+	// if ((e->pla.ly - e->hi) <= 0)
+	// {
+	// 	printf("num 1 : [%d]\n", (e->pla.ly - e->hi));
+	// 	while (e->hi-- >= 5)
+	// 		if ((e->pla.ly - e->hi) >= (e->w.wy + 10))
+	// 			break ;
+	// }
 	// need to fix y-centering here !
 	// printf(, );
 }
@@ -53,14 +57,14 @@ void		win(t_env *e)
 	e->zo = 1;
 	e->iso_check = 1;
 	e->spax = 30;
-	if ((e->pla.lx * e->spax) > (e->w.wx - 100))
+	if ((e->pla.lx * e->spax) > (e->w.wx - 50))
 		while (e->spax-- >= 5)
-			if ((e->pla.lx * e->spax) <= (e->w.wx - 100))
+			if ((e->pla.lx * e->spax) <= (e->w.wx - 50))
 				break ;
 	e->spay = 30;
-	if ((e->pla.ly * e->spay + e->hi) > (e->w.wy - 100))
+	if ((e->pla.ly * e->spay + e->hi) > (e->w.wy - 50))
 		while (e->spay-- >= 5)
-			if ((e->pla.ly * e->spay) <= (e->w.wy - 100))
+			if ((e->pla.ly * e->spay) <= (e->w.wy - 50))
 				break ;
 	win_y(e);
 	ft_bzero(e->ks, sizeof(e->ks));

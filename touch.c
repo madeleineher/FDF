@@ -109,6 +109,7 @@ int		touch(t_env *e)
 		|| e->ks[L] || e->ks[A] || e->ks[D] || e->ks[W] || e->ks[S])
 	{
 		//clean(e);
+		// mlx_clear_image();
 		projection(e);
 		tmp(e);
 	}

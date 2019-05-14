@@ -95,7 +95,7 @@ typedef struct		s_img
 {
 	void			*ig;
 	char			*dt;
-	int				bpp;
+	int				bp;
 	int				ed;
 	int				sl;	
 }					t_img;

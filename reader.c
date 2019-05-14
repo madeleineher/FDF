@@ -6,27 +6,20 @@
 /*   By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 11:50:20 by mhernand          #+#    #+#             */
-/*   Updated: 2019/05/10 17:26:06 by mhernand         ###   ########.fr       */
+/*   Updated: 2019/05/14 11:37:00 by mhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/fdf.h"
 
-int			check_chars(char *line)
+int			check_chars(char **line)
 {
 	int		i;
 
 	i = -1;
 	while (line[++i] != 0)
-	{
-		if (line[i] == ',' || line[i] == '-' || line[i] == 'F' || line[i] == 'X'
-				|| line[i] == 'x' || line[i] == 'f' || line[i] == ' '
-				|| line[i] == '\n' || (line[i] > 47 && line[i] < 58)
-				|| line[i] == 'a' || line[i] == 'b' || line[i] == 'c')
-			return (1);
-		else
+		if (ft_isdigit(line[i][0] + '0') == 0)
 			return (-1);
-	}
 	return (0);
 }
 
@@ -81,9 +74,9 @@ int			reader(int fd, t_env *e)
 	e->line = NULL;
 	while ((e->ret = get_next_line(fd, &e->line)) > 0)
 	{
-		if ((check_chars(e->line)) == -1)
-			return (5);
 		e->lin = ft_strsplit(e->line, ' ');
+		if ((check_chars(e->lin)) == -1)
+			return (5);
 		add_links(e->lin, &head);
 		if (e->line)
 		{
