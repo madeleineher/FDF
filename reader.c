@@ -18,8 +18,9 @@ int			check_chars(char **line)
 
 	i = -1;
 	while (line[++i] != 0)
-		if (ft_isdigit(line[i][0] + '0') == 0)
-			return (-1);
+		printf("testing : [%d]\n", ft_isdigit(line[i][0] - '0'));
+		// if (ft_isdigit(line[i][0] - '0') == 0)
+		// 	return (-1);
 	return (0);
 }
 
