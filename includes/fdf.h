@@ -118,6 +118,7 @@ typedef struct		s_env
 	int				hi;
 	int				tp;
 	int				c;
+	int				r;
 	int				iso_check;
 	t_win			w; // my window and mlx variables
 	t_img			i; // for my images !
@@ -137,7 +138,6 @@ void				draw_lines(t_env *e);
 int					touch(t_env *e);
 void				projection(t_env *e);
 int					redraw(t_env *e);
-void				clean(t_env *e);
 int					main(int argc, char **argv);
 
 #endif

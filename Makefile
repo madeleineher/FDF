@@ -24,8 +24,8 @@ SRCS = main.c\
 	   touch.c\
 	   points.c\
 	   projection.c\
-	   draw_lines.c\
-	   clean.c
+	   draw_lines.c
+	#    clean.c
 
 OBJECTS = $(SRCS:.c=.o)
 

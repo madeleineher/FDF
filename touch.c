@@ -12,6 +12,25 @@
 
 #include "includes/fdf.h"
 
+void	clean(t_env *e)
+{
+	int		i;
+	int		j;
+
+	j = -1;
+	e->c = 0x000000;
+	while (++j < 1224)
+	{
+		i = -1;
+		while (++i < 1632)
+			*(int *)&e->i.dt[i * (e->i.bp / 8) + j * e->i.sl] = e->c;
+	}
+	projection(e);
+	draw_lines(e);
+	mlx_put_image_to_window(e->w.mp, e->w.wp, e->i.ig, 0, 0);
+	texting(e);
+}
+
 void	move(t_env *e)
 {
 	if (e->ks[A])
@@ -47,22 +66,6 @@ void	space(t_env *e)
 	}
 }
 
-// void	rotate(t_env *e)
-// {
-// 	int tmp_x;
-// 	tmp_x = 0;
-// 	if (e->ks[K])
-// 	{
-// 		tmp_x = e->co.x2;
-// 		e->rr = cos(e->co.x2) - sin(e->co.y2);
-// 		e->rr = sin(e->co.x2) + cos(e->co.y2);
-// 	}
-// 	// if (e->ks[N])
-// 	// {
-// 	// 	e->rl -= 1;
-// 	// }
-// }
-
 void	depth(t_env *e)
 {
 	if (e->ks[Q])
@@ -75,7 +78,6 @@ void	depth(t_env *e)
 
 int		touch(t_env *e)
 {
-	
 	if (e->ks[ESC])
 	{
 		delevr(e, 2);
@@ -87,8 +89,10 @@ int		touch(t_env *e)
 		move(e);
 	if (e->ks[M] || e->ks[L])
 		space(e);
-	// if (e->ks[K] || e->ks[N])
-	// 	rotate(e);
+	if (e->ks[K])
+		e->r += M_PI/64;
+	// if (e->ks[N])
+	// 	e->r;
 	if (e->ks[Q] || e->ks[E])
 		depth(e);
 	if (e->ks[KEY_1])

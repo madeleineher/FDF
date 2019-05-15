@@ -33,7 +33,7 @@ int		key_press(int key, t_env *e)
 
 int		redraw(t_env *e)
 {
-	draw_lines(e);// bre lines
+	draw_lines(e);
 	mlx_put_image_to_window(e->w.mp, e->w.wp, e->i.ig, 0, 0);
 	texting(e);
 	mlx_hook(e->w.wp, 2, 1L << 2, key_press, e);
