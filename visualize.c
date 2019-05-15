@@ -31,15 +31,15 @@ int		key_press(int key, t_env *e)
 	return (0);
 }
 
-int		tmp(t_env *e)
+int		redraw(t_env *e)
 {
-	draw_me(e);
+	draw_lines(e);// bre lines
 	mlx_put_image_to_window(e->w.mp, e->w.wp, e->i.ig, 0, 0);
 	texting(e);
-	mlx_hook(e->w.wp, 2, 1L << 2, key_press, e);//these need to be separate from above
+	mlx_hook(e->w.wp, 2, 1L << 2, key_press, e);
 	mlx_hook(e->w.wp, 3, 1L << 3, key_release, e);
 	mlx_hook(e->w.wp, 17, 1L << 17, quit, e);
-	mlx_loop_hook(e->w.mp, touch, e);// call touch function here !
+	mlx_loop_hook(e->w.mp, touch, e);
 	mlx_loop(e->w.mp);
 	return (0);
 }
@@ -53,6 +53,6 @@ int		visualize(t_env *e)
 		return (-1);
 	if (!(e->i.dt = mlx_get_data_addr(e->i.ig, &e->i.bp, &e->i.sl, &e->i.ed)))
 		return (-1);
-	tmp(e);
+	redraw(e);
 	return (0);
 }

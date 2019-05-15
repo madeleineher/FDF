@@ -12,27 +12,16 @@
 
 #include "includes/fdf.h"
 
-// void	clrimage
-
-// void	clean(t_env *e)
-// {
-//     clrimage(&mlx->image->ptr);
-//     clrgrid(mlx->map);
-//     mlx_clear_window(mlx->mlx, mlx->win);
-//     mlx->map = setweb(mlx->mp, mlx->map, f);
-//     fill_image(&mlx->image->ptr, mlx->map);
-// }
-
 void	move(t_env *e)
 {
 	if (e->ks[A])
-		e->mx -= 10;
+		e->mx -= 5;
 	if (e->ks[D])
-		e->mx += 10;
+		e->mx += 5;
 	if (e->ks[W])
-		e->my -= 10;
+		e->my -= 5;
 	if (e->ks[S])
-		e->my += 10;
+		e->my += 5;
 	if (e->mx > 2000 || e->mx < -2000)
 		e->mx = 0;
 	if (e->my > 2000 || e->my < -2000)
@@ -61,17 +50,17 @@ void	space(t_env *e)
 // void	rotate(t_env *e)
 // {
 // 	int tmp_x;
-
 // 	tmp_x = 0;
 // 	if (e->ks[K])
 // 	{
-// 		e->rr = cos(x) - sin(y);
-// 		e->rr = sin(tmp_x) + cos(y);
+// 		tmp_x = e->co.x2;
+// 		e->rr = cos(e->co.x2) - sin(e->co.y2);
+// 		e->rr = sin(e->co.x2) + cos(e->co.y2);
 // 	}
-// 	if (e->ks[N])
-// 	{
-// 		e->rl -= 1;
-// 	}
+// 	// if (e->ks[N])
+// 	// {
+// 	// 	e->rl -= 1;
+// 	// }
 // }
 
 void	depth(t_env *e)
@@ -86,6 +75,7 @@ void	depth(t_env *e)
 
 int		touch(t_env *e)
 {
+	
 	if (e->ks[ESC])
 	{
 		delevr(e, 2);
@@ -105,13 +95,9 @@ int		touch(t_env *e)
 		e->iso_check = 1;
 	if (e->ks[KEY_2])
 		e->iso_check = 2;
-	if (e->ks[KEY_1] || e->ks[KEY_2] || e->ks[Q] || e->ks[E] || e->ks[M] 
-		|| e->ks[L] || e->ks[A] || e->ks[D] || e->ks[W] || e->ks[S])
-	{
-		//clean(e);
-		// mlx_clear_image();
-		projection(e);
-		tmp(e);
-	}
+	if (e->ks[KEY_1] || e->ks[KEY_2] || e->ks[Q] || e->ks[E] || e->ks[M]
+		|| e->ks[K] || e->ks[N] || e->ks[L] || e->ks[A] || e->ks[D]
+		|| e->ks[W] || e->ks[S])
+		clean(e);
 	return (0);
 }

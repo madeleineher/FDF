@@ -14,7 +14,7 @@ NAME = fdf
 
 CC = gcc
 
-CFLAGS = -Wall -Werror -Wextra -g3 # DON'T FORGET REMOVE G3 FLAG!
+CFLAGS = -Wall -Werror -Wextra
 
 SRCS = main.c\
 	   reader.c\
@@ -24,7 +24,8 @@ SRCS = main.c\
 	   touch.c\
 	   points.c\
 	   projection.c\
-	   mini_lines.c
+	   draw_lines.c\
+	   clean.c
 
 OBJECTS = $(SRCS:.c=.o)
 
@@ -40,8 +41,6 @@ all: superfast
 
 superfast:
 	make -j8 $(NAME)
-
-DUMB = -fsanitize=address  -fno-omit-frame-pointer -fsanitize-address-use-after-scope 
 
 $(NAME):$(OBJECTS) | $(LIB_TARG) 
 	$(CC) -g3 $(CFLAGS) $(OBJECTS) libft/libft.a $(LIBMLX) -o $(NAME)

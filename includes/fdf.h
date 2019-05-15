@@ -115,10 +115,9 @@ typedef struct		s_env
 	int				mx;
 	int				my;
 	int				zo;
-	int				rr;
-	int				rl;
 	int				hi;
 	int				tp;
+	int				c;
 	int				iso_check;
 	t_win			w; // my window and mlx variables
 	t_img			i; // for my images !
@@ -134,10 +133,11 @@ void				free_link(t_ll *link);
 int					visualize(t_env *e);
 int					points(t_env *e);
 void				texting(t_env *e);
-void				draw_me(t_env *e);
+void				draw_lines(t_env *e);
 int					touch(t_env *e);
 void				projection(t_env *e);
-int					tmp(t_env *e);
+int					redraw(t_env *e);
+void				clean(t_env *e);
 int					main(int argc, char **argv);
 
 #endif

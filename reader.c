@@ -15,12 +15,29 @@
 int			check_chars(char **line)
 {
 	int		i;
+	int		j;
 
 	i = -1;
+	j = 0;
 	while (line[++i] != 0)
-		printf("testing : [%d]\n", ft_isdigit(line[i][0] - '0'));
-		// if (ft_isdigit(line[i][0] - '0') == 0)
-		// 	return (-1);
+	{
+		if (line[i][j] == '-')
+			j++;
+		if ((line[i][j]) < 48 || (line[i][j]) > 57)
+			return (-1);
+		else
+		{
+			while (line[i][j])
+			{
+				if (line[i][j] == ',')
+					break ;
+				if (line[i][j] < 48 || line[i][j] > 57)
+					return (-1);
+				j++;
+			}
+			j = 0;
+		}
+	}
 	return (0);
 }
 

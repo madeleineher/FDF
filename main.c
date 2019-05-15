@@ -12,7 +12,7 @@
 
 #include "includes/fdf.h"
 
-int			ft_bad(int i)
+int			bad(int i)
 {
 	if (i == 1)
 		ft_putendl("usage: ./fdf map_file.fdf");
@@ -32,28 +32,13 @@ int			ft_bad(int i)
 	return (-1);
 }
 
-void		win_y(t_env *e)
-{
-	(void)e;
-	// printf("hello\n");
-	// if ((e->pla.ly - e->hi) <= 0)
-	// {
-	// 	printf("num 1 : [%d]\n", (e->pla.ly - e->hi));
-	// 	while (e->hi-- >= 5)
-	// 		if ((e->pla.ly - e->hi) >= (e->w.wy + 10))
-	// 			break ;
-	// }
-	// need to fix y-centering here !
-	// printf(, );
-}
-
 void		win(t_env *e)
 {
 	e->w.wx = 1632;
 	e->w.wy = 1224;
 	e->pla.hx = e->w.wx / 2;
 	e->pla.hy = e->w.wy / 2;
-	e->hi = 10; // height for the Z
+	e->hi = 5;
 	e->zo = 1;
 	e->iso_check = 1;
 	e->spax = 30;
@@ -66,7 +51,6 @@ void		win(t_env *e)
 		while (e->spay-- >= 5)
 			if ((e->pla.ly * e->spay) <= (e->w.wy - 50))
 				break ;
-	win_y(e);
 	ft_bzero(e->ks, sizeof(e->ks));
 	e->pla.px = e->pla.hx - ((e->pla.lx * e->spax) / 2);
 	e->pla.py = e->pla.hy - ((e->pla.ly * e->spay) / 2);
@@ -84,16 +68,16 @@ int			main(int argc, char **argv)
 	ft_bzero(e, sizeof(t_env));
 	fd = open(argv[1], O_RDWR);
 	if (argc == 1)
-		ft_bad(1);
+		bad(1);
 	if (fd < 0 && argc == 2)
-		ft_bad(2);
+		bad(2);
 	if (((ret = reader(fd, e)) > 0))
-		ft_bad(ret);
+		bad(ret);
 	win(e);
 	head = e->lines;
 	if (!(points(e)))
-		ft_bad(7);
+		bad(7);
 	if (visualize(e) == -1)
-		ft_bad(6);
+		bad(6);
 	return (0);
 }
