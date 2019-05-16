@@ -23,13 +23,13 @@
 # include <string.h>
 # include <fcntl.h>
 
-# define ESC	53 
+# define ESC	53
 # define A		0
 # define D		2
 # define W		13
 # define S		1
 # define C		8
-# define Q		12	
+# define Q		12
 # define E		14
 # define KEY_1	18
 # define KEY_2	19
@@ -66,8 +66,8 @@ typedef struct		s_pl
 	int				py;
 	int				hx;
 	int				hy;
-	int				lx; //len lines
-	int				ly; //len down
+	int				lx;
+	int				ly;
 }					t_pl;
 
 typedef struct		s_bre
@@ -97,17 +97,17 @@ typedef struct		s_img
 	char			*dt;
 	int				bp;
 	int				ed;
-	int				sl;	
+	int				sl;
 }					t_img;
 
 typedef struct		s_env
 {
-	char			**map; // for the x, and y coordinantes
-	char			*line; // line for GNL
-	char			**lin; // ** for str_split
+	char			**map;
+	char			*line;
+	char			**lin;
 	char			**tmp;
-	int				ks[300]; //keys
-	int				ret; // return for GNL
+	int				k[300];
+	int				ret;
 	int				spax;
 	int				iso;
 	int				spay;
@@ -120,11 +120,11 @@ typedef struct		s_env
 	int				c;
 	int				r;
 	int				iso_check;
-	t_win			w; // my window and mlx variables
-	t_img			i; // for my images !
-	t_ll			*lines; // linked list of strings 
-	t_cor			**co; // ALL OF MY INFO 'POINTS' !! 
-	t_bre			b; // bresenham algo
+	t_win			w;
+	t_img			i;
+	t_ll			*lines;
+	t_cor			**co;
+	t_bre			b;
 	t_pl			pla;
 }					t_env;
 
@@ -135,6 +135,7 @@ int					visualize(t_env *e);
 int					points(t_env *e);
 void				texting(t_env *e);
 void				draw_lines(t_env *e);
+int					color_me(t_cor co, t_cor nx, t_env *e, int w);
 int					touch(t_env *e);
 void				projection(t_env *e);
 int					redraw(t_env *e);

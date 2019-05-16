@@ -20,12 +20,11 @@ SRCS = main.c\
 	   reader.c\
 	   deltab.c\
 	   visualize.c\
-	   texting.c\
 	   touch.c\
 	   points.c\
 	   projection.c\
-	   draw_lines.c
-	#    clean.c
+	   draw_lines.c\
+	   color.c
 
 OBJECTS = $(SRCS:.c=.o)
 

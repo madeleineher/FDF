@@ -12,23 +12,6 @@
 
 #include "includes/fdf.h"
 
-int			color_me(t_cor co, t_cor nx, t_env *e)
-{
-	(void)nx;
-	(void)e;
-	if (co.z <= 0)
-		e->c = WATER;
-	else if (co.z > 0 && co.z < 10)
-		e->c = SAND;
-	else if (co.z >= 10 && co.z < 20)
-		e->c = GRASS;
-	else if (co.z >= 20 && co.z < 40)
-		e->c = ROCK;
-	else if (co.z >= 40)
-		e->c = SNOW;
-	return (e->c);
-}
-
 void		line_setup(t_cor co, t_cor nx, t_cor *tmp, t_env *e)
 {
 	tmp->x2 = co.x2;
@@ -46,10 +29,14 @@ void		line_setup(t_cor co, t_cor nx, t_cor *tmp, t_env *e)
 	e->b.tdy = e->b.dy / 2;
 }
 
-void		lines2(t_cor tmp, t_env *e, int i)
+void		lines2(t_cor tmp, t_env *e, t_cor nx, int i)
 {
 	while (++i < e->b.dy)
 	{
+		if (e->b.dy / 2 == i && tmp.z != nx.z)
+		{
+			e->c = color_me(tmp, nx, e, 2);
+		}
 		tmp.y2 += e->b.iy;
 		e->b.tdy += e->b.dx;
 		if (e->b.tdy >= e->b.dy)
@@ -73,6 +60,8 @@ void		lines(t_cor co, t_cor nx, t_env *e)
 	{
 		while (++i < e->b.dx)
 		{
+			if (e->b.dx / 2 == i && co.z != nx.z)
+				e->c = color_me(tmp, nx, e, 2);
 			tmp.x2 += e->b.ix;
 			e->b.tdx += e->b.dy;
 			if (e->b.tdx >= e->b.dx)
@@ -86,7 +75,7 @@ void		lines(t_cor co, t_cor nx, t_env *e)
 		}
 	}
 	else
-		lines2(tmp, e, i);
+		lines2(tmp, e, nx, i);
 }
 
 void		draw_lines(t_env *e)
@@ -104,12 +93,12 @@ void		draw_lines(t_env *e)
 		{
 			if (x + 1 < e->pla.lx)
 			{
-				e->c = color_me(e->co[y][x], e->co[y][x + 1], e);
+				e->c = color_me(e->co[y][x], e->co[y][x + 1], e, 1);
 				lines(e->co[y][x], e->co[y][x + 1], e);
 			}
 			if (y + 1 < e->pla.ly)
 			{
-				e->c = color_me(e->co[y][x], e->co[y][x + 1], e);
+				e->c = color_me(e->co[y][x], e->co[y][x + 1], e, 1);
 				lines(e->co[y][x], e->co[y + 1][x], e);
 			}
 		}

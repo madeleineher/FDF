@@ -12,7 +12,7 @@
 
 #include "includes/fdf.h"
 
-int			bad(int i)
+int			error(int i)
 {
 	if (i == 1)
 		ft_putendl("usage: ./fdf map_file.fdf");
@@ -32,7 +32,25 @@ int			bad(int i)
 	return (-1);
 }
 
-void		win(t_env *e)
+void		texting(t_env *e)
+{
+	mlx_string_put(e->w.mp, e->w.wp, 30, 20, 0xFFFFFF, "~ COMMANDS ~");
+	mlx_string_put(e->w.mp, e->w.wp,
+			e->w.wx - 150, e->w.wy - 60, 0xFFFFFF, "EXIT : ESC");
+	mlx_string_put(e->w.mp, e->w.wp, 30, 40, 0xFFFFFF, "PROJECTIONS");
+	mlx_string_put(e->w.mp, e->w.wp, 50, 55, 0xFFFFFF, "ISOMETRIC : 2");
+	mlx_string_put(e->w.mp, e->w.wp, 50, 70, 0xFFFFFF, "PARALLEL : 1");
+	mlx_string_put(e->w.mp, e->w.wp, 30, 90, 0xFFFFFF, "DIRECTIONS");
+	mlx_string_put(e->w.mp, e->w.wp, 50, 105, 0xFFFFFF, "UP : A");
+	mlx_string_put(e->w.mp, e->w.wp, 50, 120, 0xFFFFFF, "DOWN : S");
+	mlx_string_put(e->w.mp, e->w.wp, 50, 135, 0xFFFFFF, "LEFT : A");
+	mlx_string_put(e->w.mp, e->w.wp, 50, 150, 0xFFFFFF, "RIGHT : D");
+	mlx_string_put(e->w.mp, e->w.wp, 30, 170, 0xFFFFFF, "MAGNIFICATION");
+	mlx_string_put(e->w.mp, e->w.wp, 50, 185, 0xFFFFFF, "ZOOM IN : M");
+	mlx_string_put(e->w.mp, e->w.wp, 50, 200, 0xFFFFFF, "ZOOM OUT : L");
+}
+
+void		window(t_env *e)
 {
 	e->w.wx = 1632;
 	e->w.wy = 1224;
@@ -40,7 +58,9 @@ void		win(t_env *e)
 	e->pla.hy = e->w.wy / 2;
 	e->hi = 5;
 	e->zo = 1;
-	e->r = M_PI/64;
+	e->r = 64;
+	e->r = M_PI / e->r;
+	printf("r main : [%d]\n", e->r);
 	e->iso_check = 1;
 	e->spax = 30;
 	if ((e->pla.lx * e->spax) > (e->w.wx - 50))
@@ -52,7 +72,7 @@ void		win(t_env *e)
 		while (e->spay-- >= 5)
 			if ((e->pla.ly * e->spay) <= (e->w.wy - 50))
 				break ;
-	ft_bzero(e->ks, sizeof(e->ks));
+	ft_bzero(e->k, sizeof(e->k));
 	e->pla.px = e->pla.hx - ((e->pla.lx * e->spax) / 2);
 	e->pla.py = e->pla.hy - ((e->pla.ly * e->spay) / 2);
 }
@@ -69,16 +89,16 @@ int			main(int argc, char **argv)
 	ft_bzero(e, sizeof(t_env));
 	fd = open(argv[1], O_RDWR);
 	if (argc == 1)
-		bad(1);
+		error(1);
 	if (fd < 0 && argc == 2)
-		bad(2);
+		error(2);
 	if (((ret = reader(fd, e)) > 0))
-		bad(ret);
-	win(e);
+		error(ret);
+	window(e);
 	head = e->lines;
 	if (!(points(e)))
-		bad(7);
+		error(7);
 	if (visualize(e) == -1)
-		bad(6);
+		error(6);
 	return (0);
 }

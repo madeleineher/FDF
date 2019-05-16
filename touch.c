@@ -33,13 +33,13 @@ void	clean(t_env *e)
 
 void	move(t_env *e)
 {
-	if (e->ks[A])
+	if (e->k[A])
 		e->mx -= 5;
-	if (e->ks[D])
+	if (e->k[D])
 		e->mx += 5;
-	if (e->ks[W])
+	if (e->k[W])
 		e->my -= 5;
-	if (e->ks[S])
+	if (e->k[S])
 		e->my += 5;
 	if (e->mx > 2000 || e->mx < -2000)
 		e->mx = 0;
@@ -49,12 +49,12 @@ void	move(t_env *e)
 
 void	space(t_env *e)
 {
-	if (e->ks[M])
+	if (e->k[M])
 	{
 		e->spax += 1;
 		e->spay += 1;
 	}
-	if (e->ks[L])
+	if (e->k[L])
 	{
 		e->spax -= 1;
 		e->spay -= 1;
@@ -68,9 +68,9 @@ void	space(t_env *e)
 
 void	depth(t_env *e)
 {
-	if (e->ks[Q])
+	if (e->k[Q])
 		e->hi += 1;
-	if (e->ks[E])
+	if (e->k[E])
 		e->hi -= 1;
 	if (e->hi < -100 || e->hi > 100)
 		e->hi = 0;
@@ -78,30 +78,29 @@ void	depth(t_env *e)
 
 int		touch(t_env *e)
 {
-	if (e->ks[ESC])
+	if (e->k[ESC])
 	{
 		delevr(e, 2);
 		mlx_destroy_image(e->w.mp, e->i.ig);
 		mlx_destroy_window(e->w.mp, e->w.wp);
 		exit(0);
 	}
-	if (e->ks[A] || e->ks[D] || e->ks[W] || e->ks[S])
+	if (e->k[A] || e->k[D] || e->k[W] || e->k[S])
 		move(e);
-	if (e->ks[M] || e->ks[L])
+	if (e->k[M] || e->k[L])
 		space(e);
-	if (e->ks[K])
-		e->r += M_PI/64;
-	// if (e->ks[N])
-	// 	e->r;
-	if (e->ks[Q] || e->ks[E])
+	// if (e->k[K])
+	// 	e->r = e->r + M_PI / 32;
+	// if (e->k[N])
+	// 	e->r = e->r + M_PI / 64;
+	if (e->k[Q] || e->k[E])
 		depth(e);
-	if (e->ks[KEY_1])
+	if (e->k[KEY_1])
 		e->iso_check = 1;
-	if (e->ks[KEY_2])
+	if (e->k[KEY_2])
 		e->iso_check = 2;
-	if (e->ks[KEY_1] || e->ks[KEY_2] || e->ks[Q] || e->ks[E] || e->ks[M]
-		|| e->ks[K] || e->ks[N] || e->ks[L] || e->ks[A] || e->ks[D]
-		|| e->ks[W] || e->ks[S])
+	if (e->k[KEY_1] || e->k[KEY_2] || e->k[Q] || e->k[E] || e->k[M] || e->k[K]
+		|| e->k[N] || e->k[L] || e->k[A] || e->k[D] || e->k[W] || e->k[S])
 		clean(e);
 	return (0);
 }

@@ -49,7 +49,7 @@ int			add_links(char **lin, t_ll **head)
 	last = *head;
 	new_link = NULL;
 	if (!(new_link = (t_ll*)malloc(sizeof(t_ll))))
-		return (0);// needs to be changed to NULL
+		return (-1);
 	new_link->content = lin;
 	new_link->next = NULL;
 	if (*head == NULL)
@@ -95,7 +95,8 @@ int			reader(int fd, t_env *e)
 		e->lin = ft_strsplit(e->line, ' ');
 		if ((check_chars(e->lin)) == -1)
 			return (5);
-		add_links(e->lin, &head);
+		if ((add_links(e->lin, &head)) == -1)
+			return (7);
 		if (e->line)
 		{
 			free(e->line);

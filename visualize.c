@@ -21,13 +21,13 @@ int		quit(t_env *e)
 
 int		key_release(int key, t_env *e)
 {
-	e->ks[key] = 0;
+	e->k[key] = 0;
 	return (0);
 }
 
 int		key_press(int key, t_env *e)
 {
-	e->ks[key] = 1;
+	e->k[key] = 1;
 	return (0);
 }
 
