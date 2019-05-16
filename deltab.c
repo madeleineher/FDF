@@ -24,6 +24,9 @@ void	delproj(t_env *e)
 	}
 	free(e->co);
 	e->co = NULL;
+	mlx_destroy_image(e->w.mp, e->i.ig);
+	mlx_destroy_window(e->w.mp, e->w.wp);
+	exit(0);
 }
 
 void	delevr(t_env *e, int w)

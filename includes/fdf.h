@@ -23,20 +23,21 @@
 # include <string.h>
 # include <fcntl.h>
 
-# define ESC	53
-# define A		0
-# define D		2
-# define W		13
-# define S		1
-# define C		8
-# define Q		12
-# define E		14
-# define KEY_1	18
-# define KEY_2	19
-# define M		46
-# define L		37
-# define K		40
-# define N		45
+# define ESC			53
+# define A				0
+# define D				2
+# define W				13
+# define S				1
+# define C				8
+# define Q				12
+# define E				14
+# define KEY_1			18
+# define KEY_2			19
+# define M				46
+# define L				37
+# define K				40
+# define N				45
+# define R				15
 
 # define GRASS	0x32CD32
 # define SAND	0xF4A460
@@ -118,8 +119,9 @@ typedef struct		s_env
 	int				hi;
 	int				tp;
 	int				c;
-	int				r;
+	double			r;
 	int				iso_check;
+	int				r_check;
 	t_win			w;
 	t_img			i;
 	t_ll			*lines;
@@ -135,6 +137,7 @@ int					visualize(t_env *e);
 int					points(t_env *e);
 void				texting(t_env *e);
 void				draw_lines(t_env *e);
+void				reset(t_env *e);
 int					color_me(t_cor co, t_cor nx, t_env *e, int w);
 int					touch(t_env *e);
 void				projection(t_env *e);

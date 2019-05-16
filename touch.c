@@ -6,7 +6,7 @@
 /*   By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 14:04:51 by mhernand          #+#    #+#             */
-/*   Updated: 2019/04/30 19:24:36 by mhernand         ###   ########.fr       */
+/*   Updated: 2019/05/16 17:53:32 by mhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,28 +79,27 @@ void	depth(t_env *e)
 int		touch(t_env *e)
 {
 	if (e->k[ESC])
-	{
 		delevr(e, 2);
-		mlx_destroy_image(e->w.mp, e->i.ig);
-		mlx_destroy_window(e->w.mp, e->w.wp);
-		exit(0);
-	}
+	if (e->k[R])
+		reset(e);
 	if (e->k[A] || e->k[D] || e->k[W] || e->k[S])
 		move(e);
 	if (e->k[M] || e->k[L])
 		space(e);
-	// if (e->k[K])
-	// 	e->r = e->r + M_PI / 32;
-	// if (e->k[N])
-	// 	e->r = e->r + M_PI / 64;
+	if (e->k[K] || e->k[N])
+	{
+		e->r_check = 1;
+		e->r += M_PI / 64;
+	}
 	if (e->k[Q] || e->k[E])
 		depth(e);
 	if (e->k[KEY_1])
 		e->iso_check = 1;
 	if (e->k[KEY_2])
 		e->iso_check = 2;
-	if (e->k[KEY_1] || e->k[KEY_2] || e->k[Q] || e->k[E] || e->k[M] || e->k[K]
-		|| e->k[N] || e->k[L] || e->k[A] || e->k[D] || e->k[W] || e->k[S])
+	if (e->k[Q] || e->k[E] || e->k[M] || e->k[K] || e->k[N] || e->k[L]
+		|| e->k[A] || e->k[D] || e->k[W] || e->k[S] || e->k[R] || e->k[KEY_1]
+		|| e->k[KEY_2])
 		clean(e);
 	return (0);
 }

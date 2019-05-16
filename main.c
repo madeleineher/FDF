@@ -58,9 +58,8 @@ void		window(t_env *e)
 	e->pla.hy = e->w.wy / 2;
 	e->hi = 5;
 	e->zo = 1;
-	e->r = 64;
-	e->r = M_PI / e->r;
-	printf("r main : [%d]\n", e->r);
+	e->r_check = 0;
+	e->r = M_PI / 64;
 	e->iso_check = 1;
 	e->spax = 30;
 	if ((e->pla.lx * e->spax) > (e->w.wx - 50))
