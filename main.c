@@ -38,8 +38,8 @@ void		texting(t_env *e)
 	mlx_string_put(e->w.mp, e->w.wp,
 			e->w.wx - 150, e->w.wy - 60, 0xFFFFFF, "EXIT : ESC");
 	mlx_string_put(e->w.mp, e->w.wp, 30, 40, 0xFFFFFF, "PROJECTIONS");
-	mlx_string_put(e->w.mp, e->w.wp, 50, 55, 0xFFFFFF, "ISOMETRIC : 2");
-	mlx_string_put(e->w.mp, e->w.wp, 50, 70, 0xFFFFFF, "PARALLEL : 1");
+	mlx_string_put(e->w.mp, e->w.wp, 50, 55, 0xFFFFFF, "PARALLEL : 1");
+	mlx_string_put(e->w.mp, e->w.wp, 50, 70, 0xFFFFFF, "ISOMETRIC : 2");
 	mlx_string_put(e->w.mp, e->w.wp, 30, 90, 0xFFFFFF, "DIRECTIONS");
 	mlx_string_put(e->w.mp, e->w.wp, 50, 105, 0xFFFFFF, "UP : A");
 	mlx_string_put(e->w.mp, e->w.wp, 50, 120, 0xFFFFFF, "DOWN : S");
@@ -48,6 +48,13 @@ void		texting(t_env *e)
 	mlx_string_put(e->w.mp, e->w.wp, 30, 170, 0xFFFFFF, "MAGNIFICATION");
 	mlx_string_put(e->w.mp, e->w.wp, 50, 185, 0xFFFFFF, "ZOOM IN : M");
 	mlx_string_put(e->w.mp, e->w.wp, 50, 200, 0xFFFFFF, "ZOOM OUT : L");
+	mlx_string_put(e->w.mp, e->w.wp, 30, 220, 0xFFFFFF, "ALTITUDE");
+	mlx_string_put(e->w.mp, e->w.wp, 50, 235, 0xFFFFFF, "INCREASE : Q");
+	mlx_string_put(e->w.mp, e->w.wp, 50, 250, 0xFFFFFF, "DECREASE : E");
+	mlx_string_put(e->w.mp, e->w.wp, 30, 270, 0xFFFFFF, "ROTATE");
+	mlx_string_put(e->w.mp, e->w.wp, 50, 285, 0xFFFFFF, "COUNTER : K");
+	mlx_string_put(e->w.mp, e->w.wp, 50, 300, 0xFFFFFF, "CLOCK : N");
+	mlx_string_put(e->w.mp, e->w.wp, 30, 320, 0xFFFFFF, "RESET : R");
 }
 
 void		window(t_env *e)
@@ -59,7 +66,7 @@ void		window(t_env *e)
 	e->hi = 5;
 	e->zo = 1;
 	e->r_check = 0;
-	e->r = M_PI / 64;
+	e->r = M_PI / 72;
 	e->iso_check = 1;
 	e->spax = 30;
 	if ((e->pla.lx * e->spax) > (e->w.wx - 50))

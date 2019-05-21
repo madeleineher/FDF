@@ -21,7 +21,7 @@ void	reset(t_env *e)
 	e->hi = 5;
 	e->hi = 5;
 	e->zo = 1;
-	e->r = M_PI / 64;
+	e->r = M_PI / 74;
 	e->r_check = 0;
 	e->spax = 30;
 	if ((e->pla.lx * e->spax) > (e->w.wx - 50))
@@ -42,15 +42,10 @@ void	rotate(t_env *e, int x, int y)
 	int tmp_x;
 
 	tmp_x = e->co[y][x].x2;
-	if (e->k[K])
+	if (e->r_check > 0)
 	{
 		e->co[y][x].x2 = cos(e->r) * tmp_x + sin(e->r) * e->co[y][x].y2;
 		e->co[y][x].y2 = -sin(e->r) * tmp_x + cos(e->r) * e->co[y][x].y2;
-	}
-	if (e->k[N])
-	{
-		e->co[y][x].x2 = cos(-e->r) * tmp_x + sin(-e->r) * e->co[y][x].y2;
-		e->co[y][x].y2 = -sin(-e->r) * tmp_x + cos(-e->r) * e->co[y][x].y2;
 	}
 }
 
@@ -69,7 +64,7 @@ void	iso(t_env *e, int y)
 				+ e->pla.px + e->iso + e->ml + e->mx;
 			e->co[y][x].y2 = (x + y) * (e->spay / 2) + e->pla.py + e->ml
 				+ e->my - (e->co[y][x].z * e->hi);
-			if (e->r_check == 1 && (e->k[K] || e->k[N]))
+			if (e->r_check > 0)
 				rotate(e, x, y);
 		}
 	}
@@ -91,7 +86,7 @@ void	projection(t_env *e)
 				e->co[y][x].x2 = (e->pla.px + x * e->spax) + e->ml + e->mx;
 				e->co[y][x].y2 = (e->pla.py + y * e->spay) + e->ml + e->my
 					- (e->co[y][x].z * e->hi);
-				if (e->r_check == 1 && (e->k[K] || e->k[N]))
+				if (e->r_check > 0)
 					rotate(e, x, y);
 			}
 		}

@@ -31,22 +31,6 @@ void	clean(t_env *e)
 	texting(e);
 }
 
-void	move(t_env *e)
-{
-	if (e->k[A])
-		e->mx -= 5;
-	if (e->k[D])
-		e->mx += 5;
-	if (e->k[W])
-		e->my -= 5;
-	if (e->k[S])
-		e->my += 5;
-	if (e->mx > 2000 || e->mx < -2000)
-		e->mx = 0;
-	if (e->my > 2000 || e->my < -2000)
-		e->my = 0;
-}
-
 void	space(t_env *e)
 {
 	if (e->k[M])
@@ -66,8 +50,20 @@ void	space(t_env *e)
 	}
 }
 
-void	depth(t_env *e)
+void	move(t_env *e)
 {
+	if (e->k[A])
+		e->mx -= 5;
+	if (e->k[D])
+		e->mx += 5;
+	if (e->k[W])
+		e->my -= 5;
+	if (e->k[S])
+		e->my += 5;
+	if (e->mx > 2000 || e->mx < -2000)
+		e->mx = 0;
+	if (e->my > 2000 || e->my < -2000)
+		e->my = 0;
 	if (e->k[Q])
 		e->hi += 1;
 	if (e->k[E])
@@ -82,17 +78,18 @@ int		touch(t_env *e)
 		delevr(e, 2);
 	if (e->k[R])
 		reset(e);
-	if (e->k[A] || e->k[D] || e->k[W] || e->k[S])
+	if (e->k[A] || e->k[D] || e->k[W] || e->k[S] || e->k[Q] || e->k[E])
 		move(e);
 	if (e->k[M] || e->k[L])
 		space(e);
 	if (e->k[K] || e->k[N])
 	{
-		e->r_check = 1;
-		e->r += M_PI / 64;
+		if (e->k[K])
+			e->r_check = 1;
+		else
+			e->r_check = 2;
+		e->r += (e->r_check == 1 ? (M_PI / 74) : (M_PI / 74) * -1);
 	}
-	if (e->k[Q] || e->k[E])
-		depth(e);
 	if (e->k[KEY_1])
 		e->iso_check = 1;
 	if (e->k[KEY_2])

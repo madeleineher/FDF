@@ -16,7 +16,6 @@
 # include "../libft/libft.h"
 # include "../libft/get_next_line.h"
 # include <unistd.h>
-# include <stdio.h> // REMOVE ME
 # include <unistd.h>
 # include <assert.h>
 # include <math.h>
