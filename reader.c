@@ -69,6 +69,8 @@ int			vertical_check(t_ll *head, t_env *e)
 	int		i;
 
 	len = -1;
+	if (head == NULL)
+		return (-1);
 	while (head->content[++len] != NULL)
 		;
 	e->pla.lx = len;
