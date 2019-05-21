@@ -42,7 +42,7 @@ superfast:
 	make -j8 $(NAME)
 
 $(NAME):$(OBJECTS) | $(LIB_TARG) 
-	$(CC) -g3 $(CFLAGS) $(OBJECTS) libft/libft.a $(LIBMLX) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJECTS) libft/libft.a $(LIBMLX) -o $(NAME)
 	@touch .gitignore
 	@echo "*.o" > .gitignore
 	@echo "*.a" >> .gitignore

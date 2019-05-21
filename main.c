@@ -28,7 +28,7 @@ int			error(int i)
 		ft_putendl("error: could not create visualizer.");
 	if (i == 7)
 		ft_putendl("error: malloc returned NULL.");
-	exit(1);
+	exit(0);
 	return (-1);
 }
 
@@ -66,7 +66,7 @@ void		window(t_env *e)
 	e->hi = 5;
 	e->zo = 1;
 	e->r_check = 0;
-	e->r = M_PI / 72;
+	e->r = M_PI / 74;
 	e->iso_check = 1;
 	e->spax = 30;
 	if ((e->pla.lx * e->spax) > (e->w.wx - 50))

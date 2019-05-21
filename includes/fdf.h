@@ -111,7 +111,6 @@ typedef struct		s_env
 	int				spax;
 	int				iso;
 	int				spay;
-	int				ml;
 	int				mx;
 	int				my;
 	int				zo;

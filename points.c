@@ -25,8 +25,12 @@ t_cor	*minico(t_ll *link, t_cor *mi, t_env *e, int y)
 		mi[x].x1 = x;
 		mi[x].y1 = y;
 		mi[x].z = ft_atoi(link->content[x]);
-		mi[x].x2 = (e->pla.px + x * e->spax) + e->ml + e->mx;
-		mi[x].y2 = (e->pla.py + y * e->spay) + e->ml + e->my
+		if (mi[x].z >= 2147483647)
+			mi[x].z = 200;
+		if (mi[x].z <= -2147483648)
+			mi[x].z = -200;
+		mi[x].x2 = (e->pla.px + x * e->spax) + e->mx;
+		mi[x].y2 = (e->pla.py + y * e->spay) + e->my
 			- (mi[x].z * e->hi);
 		x++;
 	}
