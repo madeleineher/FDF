@@ -45,8 +45,8 @@ void	rotate(t_env *e, int x, int y)
 	tmp_x = e->co[y][x].x2;
 	e->co[y][x].x2 = cos(e->r) * tmp_x + sin(e->r) * e->co[y][x].y2;
 	e->co[y][x].y2 = -sin(e->r) * tmp_x + cos(e->r) * e->co[y][x].y2;
-	e->co[y][x].x2 = e->co[y][x].x2 + e->pla.px;
-	e->co[y][x].y2 = e->co[y][x].y2 + e->pla.py;
+	e->co[y][x].x2 = e->co[y][x].x2 + e->pla.hx;
+	e->co[y][x].y2 = e->co[y][x].y2 + e->pla.hy;
 }
 
 void	iso(t_env *e, int y)

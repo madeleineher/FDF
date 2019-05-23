@@ -110,6 +110,8 @@ int			reader(int fd, t_env *e)
 		return (3);
 	if (vertical_check(head, e) == -1)
 		return (4);
+	if ((e->pla.lx <= 2 && e->pla.ly <= 1) || (e->pla.lx <= 1 && e->pla.ly <= 2))
+		return (4);
 	e->lines = head;
 	return (0);
 }

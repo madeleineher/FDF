@@ -122,6 +122,7 @@ typedef struct		s_env
 	double			r;
 	int				iso_check;
 	int				r_check;
+	char			*title;
 	t_win			w;
 	t_img			i;
 	t_ll			*lines;

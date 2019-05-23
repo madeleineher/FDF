@@ -34,7 +34,7 @@ int		color_me(t_cor co, t_cor nx, t_env *e, int w)
 	{
 		if (co.z >= e->d_min && co.z <= 0)
 			e->c = WATER;
-		else if (((float)co.z > 0 || (float)co.z > e->d_min)
+		else if (((float)co.z > 1 || (float)co.z > e->d_min)
 			&& (float)co.z <= e->d_max / 8)
 			e->c = SAND;
 		else if ((float)co.z > e->d_max / 8 && (float)co.z < e->d_max / 4)

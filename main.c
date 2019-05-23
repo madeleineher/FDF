@@ -12,6 +12,8 @@
 
 #include "includes/fdf.h"
 
+#include <stdio.h> ///////////////////////remove me !
+
 int			error(int i)
 {
 	if (i == 1)
@@ -55,6 +57,7 @@ void		texting(t_env *e)
 	mlx_string_put(e->w.mp, e->w.wp, 50, 285, 0xFFFFFF, "COUNTER : K");
 	mlx_string_put(e->w.mp, e->w.wp, 50, 300, 0xFFFFFF, "CLOCK : N");
 	mlx_string_put(e->w.mp, e->w.wp, 30, 320, 0xFFFFFF, "RESET : R");
+	mlx_string_put(e->w.mp, e->w.wp, e->w.wx - 80, 20, 0xFFFFFF, "FDF");
 }
 
 void		window(t_env *e)
@@ -104,6 +107,7 @@ int			main(int argc, char **argv)
 	head = e->lines;
 	if (!(points(e)))
 		error(7);
+	e->title = argv[1]; //////////////// ????????????????????????????
 	if (visualize(e) == -1)
 		error(6);
 	return (0);

@@ -47,7 +47,7 @@ int		redraw(t_env *e)
 int		visualize(t_env *e)
 {
 	if (!(e->w.mp = mlx_init())
-		|| (!(e->w.wp = mlx_new_window(e->w.mp, e->w.wx, e->w.wy, "FDF"))))
+		|| (!(e->w.wp = mlx_new_window(e->w.mp, e->w.wx, e->w.wy, e->title))))
 		return (-1);
 	if (!(e->i.ig = mlx_new_image(e->w.mp, e->w.wx, e->w.wy)))
 		return (-1);
