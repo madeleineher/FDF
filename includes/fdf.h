@@ -117,7 +117,8 @@ typedef struct		s_env
 	int				hi;
 	int				tp;
 	int				c;
-	int				d_max;
+	double			d_max;
+	double			d_min;
 	double			r;
 	int				iso_check;
 	int				r_check;

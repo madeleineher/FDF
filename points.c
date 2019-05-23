@@ -32,6 +32,8 @@ t_cor	*minico(t_ll *link, t_cor *mi, t_env *e, int y)
 		mi[x].x2 = (e->pla.px + x * e->spax) + e->mx;
 		mi[x].y2 = (e->pla.py + y * e->spay) + e->my
 			- (mi[x].z * e->hi);
+		e->d_max = (e->d_max > mi[x].z ? e->d_max : mi[x].z);
+		e->d_min = (e->d_min > mi[x].z ? mi[x].z : e->d_min);
 		x++;
 	}
 	return (mi);
