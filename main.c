@@ -12,8 +12,6 @@
 
 #include "includes/fdf.h"
 
-#include <stdio.h> ///////////////////////remove me !
-
 int			error(int i)
 {
 	if (i == 1)
@@ -64,26 +62,26 @@ void		window(t_env *e)
 {
 	e->w.wx = 1632;
 	e->w.wy = 1224;
-	e->pla.hx = e->w.wx / 2;
-	e->pla.hy = e->w.wy / 2;
+	e->pl.hx = e->w.wx / 2;
+	e->pl.hy = e->w.wy / 2;
 	e->hi = 5;
 	e->zo = 1;
 	e->r_check = 0;
 	e->r = M_PI / 74;
 	e->iso_check = 1;
 	e->spax = 30;
-	if ((e->pla.lx * e->spax) > (e->w.wx - 50))
+	if ((e->pl.lx * e->spax) > (e->w.wx - 50))
 		while (e->spax-- >= 5)
-			if ((e->pla.lx * e->spax) <= (e->w.wx - 50))
+			if ((e->pl.lx * e->spax) <= (e->w.wx - 50))
 				break ;
 	e->spay = 30;
-	if ((e->pla.ly * e->spay + e->hi) > (e->w.wy - 50))
+	if ((e->pl.ly * e->spay + e->hi) > (e->w.wy - 50))
 		while (e->spay-- >= 5)
-			if ((e->pla.ly * e->spay) <= (e->w.wy - 50))
+			if ((e->pl.ly * e->spay) <= (e->w.wy - 50))
 				break ;
 	ft_bzero(e->k, sizeof(e->k));
-	e->pla.px = e->pla.hx - ((e->pla.lx * e->spax) / 2);
-	e->pla.py = e->pla.hy - ((e->pla.ly * e->spay) / 2);
+	e->pl.px = e->pl.hx - ((e->pl.lx * e->spax) / 2);
+	e->pl.py = e->pl.hy - ((e->pl.ly * e->spay) / 2);
 }
 
 int			main(int argc, char **argv)
@@ -103,11 +101,13 @@ int			main(int argc, char **argv)
 		error(2);
 	if (((ret = reader(fd, e)) > 0))
 		error(ret);
+	if ((e->pl.lx <= 2 && e->pl.ly <= 1) || (e->pl.lx <= 1 && e->pl.ly <= 2))
+		return (4);
 	window(e);
 	head = e->lines;
 	if (!(points(e)))
 		error(7);
-	e->title = argv[1]; //////////////// ????????????????????????????
+	e->title = argv[1];
 	if (visualize(e) == -1)
 		error(6);
 	return (0);

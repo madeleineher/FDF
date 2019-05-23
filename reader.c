@@ -73,7 +73,7 @@ int			vertical_check(t_ll *head, t_env *e)
 		return (-1);
 	while (head->content[++len] != NULL)
 		;
-	e->pla.lx = len;
+	e->pl.lx = len;
 	while (head)
 	{
 		i = -1;
@@ -104,13 +104,11 @@ int			reader(int fd, t_env *e)
 			free(e->line);
 			e->line = NULL;
 		}
-		e->pla.ly++;
+		e->pl.ly++;
 	}
 	if (e->ret == -1)
 		return (3);
 	if (vertical_check(head, e) == -1)
-		return (4);
-	if ((e->pla.lx <= 2 && e->pla.ly <= 1) || (e->pla.lx <= 1 && e->pla.ly <= 2))
 		return (4);
 	e->lines = head;
 	return (0);

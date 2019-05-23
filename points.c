@@ -18,7 +18,7 @@ t_cor	*minico(t_ll *link, t_cor *mi, t_env *e, int y)
 
 	x = 0;
 	mi = NULL;
-	if (!(mi = (t_cor*)malloc(sizeof(t_cor) * e->pla.lx)))
+	if (!(mi = (t_cor*)malloc(sizeof(t_cor) * e->pl.lx)))
 		return (NULL);
 	while (link->content[x])
 	{
@@ -29,8 +29,8 @@ t_cor	*minico(t_ll *link, t_cor *mi, t_env *e, int y)
 			mi[x].z = 200;
 		if (mi[x].z <= -2147483648)
 			mi[x].z = -200;
-		mi[x].x2 = (e->pla.px + x * e->spax) + e->mx;
-		mi[x].y2 = (e->pla.py + y * e->spay) + e->my
+		mi[x].x2 = (e->pl.px + x * e->spax) + e->mx;
+		mi[x].y2 = (e->pl.py + y * e->spay) + e->my
 			- (mi[x].z * e->hi);
 		e->d_max = (e->d_max > mi[x].z ? e->d_max : mi[x].z);
 		e->d_min = (e->d_min > mi[x].z ? mi[x].z : e->d_min);
@@ -48,7 +48,7 @@ int		points(t_env *e)
 	tp = NULL;
 	e->co = NULL;
 	tp = e->lines;
-	if (!(e->co = (t_cor**)malloc(sizeof(t_cor*) * e->pla.ly)))
+	if (!(e->co = (t_cor**)malloc(sizeof(t_cor*) * e->pl.ly)))
 		return (0);
 	while (tp)
 	{

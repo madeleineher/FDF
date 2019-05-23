@@ -128,7 +128,7 @@ typedef struct		s_env
 	t_ll			*lines;
 	t_cor			**co;
 	t_bre			b;
-	t_pl			pla;
+	t_pl			pl;
 }					t_env;
 
 int					reader(int fd, t_env *e);

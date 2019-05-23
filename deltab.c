@@ -17,7 +17,7 @@ void	delproj(t_env *e)
 	int		y;
 
 	y = -1;
-	while (++y < e->pla.ly)
+	while (++y < e->pl.ly)
 	{
 		free(e->co[y]);
 		e->co[y] = NULL;

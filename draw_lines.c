@@ -86,17 +86,17 @@ void		draw_lines(t_env *e)
 	ft_bzero(e->i.dt, sizeof(e->i.dt));
 	e->c = 0xffffff;
 	y = -1;
-	while (++y < e->pla.ly)
+	while (++y < e->pl.ly)
 	{
 		x = -1;
-		while (++x < e->pla.lx)
+		while (++x < e->pl.lx)
 		{
-			if (x + 1 < e->pla.lx)
+			if (x + 1 < e->pl.lx)
 			{
 				e->c = color_me(e->co[y][x], e->co[y][x + 1], e, 1);
 				lines(e->co[y][x], e->co[y][x + 1], e);
 			}
-			if (y + 1 < e->pla.ly)
+			if (y + 1 < e->pl.ly)
 			{
 				e->c = color_me(e->co[y][x], e->co[y][x + 1], e, 1);
 				lines(e->co[y][x], e->co[y + 1][x], e);
