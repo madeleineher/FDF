@@ -6,7 +6,7 @@
 #    By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/17 16:55:29 by mhernand          #+#    #+#              #
-#    Updated: 2019/05/24 16:34:59 by mhernand         ###   ########.fr        #
+#    Updated: 2019/05/24 17:22:32 by mhernand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,9 @@ SRCS = main.c\
 	   draw_lines.c\
 	   color.c
 
-OBJECTS = $(SRCS:.c=.o)
+FOLDER_SRCS = $(addprefix srcs/, $(SRCS))
+
+OBJECTS = $(FOLDER_SRCS:.c=.o)
 
 LIB_FOLDER = libft/
 
@@ -36,10 +38,11 @@ MINI_F = minilibx_macos/
 
 LIBMLX = -L ./minilibx_macos/ -lmlx -framework OpenGL -framework Appkit
 
-all: superfast
-
 superfast:
-	@make -j8 $(NAME)
+	@make -j8 all 
+
+all:
+	@make $(NAME)
 
 $(NAME):$(OBJECTS) | $(LIB_TARG) 
 	$(CC) $(CFLAGS) $(OBJECTS) libft/libft.a $(LIBMLX) -o $(NAME)
@@ -48,7 +51,7 @@ $(NAME):$(OBJECTS) | $(LIB_TARG)
 	@echo "*.a" >> .gitignore
 
 $(LIB_TARG):
-	@make -C $(LIB_FOLDER) 
+	@make -C $(LIB_FOLDER) all
 	@make -C $(MINI_F)
 
 clean:

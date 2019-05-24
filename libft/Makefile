@@ -6,7 +6,7 @@
 #    By: mhernand <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/26 20:04:08 by mhernand          #+#    #+#              #
-#    Updated: 2019/05/16 11:25:44 by mhernand         ###   ########.fr        #
+#    Updated: 2019/05/24 17:12:35 by mhernand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,11 +33,15 @@ SRCS = ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c \
 
 OBJECTS = $(SRCS:.c=.o)
 
-all:$(NAME)
+superfast:
+	@make -j8 all
+
+all:
+	@make $(NAME)
 
 $(NAME):$(OBJECTS)
 	@ar rc $(NAME) $(OBJECTS)
-	ranlib $(NAME)
+	@ranlib $(NAME)
 
 clean:
 	@rm -rf $(OBJECTS)
