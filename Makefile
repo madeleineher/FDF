@@ -6,7 +6,7 @@
 #    By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/17 16:55:29 by mhernand          #+#    #+#              #
-#    Updated: 2019/05/08 11:32:49 by mhernand         ###   ########.fr        #
+#    Updated: 2019/05/24 16:34:59 by mhernand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ LIBMLX = -L ./minilibx_macos/ -lmlx -framework OpenGL -framework Appkit
 all: superfast
 
 superfast:
-	make -j8 $(NAME)
+	@make -j8 $(NAME)
 
 $(NAME):$(OBJECTS) | $(LIB_TARG) 
 	$(CC) $(CFLAGS) $(OBJECTS) libft/libft.a $(LIBMLX) -o $(NAME)

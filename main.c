@@ -6,7 +6,7 @@
 /*   By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 16:04:07 by mhernand          #+#    #+#             */
-/*   Updated: 2019/05/10 17:20:39 by mhernand         ###   ########.fr       */
+/*   Updated: 2019/05/24 16:34:47 by mhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void		texting(t_env *e)
 	mlx_string_put(e->w.mp, e->w.wp, 50, 55, 0xFFFFFF, "PARALLEL : 1");
 	mlx_string_put(e->w.mp, e->w.wp, 50, 70, 0xFFFFFF, "ISOMETRIC : 2");
 	mlx_string_put(e->w.mp, e->w.wp, 30, 90, 0xFFFFFF, "DIRECTIONS");
-	mlx_string_put(e->w.mp, e->w.wp, 50, 105, 0xFFFFFF, "UP : A");
+	mlx_string_put(e->w.mp, e->w.wp, 50, 105, 0xFFFFFF, "UP : W");
 	mlx_string_put(e->w.mp, e->w.wp, 50, 120, 0xFFFFFF, "DOWN : S");
 	mlx_string_put(e->w.mp, e->w.wp, 50, 135, 0xFFFFFF, "LEFT : A");
 	mlx_string_put(e->w.mp, e->w.wp, 50, 150, 0xFFFFFF, "RIGHT : D");
@@ -95,7 +95,7 @@ int			main(int argc, char **argv)
 		return (0);
 	ft_bzero(e, sizeof(t_env));
 	fd = open(argv[1], O_RDWR);
-	if (argc == 1)
+	if (argc == 1 || argc > 2)
 		error(1);
 	if (fd < 0 && argc == 2)
 		error(2);
