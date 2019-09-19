@@ -23,7 +23,7 @@ void		line_setup(t_cor co, t_cor nx, t_cor *tmp, t_env *e)
 	e->b.iy = (e->b.dy > 0) ? 1 : -1;
 	e->b.dx = abs(e->b.dx);
 	e->b.dy = abs(e->b.dy);
-	if (tmp->x2 > 0 && tmp->x2 < 1632 && tmp->y2 > 0 && tmp->y2 < 1224)
+	if (tmp->x2 > 0 && tmp->x2 < WID && tmp->y2 > 0 && tmp->y2 < HEI)
 		*(int *)&e->i.dt[tmp->x2 * (e->i.bp / 8) + tmp->y2 * e->i.sl] = e->c;
 	e->b.tdx = e->b.dx / 2;
 	e->b.tdy = e->b.dy / 2;
@@ -44,7 +44,7 @@ void		lines2(t_cor tmp, t_env *e, t_cor nx, int i)
 			e->b.tdy -= e->b.dy;
 			tmp.x2 += e->b.ix;
 		}
-		if (tmp.x2 > 0 && tmp.x2 < 1632 && tmp.y2 > 0 && tmp.y2 < 1224)
+		if (tmp.x2 > 0 && tmp.x2 < WID && tmp.y2 > 0 && tmp.y2 < HEI)
 			*(int *)&e->i.dt[tmp.x2 * (e->i.bp / 8) + tmp.y2 * e->i.sl] = e->c;
 	}
 }
@@ -69,7 +69,7 @@ void		lines(t_cor co, t_cor nx, t_env *e)
 				e->b.tdx -= e->b.dx;
 				tmp.y2 += e->b.iy;
 			}
-			if (tmp.x2 > 0 && tmp.x2 < 1632 && tmp.y2 > 0 && tmp.y2 < 1224)
+			if (tmp.x2 > 0 && tmp.x2 < WID && tmp.y2 > 0 && tmp.y2 < HEI)
 				*(int *)&e->i.dt[tmp.x2 * (e->i.bp / 8)
 					+ tmp.y2 * e->i.sl] = e->c;
 		}

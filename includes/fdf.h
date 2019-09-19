@@ -37,6 +37,8 @@
 # define K				40
 # define N				45
 # define R				15
+# define WID				1000
+# define HEI				800
 
 # define GRASS	0x32CD32
 # define SAND	0xF4A460

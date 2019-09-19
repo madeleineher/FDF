@@ -60,8 +60,8 @@ void		texting(t_env *e)
 
 void		window(t_env *e)
 {
-	e->w.wx = 1632;
-	e->w.wy = 1224;
+	e->w.wx = WID;
+	e->w.wy = HEI;
 	e->pl.hx = e->w.wx / 2;
 	e->pl.hy = e->w.wy / 2;
 	e->hi = 5;
