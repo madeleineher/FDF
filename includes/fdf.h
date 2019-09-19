@@ -12,7 +12,7 @@
 
 #ifndef FDF_H
 # define FDF_H
-# include <mlx.h>
+# include "../minilibx_macos/mlx.h"
 # include "../libft/libft.h"
 # include "../libft/get_next_line.h"
 # include <unistd.h>
