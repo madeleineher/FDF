@@ -6,7 +6,7 @@
 /*   By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:54:59 by mhernand          #+#    #+#             */
-/*   Updated: 2019/05/24 16:39:20 by mhernand         ###   ########.fr       */
+/*   Updated: 2020/01/21 16:08:39 by mhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void		line_setup(t_cor co, t_cor nx, t_cor *tmp, t_env *e)
 	e->b.iy = (e->b.dy > 0) ? 1 : -1;
 	e->b.dx = abs(e->b.dx);
 	e->b.dy = abs(e->b.dy);
-	if (tmp->x2 > 0 && tmp->x2 < WID && tmp->y2 > 0 && tmp->y2 < HEI)
+	if (tmp->x2 > 0 && tmp->x2 < 1632 && tmp->y2 > 0 && tmp->y2 < 1224)
 		*(int *)&e->i.dt[tmp->x2 * (e->i.bp / 8) + tmp->y2 * e->i.sl] = e->c;
 	e->b.tdx = e->b.dx / 2;
 	e->b.tdy = e->b.dy / 2;
@@ -44,7 +44,7 @@ void		lines2(t_cor tmp, t_env *e, t_cor nx, int i)
 			e->b.tdy -= e->b.dy;
 			tmp.x2 += e->b.ix;
 		}
-		if (tmp.x2 > 0 && tmp.x2 < WID && tmp.y2 > 0 && tmp.y2 < HEI)
+		if (tmp.x2 > 0 && tmp.x2 < 1632 && tmp.y2 > 0 && tmp.y2 < 1224)
 			*(int *)&e->i.dt[tmp.x2 * (e->i.bp / 8) + tmp.y2 * e->i.sl] = e->c;
 	}
 }
@@ -69,7 +69,7 @@ void		lines(t_cor co, t_cor nx, t_env *e)
 				e->b.tdx -= e->b.dx;
 				tmp.y2 += e->b.iy;
 			}
-			if (tmp.x2 > 0 && tmp.x2 < WID && tmp.y2 > 0 && tmp.y2 < HEI)
+			if (tmp.x2 > 0 && tmp.x2 < 1632 && tmp.y2 > 0 && tmp.y2 < 1224)
 				*(int *)&e->i.dt[tmp.x2 * (e->i.bp / 8)
 					+ tmp.y2 * e->i.sl] = e->c;
 		}
@@ -98,7 +98,7 @@ void		draw_lines(t_env *e)
 			}
 			if (y + 1 < e->pl.ly)
 			{
-				e->c = color_me(e->co[y][x], e->co[y][x + 1], e, 1);
+				e->c = color_me(e->co[y][x], e->co[y + 1][x], e, 1);
 				lines(e->co[y][x], e->co[y + 1][x], e);
 			}
 		}

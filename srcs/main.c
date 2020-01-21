@@ -6,7 +6,7 @@
 /*   By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 16:04:07 by mhernand          #+#    #+#             */
-/*   Updated: 2019/05/24 16:52:02 by mhernand         ###   ########.fr       */
+/*   Updated: 2020/01/21 16:08:49 by mhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ void		texting(t_env *e)
 
 void		window(t_env *e)
 {
-	e->w.wx = WID;
-	e->w.wy = HEI;
+	e->w.wx = 1632;
+	e->w.wy = 1224;
 	e->pl.hx = e->w.wx / 2;
 	e->pl.hy = e->w.wy / 2;
 	e->hi = 5;
@@ -101,8 +101,8 @@ int			main(int argc, char **argv)
 		error(2);
 	if (((ret = reader(fd, e)) > 0))
 		error(ret);
-	if ((e->pl.lx <= 2 && e->pl.ly <= 1) || (e->pl.lx <= 1 && e->pl.ly <= 2))
-		return (4);
+	if (e->pl.lx == 1 || e->pl.ly == 1)
+		error(4);
 	window(e);
 	head = e->lines;
 	if (!(points(e)))

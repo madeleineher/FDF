@@ -6,7 +6,7 @@
 /*   By: mhernand <mhernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 09:41:31 by mhernand          #+#    #+#             */
-/*   Updated: 2019/05/24 16:39:44 by mhernand         ###   ########.fr       */
+/*   Updated: 2020/01/21 16:08:59 by mhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ t_cor	*minico(t_ll *link, t_cor *mi, t_env *e, int y)
 		mi[x].x1 = x;
 		mi[x].y1 = y;
 		mi[x].z = ft_atoi(link->content[x]);
-		if (mi[x].z >= 2147483647)
-			mi[x].z = 200;
-		if (mi[x].z <= -2147483648)
-			mi[x].z = -200;
+		if (mi[x].z >= 5000000)
+			mi[x].z = 500;
+		if (mi[x].z <= -5000000)
+			mi[x].z = -500;
 		mi[x].x2 = (e->pl.px + x * e->spax) + e->mx;
 		mi[x].y2 = (e->pl.py + y * e->spay) + e->my
 			- (mi[x].z * e->hi);
