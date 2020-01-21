@@ -24,7 +24,7 @@ $ ./fdf name_of_map
 Live-action interation including all features with the pyramid map.
 # ![dof](screenshots/pyramid.gif)
 
-An example of a small map zoomed in isometric projection (42).
+An example of a small map zoomed in and in isometric projection (42).
 # ![dof](screenshots/map_42.png)
 
 Another example of a larger map in isometric projection (100-6).
