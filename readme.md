@@ -8,7 +8,7 @@ Run make inside the repo.
 $ make path/to/repo
 ```
 
-## LUNCHING PROGRAM
+## LAUNCHING PROGRAM
 The program takes an file that contains a map constructed of numbers (equal in length for each line), with a minimun of two lines, the map can be given both negative and positive values for a point on the map, and `0` indicates no altitude. The given color is based off of the altitude given, for example a negative altitude is blue indicating water. 
 ```
 $ ./fdf name_of_map
